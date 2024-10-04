@@ -13,8 +13,23 @@ require 'hashie'
 require 'logger'
 
 class AiClient
+  # TODO: Use system environment varibles
+  #       AI_CLIENT_CONFIG_FILE
+  #
+  # TODO: Config.load('path/to/some_file.yml')
+  #         @@default_config (on require from lib/config.yml)
+  #         @@config (if the envar exists ?? merge with default)
+  #         @config ... done
+
+  class Config < Hashie::Mash
+    include Hashie::Extensions::Mash::PermissiveRespondTo
+    include Hashie::Extensions::Mash::SymbolizeKeys
+    include Hashie::Extensions::Mash::DefineAccessors
+  end
+
+
   # Class variables to hold default and current config
-  @@default_config = Hashie::Mash.new(
+  @@default_config = Config.new(
     logger: Logger.new(STDOUT),
     timeout: nil,
     return_raw: false,
@@ -25,7 +40,7 @@ class AiClient
       google: /^(gemini|palm)/i,
       mistral: /^(mistral|codestral)/i,
       localai: /^local-/i,
-      ollama: /(llama-|nomic)/i
+      ollama: /(llama|nomic)/i
     },
     model_types: {
       text_to_text: /^(nomic|gpt|davinci|curie|babbage|ada|claude|gemini|palm|command|generate|j2-|mistral|codestral)/i,
