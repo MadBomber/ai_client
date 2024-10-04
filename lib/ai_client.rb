@@ -38,9 +38,14 @@ class AiClient
 
   attr_reader :client, :provider, :model, :model_type, :logger, :last_response, :config
 
-  def initialize(model, config: Configuration.new, **options)
+  def initialize(model, **options, &block)
+    # Assign the instance variable @config from the class variable @@config
+    @config = self.class.config.dup  
+    
+    # Yield the @config to a block if given
+    yield(@config) if block_given?
+
     @model      = model
-    @config     = config
     @provider   = validate_provider(options[:provider]) || determine_provider(model)
     @model_type = determine_model_type(model)
 
@@ -56,6 +61,7 @@ class AiClient
 
     @last_response  = nil
   end
+
 
 
   def response  = last_response
