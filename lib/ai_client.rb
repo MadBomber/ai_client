@@ -31,7 +31,14 @@ require_relative 'ai_client/version'
 
 class AiClient
 
-  attr_reader :client, :provider, :model, :model_type, :logger, :last_response, :config
+  attr_reader :client,        # OmniAI's client instance
+              :provider,      # [Symbol]
+              :model,         # [String]
+              :model_type,    # [Symbol]
+              :logger, 
+              :last_response,
+              :timeout,
+              :config         # Instance configuration
 
   # You can over-ride the class config by providing a block like this
   #   c = AiClient.new(...) do |config|
@@ -49,7 +56,7 @@ class AiClient
   #
   def initialize(model, **options, &block)
     # Assign the instance variable @config from the class variable @@config
-    @config = self.class.config.dup  
+    @config = self.class.class_config.dup  
     
     # Yield the @config to a block if given
     yield(@config) if block_given?

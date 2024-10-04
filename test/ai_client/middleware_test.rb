@@ -3,7 +3,9 @@
 require_relative '../test_helper'
 
 class AiClient::MiddlewareTest < Minitest::Test
-
+  def setup
+    @model = 'gpt-3.5-turbo'
+  end
 
   def test_middleware
     AiClient.clear_middlewares

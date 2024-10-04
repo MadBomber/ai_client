@@ -25,6 +25,17 @@ class AiClient
     include Hashie::Extensions::Mash::PermissiveRespondTo
     include Hashie::Extensions::Mash::SymbolizeKeys
     include Hashie::Extensions::Mash::DefineAccessors
+  
+
+    # I'm not sure about this ...
+    # def provider(name, &block)
+    #   if block_given?
+    #     providers[name] = block.call
+    #   else
+    #     providers[name] || {}
+    #   end
+    # end
+
   end
 
 
@@ -50,15 +61,19 @@ class AiClient
     }
   )
 
-  @@config = @@default_config.dup
+  @@class_config = @@default_config.dup
 
   class << self
     def configure(&block)
-      yield(config)
+      yield(class_config)
     end
 
-    def config
-      @@config
+    def class_config
+      @@class_config
+    end
+    
+    def class_config=(value)
+      @@class_config = value
     end
 
     def default_config
