@@ -15,6 +15,22 @@ class AiClient::ConfigurationTest < Minitest::Test
     assert_equal false, client.raw?
   end
 
+  def test_indifferent_access_class_config
+    AiClient.class_config.timeout = 10
+    assert_equal 10, AiClient.class_config.timeout
+    assert_equal 10, AiClient.class_config[:timeout]
+    assert_equal 10, AiClient.class_config['timeout']
+  end
+
+  def test_indifferent_access_instance_config
+    client = AiClient.new('gpt-3.5-turbo')
+
+    client.config.timeout = 10
+    assert_equal 10, client.config.timeout
+    assert_equal 10, client.config[:timeout]
+    assert_equal 10, client.config['timeout']
+  end
+
   def test_client_specific_configuration
     client = AiClient.new('gpt-3.5-turbo') do |config|
       config.timeout    = 10
@@ -58,5 +74,40 @@ class AiClient::ConfigurationTest < Minitest::Test
     # Create another instance to ensure separation
     another_client = AiClient.new('claude')
     assert_equal false, another_client.raw?  # verify another instance remains unchanged
+  end
+
+  def test_instance_config_from_file_suppliment
+    assert_nil AiClient.class_config.timeout
+
+    filepath = Pathname.new(__dir__) + 'config.yml'
+    client = AiClient.new('gpt-3.5-turbo', config: filepath)
+
+    assert_equal 10, client.config.timeout
+  end
+
+  def test_config_load
+    filepath = Pathname.new(__dir__) + 'config.yml'
+    my_config = AiClient::Config.load filepath
+
+    assert_equal AiClient::Config, my_config.class
+    assert_equal [:timeout], my_config.keys
+    assert_equal 10, my_config.timeout
+  end
+
+  def test_config_merge_of_hash
+    filepath = Pathname.new(__dir__) + 'config.yml'
+    my_config = AiClient::Config.load filepath
+    my_hash   = {
+      xyzzy:      'Magic',
+      fourty_two:  'Life, the Universe and Everything',
+      'was_string' => 'All keys are Symbols'
+    }
+
+    my_config.merge! my_hash
+
+    assert_equal AiClient::Config, my_config.class
+    assert_equal [:timeout, :xyzzy, :fourty_two, :was_string], my_config.keys
+
+
   end
 end

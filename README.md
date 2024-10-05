@@ -2,7 +2,11 @@
 
 First and foremost a big **THANK YOU** to [Kevin Sylvestre](https://ksylvest.com/) for his gem [OmniAI](https://github.com/ksylvest/omniai) upon which this effort depends.
 
-**This is a work in progress**  Its implemented as a class rather than the typical module for most gems.  The `AiClient::Configuration` class is a little first draft-ish.  I'm looking to bulk it up a lot.  At this point I think some of the current tests are failing; but, over all `AiClien` is working.  I've used early versions of it in several projects.
+**This is a work in progress**  I could use your help extending its capability.
+
+AiClien` is working.  I've used early versions of it in several projects.
+
+See the  [change log](CHANGELOG.md) for recent modifications.
 
 ## Summary
 
@@ -43,26 +47,69 @@ c2 = AiClient.new('gpt-4o-mini')
 
 ### Configuration
 
-There is an internal hard-coded configuration default.  That default is duppled into a class-level configuration which can be over-ridden with a class-level config block like this ...
+There are three levels of configuration, each inherenting from the level above. The following sections
+describe those configuration levels.
+
+#### Default Configuration
+
+The file [lib/ai_client/configuration.rb] hard codes the default configuration.  This is used to
+update the [lib/ai_client/config.yml] file during development.  If you have
+some changes for this configuration please send me a pull request so we
+can all benefit from your efforts.
+
+#### Class Configuration
+
+The class configuration is derived initially from the default configuration.  It
+can be changed in three ways.
+
+1. Class Configuration Block
 
 ```ruby
-AiClient.configure do |config|
+AiClient.configuration do |config|
   config.some_item = some_value
+  ...
 end
 ```
 
-Every instance of the AiClient inherents the class-level configuration; however, the instance configuration can also be over-ridden also with a block like this ...
+2. Set by a Config File
+
+```ruby
+AiClient.class_config = AiClient::Config.load('path/to/file.yml')
+```
+
+3. Supplemented by a Config File
+
+```ruby
+AiClient.class_config.merge! AiClient::Config.load('path/to/file.yml')
+```
+
+#### Instance Configuration
+
+All instances have a configuration.  Initially that configuration is the same
+as the class configuration; however, each instance can have its own separate
+configuration.  For an instance the class configuration can either be supplemented 
+or complete over-ridden.
+
+1. Supplement from a Constructor Block
 
 ```ruby
 client = AiClient.new('super-ai-overlord-model') do |config|
   config.some_item = some_value
+  ...
 end
 ```
 
-But wait, there's more.  You can also load a YAML file as a configuration of an instance like this ...
+2. Suppliment from a YAML File
 
 ```ruby
 client = AiClient.new('baby-model', config: 'path/to/file.yml')
+```
+
+3. Load Complete Configuration from a YAML File
+
+```ruby
+client = AiClient.new('your-model')
+client.config = AiClient::Config.load('path/to/file.yml')
 ```
 
 ### What Now?
@@ -77,7 +124,7 @@ AI.embed(...)
 AI.batch_embed(...)
 ```
 
-TODO: see the [examples] directory.
+See the [examples directory](examples/README.md) for some ideas on how to use AiClient.
 
 ### System Environment Variables
 
@@ -88,6 +135,15 @@ TODO: list all providers supported and their envar
 ### Options
 
 TODO: document the options like `provider: :ollama`
+
+## Extensions for OmniAI
+
+The AiClient makes use of extensions to the OmniAI gem that define
+additional providers and protocols.
+
+1. **OmniAI::Ollama^** which wraps the OmniAI::OpenAI class
+2. **OmniAI::LocalAI** which also wraps the OmniAI::OpenAI class
+3. **OmniAI::OpenRouter**  TODO: Still under development
 
 ## Contributing
 
