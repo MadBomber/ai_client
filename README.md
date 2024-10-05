@@ -41,6 +41,30 @@ c1 = AiClient.new('nomic-embeddings-text')
 c2 = AiClient.new('gpt-4o-mini')
 ```
 
+### Configuration
+
+There is an internal hard-coded configuration default.  That default is duppled into a class-level configuration which can be over-ridden with a class-level config block like this ...
+
+```ruby
+AiClient.configure do |config|
+  config.some_item = some_value
+end
+```
+
+Every instance of the AiClient inherents the class-level configuration; however, the instance configuration can also be over-ridden also with a block like this ...
+
+```ruby
+client = AiClient.new('super-ai-overlord-model') do |config|
+  config.some_item = some_value
+end
+```
+
+But wait, there's more.  You can also load a YAML file as a configuration of an instance like this ...
+
+```ruby
+client = AiClient.new('baby-model', config: 'path/to/file.yml')
+```
+
 ### What Now?
 
 TODO: Document the methods and their options.

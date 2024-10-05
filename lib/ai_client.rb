@@ -17,6 +17,7 @@ require_relative 'extensions/omniai-ollama'
 require_relative 'extensions/omniai-localai'
 
 require_relative 'ai_client/configuration'
+require_relative 'ai_client/middleware'
 require_relative 'ai_client/version'
 
 # Create a generic client instance using only model name
@@ -26,25 +27,53 @@ require_relative 'ai_client/version'
 #   AiClient.use(RetryMiddleware.new(max_retries: 5, base_delay: 2, max_delay: 30))
 #   AiClient.use(LoggingMiddleware.new(AiClient.configuration.logger))
 #
-# TODO: As concurrently designed the middleware must
-#       be set before an instance of AiClient is created.
-#       Any `use` commands for middleware made after
-#       the instance is created will not be available
-#       to that instance.
-#       Change this so that middleware can be added
-#       and removed from an existing client.
+
 
 class AiClient
 
-  attr_reader :client, :provider, :model, :model_type, :logger, :last_response, :config
+  attr_reader :client,        # OmniAI's client instance
+              :provider,      # [Symbol]
+              :model,         # [String]
+              :model_type,    # [Symbol]
+              :logger, 
+              :last_response,
+              :timeout,
+              :config         # Instance configuration
 
-  def initialize(model, config: Configuration.new, **options)
-    @model      = model
-    @config     = config
-    @provider   = validate_provider(options[:provider]) || determine_provider(model)
+  # You can over-ride the class config by providing a block like this
+  #   c = AiClient.new(...) do |config|
+  #         config.logger = nil
+  #       end
+  #
+  # You can also load an instance's config from a YAML file.
+  #   c = AiClient.new('model_name'. cpmfog: 'path/to/file.yml', ...)
+  #
+  # ... and you can do both = load from a file and
+  #     over-ride with a config block
+  #
+  # The options object is basically those things that the
+  # OmniAI clients want to see.
+  #
+  def initialize(model, **options, &block)
+    # Assign the instance variable @config from the class variable @@config
+    @config = self.class.class_config.dup  
+    
+    # Yield the @config to a block if given
+    yield(@config) if block_given?
+
+    # Merge in an instance-specific YAML file
+    if options.has_key?(:config)
+      @config.merge! Config.load(options[:config])
+      options.delete(:config) # Lconfig not supported by OmniAI
+    end
+
+    @model            = model
+    explicit_provider = options.fetch(:provider, config.provider)
+
+    @provider   = validate_provider(explicit_provider) || determine_provider(model)
     @model_type = determine_model_type(model)
 
-    provider_config = @config.provider(@provider)
+    provider_config = @config.providers[@provider] || {}
 
     @logger   = options[:logger]    || @config.logger
     @timeout  = options[:timeout]   || @config.timeout
@@ -56,6 +85,7 @@ class AiClient
 
     @last_response  = nil
   end
+
 
 
   def response  = last_response
@@ -71,7 +101,6 @@ class AiClient
   def chat(messages, **params)
     result = call_with_middlewares(:chat_without_middlewares, messages, **params)
     @last_response = result
-    # debug_me print " (raw: #{raw?}) "
     raw? ? result : content
   end
 
@@ -114,14 +143,6 @@ class AiClient
   ######################################
   ## Utilities
   
-  def call_with_middlewares(method, *args, **kwargs, &block)
-    stack = self.class.middlewares.reverse.reduce(-> { send(method, *args, **kwargs, &block) }) do |next_middleware, middleware|
-      -> { middleware.call(self, next_middleware, *args, **kwargs) }
-    end
-    stack.call
-  end
-
-
   def content
     case @provider
     when :openai, :localai, :ollama
@@ -140,21 +161,6 @@ class AiClient
 
   ##############################################
   ## Public Class Methods
-
-  class << self
-
-    def middlewares
-      @middlewares ||= []
-    end
-
-    def use(middleware)
-      middlewares << middleware
-    end
-
-    def clear_middlewares
-      @middlewares = []
-    end
-  end
 
   def method_missing(method_name, *args, &block)
     if @client.respond_to?(method_name)
