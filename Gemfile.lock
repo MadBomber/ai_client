@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    ai_client (0.1.0)
+    ai_client (0.2.0)
+      hashie
       omniai
       omniai-anthropic
       omniai-google
@@ -32,6 +33,7 @@ GEM
     ffi-compiler (1.3.2)
       ffi (>= 1.15.5)
       rake
+    hashie (5.0.0)
     http (5.2.0)
       addressable (~> 2.8)
       base64 (~> 0.1)
