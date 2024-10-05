@@ -1,0 +1,33 @@
+---
+:logger: !ruby/object:Logger
+  level: 0
+  progname:
+  default_formatter: !ruby/object:Logger::Formatter
+    datetime_format:
+  formatter:
+  logdev: !ruby/object:Logger::LogDevice
+    shift_period_suffix:
+    shift_size:
+    shift_age:
+    filename:
+    dev: !ruby/object:IO {}
+    binmode: false
+    reraise_write_errors: []
+    mon_data: !ruby/object:Monitor {}
+    mon_data_owner_object_id: 920
+  level_override: {}
+:timeout:
+:return_raw: false
+:providers: {}
+:provider_patterns:
+  :anthropic: !ruby/regexp /^claude/i
+  :openai: !ruby/regexp /^(gpt|davinci|curie|babbage|ada|whisper|tts|dall-e)/i
+  :google: !ruby/regexp /^(gemini|palm)/i
+  :mistral: !ruby/regexp /^(mistral|codestral)/i
+  :localai: !ruby/regexp /^local-/i
+  :ollama: !ruby/regexp /(llama|nomic)/i
+:model_types:
+  :text_to_text: !ruby/regexp /^(nomic|gpt|davinci|curie|babbage|ada|claude|gemini|palm|command|generate|j2-|mistral|codestral)/i
+  :speech_to_text: !ruby/regexp /^whisper/i
+  :text_to_speech: !ruby/regexp /^tts/i
+  :text_to_image: !ruby/regexp /^dall-e/i
