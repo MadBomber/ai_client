@@ -16,6 +16,11 @@ require 'omniai/openai'
 require_relative 'extensions/omniai-ollama'
 require_relative 'extensions/omniai-localai'
 
+require_relative 'ai_client/chat'
+require_relative 'ai_client/embed'
+require_relative 'ai_client/speak'
+require_relative 'ai_client/transcribe'
+
 require_relative 'ai_client/configuration'
 require_relative 'ai_client/middleware'
 require_relative 'ai_client/version'
@@ -86,8 +91,6 @@ class AiClient
     @last_response  = nil
   end
 
-
-
   def response  = last_response
   def raw?      = config.return_raw
   
@@ -95,54 +98,6 @@ class AiClient
     config.return_raw = value
   end
 
-
-
-  ######################################
-  def chat(messages, **params)
-    result = call_with_middlewares(:chat_without_middlewares, messages, **params)
-    @last_response = result
-    raw? ? result : content
-  end
-
-
-  def chat_without_middlewares(messages, **params)
-    @client.chat(messages, model: @model, **params)
-  end
-
-  ######################################
-  def transcribe(audio, format: nil, **params)
-    call_with_middlewares(:transcribe_without_middlewares, audio, format: format, **params)
-  end
-
-  def transcribe_without_middlewares(audio, format: nil, **params)
-    @client.transcribe(audio, model: @model, format: format, **params)
-  end
-
-  ######################################
-  def speak(text, **params)
-    call_with_middlewares(:speak_without_middlewares, text, **params)
-  end
-
-  def speak_without_middlewares(text, **params)
-    @client.speak(text, model: @model, **params)
-  end
-
-
-  ######################################
-  def embed(input, **params)
-    @client.embed(input, model: @model, **params)
-  end
-
-  def batch_embed(inputs, batch_size: 100, **params)
-    inputs.each_slice(batch_size).flat_map do |batch|
-      sleep 1 # DEBUG rate limits being exceeded
-      embed(batch, **params)
-    end
-  end
-
-  ######################################
-  ## Utilities
-  
   def content
     case @provider
     when :openai, :localai, :ollama
@@ -158,9 +113,6 @@ class AiClient
     end
   end
   alias_method :text, :content
-
-  ##############################################
-  ## Public Class Methods
 
   def method_missing(method_name, *args, &block)
     if @client.respond_to?(method_name)
