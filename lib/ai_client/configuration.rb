@@ -65,6 +65,18 @@
 #       configuration you can do this.
 #         client = AiClient.new('your_model')
 #         client.config = AiClient::Config.load('path/to/file.yml')
+#
+# OmniAI Configuration Items
+# OmniAI::OpenAI
+#   config.api_key = '...'
+#   config.host = 'http://localhost:8080'
+#   config.logger = Logger.new(STDOUT)
+#   config.timeout = 15
+#   config.chat_options = { ... }
+#   config.transcribe_options = { ... }
+#   config.speak_options = { ... }
+#
+
 
 
 require 'hashie'

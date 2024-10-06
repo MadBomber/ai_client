@@ -33,8 +33,37 @@ require_relative 'ai_client/version'
 #   AiClient.use(LoggingMiddleware.new(AiClient.configuration.logger))
 #
 
-
 class AiClient
+
+  # Define the refinement for Hash
+  module HashRefinement
+    refine Hash do
+      def tunnel(target_key)
+        queue = [self] # Initialize the queue with the current hash
+
+        until queue.empty?
+          current = queue.shift # Dequeue the front hash
+
+          # Check if the current hash contains the target key
+          return current[target_key] if current.key?(target_key)
+
+          # Enqueue sub-hashes and arrays to the queue for further searching
+          current.each_value do |value|
+            case value
+            when Hash
+              queue << value
+            when Array
+              queue.concat(value.select { |v| v.is_a?(Hash) }) # Add sub-hashes from the array
+            end
+          end
+        end
+
+        nil # Return nil if the key is not found
+      end
+    end
+  end
+
+  using HashRefinement
 
   attr_reader :client,        # OmniAI's client instance
               :provider,      # [Symbol]
@@ -101,13 +130,21 @@ class AiClient
   def content
     case @provider
     when :openai, :localai, :ollama
-      last_response.data.dig('choices', 0, 'message', 'content')
+      # last_response.data.dig('choices', 0, 'message', 'content')
+      last_response.data.tunnel 'content'
+      
     when :anthropic
-      last_response.data.dig('content',0,'text')
+      # last_response.data.dig('content',0,'text')
+      last_response.data.tunnel 'text'
+
     when :google
-      last_response.data.dig('candidates', 0, 'content', 'parts', 0, 'text')
+      # last_response.data.dig('candidates', 0, 'content', 'parts', 0, 'text')
+      last_response.data.tunnel 'text'
+
     when :mistral
-      last_response.data.dig('choices', 0, 'message', 'content')
+      # last_response.data.dig('choices', 0, 'message', 'content')
+      last_response.data.tunnel 'content'
+
     else
       raise NotImplementedError, "Content extraction not implemented for provider: #{@provider}"
     end
