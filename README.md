@@ -30,6 +30,25 @@ If bundler is not being used to manage dependencies, install the gem by executin
 gem install ai_client
 ```
 
+## Providers Supported
+
+To explicitely designate a provider to use with an AiClient instance
+use the parameter `provider: :your_provider` with the Symbol for the supported
+provider you want to use with the model you specify.  The following providers
+are supported by the OmniAI gem upon which AiClient depends along with a few
+extensions.
+
+| Symbol | Envar API Key | Client Source |
+| --- | --- | --- |
+| :anthropic | [ANTHROPIC_API_KEY](https://www.anthropic.com/) | OmniAI |
+| :google | [GOOGLE_API_KEY](https://cloud.google.com/gemini) | OmniAI |
+| :localai | [LOCALAI_API_KEY](https://localai.io/) | AiClient Extension |
+| :mistral | [MISTRAL_API_KEY](https://mistral.ai/) | OmniAI |
+| :ollama | [OLLAMA_API_KEY](https://ollama.com/) | AiClient Extension |
+| :open_router | [OPEN_ROUTER_API_KEY](https://openrouter.ai/) | AiClient Extension |
+| :openai | [OPENAI_API_KEY](https://www.openai.com/) | OmniAI |
+
+
 ## Usage
 
 Basic usage:
@@ -43,6 +62,13 @@ That's it.  Just provide the model name that you want to use.  If you applicatio
 ```ruby
 c1 = AiClient.new('nomic-embeddings-text')
 c2 = AiClient.new('gpt-4o-mini')
+```
+
+You can also use the `provider:` parameter in the event that the model you want to use is available through multiple providers or that AiClient can not automatically associate the model name with a provider.
+
+
+```ruby
+AI = AiClient.new('nomic-embed-text', provider: :ollama)
 ```
 
 ### Configuration
@@ -144,6 +170,12 @@ additional providers and protocols.
 1. **OmniAI::Ollama^** which wraps the OmniAI::OpenAI class
 2. **OmniAI::LocalAI** which also wraps the OmniAI::OpenAI class
 3. **OmniAI::OpenRouter**  TODO: Still under development
+
+## OmniAI and OpenRouter
+
+OmniAI is a Ruby gem that supports specific providers directly using a common-ish API.  You incur costs directly from those providers for which you have individual API keys (aka access tokens.) OpenRouter, on the other hand, is a web service that also establishes a common API for many providers and models; however, OpenRouter adds a small fee on top of the fee charged by those providers.  You trade off cost for flexibility.  With OpenRouter you only need one API key (OPEN_ROUTER_API_KEY) to access all of its supported services.
+
+The advantage of AiClient is that you have the added flexibility to choose on a client by client bases where you want your model to be processed.  You get free local processing through Ollama and LocalAI.  You get less costly direct access to some providers via OmniAI.  You get slightly more costly wide-spread access via OpenRouter
 
 ## Contributing
 
