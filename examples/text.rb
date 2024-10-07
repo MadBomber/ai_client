@@ -48,7 +48,7 @@ end
 title "Default Configuration Response to 'hello'"
 
 clients.each do |c|
-  puts "\nModel: #{c.model} (#{c.model_type})  Provider: #{c.provider}"
+  puts "\nModel: #{c.model}  Provider: #{c.provider}"
   begin
     response = c.chat('hello')
     puts response
@@ -73,7 +73,7 @@ puts
 title "Raw Configuration Response to 'hello'"
 
 raw_clients.each do |c|
-  puts "\nModel: #{c.model} (#{c.model_type})  Provider: #{c.provider}"
+  puts "\nModel: #{c.model}  Provider: #{c.provider}"
   begin
     result = c.chat('hello')
     puts result.pretty_inspect

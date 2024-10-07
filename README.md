@@ -48,6 +48,13 @@ extensions.
 | :open_router | [OPEN_ROUTER_API_KEY](https://openrouter.ai/) | AiClient Extension |
 | :openai | [OPENAI_API_KEY](https://www.openai.com/) | OmniAI |
 
+In case you are using a different environment variable for your access token than the ones shown above you can use the `api_key:` parameter.
+
+```ruby
+client = AiClient.new('provider/model_name', api_key: ENV['OPENROUTER_API_KEY'])
+```
+
+This way if you are using `AiClient` inside of a Rails application you can retrieve your access token from a secretes file.
 
 ## Usage
 
@@ -161,6 +168,21 @@ TODO: list all providers supported and their envar
 ### Options
 
 TODO: document the options like `provider: :ollama`
+
+## Best ?? Practices
+
+If you are going to be using one model for multiple purposes in different parts of your application you can assign the instance of `AiClient` to a constant so that the same client can be used everywhere.
+
+```ruby
+AI = AiClient.new 'gpt-4o'
+...
+AI.chat "do something with this #{stuff}"
+...
+AI.speak "warning  Will Robinson! #{bad_things_happened}"
+...
+```
+
+Using the constant for the instance allows you to reference the same client instance inside any method through out your application.  Of course it does not apply to only one instance.  You could assign multiple instances for different models/providers.  For example you could have `AI` for your primary client and `AIbackup` for a fallback client in case you have a problem on the primary; or, maybe `Vectorizer` as a client name tied to a model specializing in embedding vectorization.
 
 ## Extensions for OmniAI
 

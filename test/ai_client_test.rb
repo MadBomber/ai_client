@@ -39,7 +39,6 @@ class AiClientTest < Minitest::Test
 
   def test_initialize
     assert_equal :openai, @client.provider
-    assert_equal :text_to_text, @client.model_type
     assert_equal @logger, @client.logger
   end
 
@@ -53,16 +52,6 @@ class AiClientTest < Minitest::Test
     assert_equal :ollama, @client.send(:determine_provider, 'llama-7b')
 
     assert_raises(ArgumentError) { @client.send(:determine_provider, 'unknown-model') }
-  end
-
-
-  def test_determine_model_type
-    assert_equal :text_to_text, @client.send(:determine_model_type, 'gpt-3.5-turbo')
-    assert_equal :speech_to_text, @client.send(:determine_model_type, 'whisper-1')
-    assert_equal :text_to_speech, @client.send(:determine_model_type, 'tts-1')
-    assert_equal :text_to_image, @client.send(:determine_model_type, 'dall-e-3')
-
-    assert_raises(ArgumentError) { @client.send(:determine_model_type, 'unknown-model') }
   end
 
 

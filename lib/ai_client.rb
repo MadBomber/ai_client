@@ -13,8 +13,12 @@ require 'omniai/anthropic'
 require 'omniai/google'
 require 'omniai/mistral'
 require 'omniai/openai'
-require_relative 'extensions/omniai-ollama'
+
+require 'open_router'
+
 require_relative 'extensions/omniai-localai'
+require_relative 'extensions/omniai-ollama'
+require_relative 'extensions/omniai-open_router'
 
 require_relative 'ai_client/chat'
 require_relative 'ai_client/embed'
@@ -68,7 +72,6 @@ class AiClient
   attr_reader :client,        # OmniAI's client instance
               :provider,      # [Symbol]
               :model,         # [String]
-              :model_type,    # [Symbol]
               :logger, 
               :last_response,
               :timeout,
@@ -105,7 +108,6 @@ class AiClient
     explicit_provider = options.fetch(:provider, config.provider)
 
     @provider   = validate_provider(explicit_provider) || determine_provider(model)
-    @model_type = determine_model_type(model)
 
     provider_config = @config.providers[@provider] || {}
 
@@ -143,6 +145,9 @@ class AiClient
 
     when :mistral
       # last_response.data.dig('choices', 0, 'message', 'content')
+      last_response.data.tunnel 'content'
+
+    when :open_router
       last_response.data.tunnel 'content'
 
     else
@@ -194,16 +199,25 @@ class AiClient
     case provider
     when :openai
       OmniAI::OpenAI::Client.new(**client_options)
+
     when :anthropic
       OmniAI::Anthropic::Client.new(**client_options)
+
     when :google
       OmniAI::Google::Client.new(**client_options)
+
     when :mistral
       OmniAI::Mistral::Client.new(**client_options)
+
     when :ollama
       OmniAI::Ollama::Client.new(**client_options)
+
     when :localai
       OmniAI::LocalAI::Client.new(**client_options)
+
+    when :open_router
+      OmniAI::OpenRouter::Client.new(**client_options)
+
     else
       raise ArgumentError, "Unsupported provider: #{@provider}"
     end
@@ -227,12 +241,6 @@ class AiClient
   def determine_provider(model)
     config.provider_patterns.find { |provider, pattern| model.match?(pattern) }&.first ||
       raise(ArgumentError, "Unsupported model: #{model}")
-  end
-
-
-  def determine_model_type(model)
-    config.model_types.find { |type, pattern| model.match?(pattern) }&.first ||
-      raise(ArgumentError, "Unable to determine model type for: #{model}")
   end
 end
 

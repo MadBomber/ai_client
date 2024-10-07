@@ -24,7 +24,7 @@ end
 title "Default Configuration Text-to-Speech"
 
 clients.each do |c|
-  puts "\nModel: #{c.model} (#{c.model_type})  Provider: #{c.provider}"
+  puts "\nModel: #{c.model}  Provider: #{c.provider}"
   text = "Text to speach example using the #{c.model} by provider #{c.provider} with the default voice."
   result = c.speak(text)
   puts "Audio generated. Tempfile: #{result.path}"

@@ -21,7 +21,7 @@ title "Default Configuration Speech-to-Text"
 
 
 clients.each do |c|
-  puts "\nModel: #{c.model} (#{c.model_type})  Provider: #{c.provider}"
+  puts "\nModel: #{c.model}  Provider: #{c.provider}"
   result = c.transcribe(audio_file)
   puts "Transcription: #{result.pretty_inspect}"
 end
