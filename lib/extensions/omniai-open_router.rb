@@ -55,7 +55,6 @@ end
 ## Extend Capabilities Using OpenRouter
 #
 # TODO: catch the models db
-# TODO: review the use of model_type in light of modality entry in db
 # TODO: consider wrapping the models database in an ActiveModel
 #
 class AiClient

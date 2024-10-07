@@ -26,8 +26,3 @@
   :mistral: !ruby/regexp /^(mistral|codestral)/i
   :localai: !ruby/regexp /^local-/i
   :ollama: !ruby/regexp /(llama|nomic)/i
-:model_types:
-  :text_to_text: !ruby/regexp /^(nomic|gpt|davinci|curie|babbage|ada|claude|gemini|palm|command|generate|j2-|mistral|codestral)/i
-  :speech_to_text: !ruby/regexp /^whisper/i
-  :text_to_speech: !ruby/regexp /^tts/i
-  :text_to_image: !ruby/regexp /^dall-e/i

@@ -72,7 +72,6 @@ class AiClient
   attr_reader :client,        # OmniAI's client instance
               :provider,      # [Symbol]
               :model,         # [String]
-              :model_type,    # [Symbol]
               :logger, 
               :last_response,
               :timeout,
@@ -109,7 +108,6 @@ class AiClient
     explicit_provider = options.fetch(:provider, config.provider)
 
     @provider   = validate_provider(explicit_provider) || determine_provider(model)
-    @model_type = determine_model_type(model)
 
     provider_config = @config.providers[@provider] || {}
 
@@ -243,13 +241,6 @@ class AiClient
   def determine_provider(model)
     config.provider_patterns.find { |provider, pattern| model.match?(pattern) }&.first ||
       raise(ArgumentError, "Unsupported model: #{model}")
-  end
-
-
-  def determine_model_type(model)
-    return :xyzzy
-    config.model_types.find { |type, pattern| model.match?(pattern) }&.first ||
-      raise(ArgumentError, "Unable to determine model type for: #{model}")
   end
 end
 

@@ -137,15 +137,9 @@ class AiClient
           localai: /^local-/i,
           ollama: /(llama|nomic)/i,
           open_router: /\//
-        },
-        # SMELL: why is knowing the model_type important?
-        model_types: {
-          text_to_text: /^(nomic|gpt|davinci|curie|babbage|ada|claude|gemini|palm|command|generate|j2-|mistral|codestral)/i,
-          speech_to_text: /^whisper/i,
-          text_to_speech: /^tts/i,
-          text_to_image: /^dall-e/i
         }
       )
+
       @class_config = @default_config.dup
     end
   end
