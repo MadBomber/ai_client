@@ -1,6 +1,11 @@
 ## [Unreleased]
 
 ## Released
+### [0.2.1] - 2024-10-07
+- Added support for open_router.ai with extensions/omniai-open_router.rb
+- Removed the `model_type` object
+- Added ability to dump a config to a YAML file
+
 ### [0.2.1] - 2024-10-05
 - Added support for YAML configuration files
 

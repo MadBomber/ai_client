@@ -102,6 +102,14 @@ class AiClient
     #   end
     # end
 
+
+    def save(filepath=ENV['HOME']+'/aiclient_config.yml')
+      filepath = Pathname.new(filepath) unless filepath.is_a? Pathname
+
+      filepath.write(YAML.dump(to_hash))
+    end
+
+
     class << self
       def load(filepath=DEFAULT_CONFIG_FILEPATH)
         filepath = Pathname.new(filepath) unless Pathname == filepath.class
