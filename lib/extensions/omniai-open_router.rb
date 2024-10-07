@@ -16,22 +16,45 @@ module OmniAI
         options[:host] = 'https://openrouter.ai/api/v1' unless options.has_key?(:host)
         super(**options)
       end
+
+      def self.open_router
+        OmniAI::OpenRouter::Client
+      end
+
+      def self.find(provider:, **)
+        return OmniAI.open_router.new(**) if :open_reouter == provider
+
+        super(provider: provider.to_s, **)
+      end
     end    
+
+    Chat = OmniAI::OpenAI::Chat
+
+    class Chat
+      def path
+        "/api/v1/chat/completions"
+      end
+    end
 
     Config = OmniAI::OpenAI::Config
 
     # Alias the Thread class and its nested classes
-    Thread      = OmniAI::OpenAI::Thread
-    Annotation  = OmniAI::OpenAI::Thread::Annotation
-    Attachment  = OmniAI::OpenAI::Thread::Attachment
-    Message     = OmniAI::OpenAI::Thread::Message
-    Run         = OmniAI::OpenAI::Thread::Run
+    Thread              = OmniAI::OpenAI::Thread
+    Thread::Annotation  = OmniAI::OpenAI::Thread::Annotation
+    Thread::Attachment  = OmniAI::OpenAI::Thread::Attachment
+    Thread::Message     = OmniAI::OpenAI::Thread::Message
+    Thread::Run         = OmniAI::OpenAI::Thread::Run
   end
 end
 
-
+######################################################
+## Extend Capabilities Using OpenRouter
+#
+# TODO: catch the models db
+# TODO: review the use of model_type in light of modality entry in db
+# TODO: consider wrapping the models database in an ActiveModel
+#
 class AiClient
-
   class << self
     def orc_models
       @orc_models ||= ORC.models if defined?(ORC)
@@ -49,7 +72,7 @@ class AiClient
     end
 
     def orc_model_details(model)
-      ap orc_models.select{|e| e['id'] == model}
+      orc_models.select{|e| e['id'].include?(model)}
     end
   end
 end
@@ -60,7 +83,7 @@ if ENV.fetch('OPEN_ROUTER_API_KEY', nil)
   end
 
   # Use a default provider/model
-  ORC = OpenRouter::Client.new
+  AiClient::ORC = OpenRouter::Client.new
 end
 
 

@@ -149,6 +149,9 @@ class AiClient
       # last_response.data.dig('choices', 0, 'message', 'content')
       last_response.data.tunnel 'content'
 
+    when :open_router
+      last_response.data.tunnel 'content'
+
     else
       raise NotImplementedError, "Content extraction not implemented for provider: #{@provider}"
     end
