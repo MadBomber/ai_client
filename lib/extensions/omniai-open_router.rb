@@ -17,6 +17,10 @@ module OmniAI
         super(**options)
       end
 
+      def self.openrouter
+        OmniAI::OpenRouter::Client
+      end
+
       def self.open_router
         OmniAI::OpenRouter::Client
       end
