@@ -13,8 +13,12 @@ require 'omniai/anthropic'
 require 'omniai/google'
 require 'omniai/mistral'
 require 'omniai/openai'
-require_relative 'extensions/omniai-ollama'
+
+require 'open_router'
+
 require_relative 'extensions/omniai-localai'
+require_relative 'extensions/omniai-ollama'
+require_relative 'extensions/omniai-open_router'
 
 require_relative 'ai_client/chat'
 require_relative 'ai_client/embed'
@@ -194,16 +198,25 @@ class AiClient
     case provider
     when :openai
       OmniAI::OpenAI::Client.new(**client_options)
+
     when :anthropic
       OmniAI::Anthropic::Client.new(**client_options)
+
     when :google
       OmniAI::Google::Client.new(**client_options)
+
     when :mistral
       OmniAI::Mistral::Client.new(**client_options)
+
     when :ollama
       OmniAI::Ollama::Client.new(**client_options)
+
     when :localai
       OmniAI::LocalAI::Client.new(**client_options)
+
+    when :open_router
+      OmniAI::OpenRouter::Client.new(**client_options)
+
     else
       raise ArgumentError, "Unsupported provider: #{@provider}"
     end
@@ -231,6 +244,7 @@ class AiClient
 
 
   def determine_model_type(model)
+    return :xyzzy
     config.model_types.find { |type, pattern| model.match?(pattern) }&.first ||
       raise(ArgumentError, "Unable to determine model type for: #{model}")
   end

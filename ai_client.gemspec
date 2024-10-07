@@ -58,6 +58,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "omniai-google"
   spec.add_dependency "omniai-mistral"
   spec.add_dependency "omniai-openai"
+  spec.add_dependency "open_router"
 
   spec.add_development_dependency "amazing_print"
   spec.add_development_dependency "debug_me"

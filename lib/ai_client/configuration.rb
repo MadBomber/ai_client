@@ -131,12 +131,14 @@ class AiClient
         providers: {},
         provider_patterns: {
           anthropic: /^claude/i,
-          openai: /^(gpt|davinci|curie|babbage|ada|whisper|tts|dall-e)/i,
-          google: /^(gemini|palm)/i,
-          mistral: /^(mistral|codestral)/i,
+          openai: /^(gpt|chatgpt|o1|davinci|curie|babbage|ada|whisper|tts|dall-e)/i,
+          google: /^(gemini|gemma|palm)/i,
+          mistral: /^(mistral|codestral|mixtral)/i,
           localai: /^local-/i,
-          ollama: /(llama|nomic)/i
+          ollama: /(llama|nomic)/i,
+          open_router: /\//
         },
+        # SMELL: why is knowing the model_type important?
         model_types: {
           text_to_text: /^(nomic|gpt|davinci|curie|babbage|ada|claude|gemini|palm|command|generate|j2-|mistral|codestral)/i,
           speech_to_text: /^whisper/i,
@@ -152,7 +154,15 @@ class AiClient
 end
 
 
-AiClient.default_config = AiClient::Config.load
+# debug_me
+if 'nibiru' == `hostname`.chomp
+  puts "...Test New Configuration ..."
+else
+#  AiClient.default_config = AiClient::Config.load
+end
+
+
+
 AiClient.class_config   = AiClient.default_config.dup
 
 if config_file = ENV.fetch('AI_CLIENT_CONFIG_FILE', nil)
