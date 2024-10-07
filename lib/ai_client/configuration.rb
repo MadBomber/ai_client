@@ -156,15 +156,7 @@ class AiClient
 end
 
 
-# debug_me
-if 'nibiru' == `hostname`.chomp
-  puts "...Test New Configuration ..."
-else
-#  AiClient.default_config = AiClient::Config.load
-end
-
-
-
+AiClient.default_config = AiClient::Config.load
 AiClient.class_config   = AiClient.default_config.dup
 
 if config_file = ENV.fetch('AI_CLIENT_CONFIG_FILE', nil)
