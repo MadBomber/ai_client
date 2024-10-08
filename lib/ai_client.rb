@@ -129,7 +129,7 @@ class AiClient
 
   def content
     case @provider
-    when :localai, :mistral, :ollama, :open_router :openai,
+    when :localai, :mistral, :ollama, :open_router, :openai
       last_response.data.tunnel 'content'
       
     when :anthropic, :google
