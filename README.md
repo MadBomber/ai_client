@@ -1,20 +1,35 @@
 # AiClient
 
-First and foremost a big **THANK YOU** to [Kevin Sylvestre](https://ksylvest.com/) for his gem [OmniAI](https://github.com/ksylvest/omniai) upon which this effort depends.
-
-**This is a work in progress**  I could use your help extending its capability.
-
-AiClien` is working.  I've used early versions of it in several projects.
+First and foremost a big **THANK YOU** to [Kevin Sylvestre](https://ksylvest.com/) for his gem [OmniAI](https://github.com/ksylvest/omniai) and [Olympia](https://olympia.chat/) for their [open_router gem](https://github.com/OlympiaAI/open_router) upon which this effort depends.
 
 See the  [change log](CHANGELOG.md) for recent modifications.
 
 ## Summary
 
-`ai_client` is a versatile Ruby gem that serves as a generic client for interacting with various AI service providers through a unified API provided by Kevin's gem `OmniAI`. The `AiClient` class is designed to simplify the integration of large language models (LLMs) into applications. `AiClient` allows developers to create instances using just the model name, greatly reducing configuration overhead.
+Are you ready to supercharge your applications with cutting-edge AI capabilities? 
+Introducing `ai_client`, the ultimate Ruby gem that provides a seamless interface 
+for interacting with a multitude of AI service providers through a single, 
+unified API. 
 
-With built-in support for popular AI providers—including OpenAI, Anthropic, Google, Mistral, LocalAI and Ollama—the gem abstracts the complexities of API interactions, offering methods for tasks such as chatting, transcription, speech synthesis, and embedding.
+With `ai_client`, you can effortlessly integrate large language models (LLMs) 
+into your projects—simply specify the model name and let the gem handle the 
+rest! Say goodbye to tedious configuration and hello to rapid development.
 
-The middleware architecture enables customizable processing of requests and responses, making it easy to implement features like logging and retry logic. Seamlessly integrated with the `OmniAI` framework, `ai_client` empowers developers to leverage cutting-edge AI capabilities without vendor lock-in, making it an essential tool for modern AI-driven applications.
+This gem comes packed with built-in support for leading AI providers, including 
+OpenAI, Anthropic, Google, Mistral, LocalAI, and Ollama. Whether you need to 
+implement chatbots, transcription services, speech synthesis, or embeddings, 
+`ai_client` abstracts the complexities of API interactions, allowing you to focus 
+on what truly matters: building amazing applications.
+
+Plus, with its flexible middleware architecture, you can easily customize request 
+and response processing—implement logging, retry logic, and more with minimal effort. 
+And thanks to its seamless integration with the `OmniAI` framework, you can leverage 
+the latest AI advancements without worrying about vendor lock-in.
+
+Join the growing community of developers who are transforming their applications 
+with `ai_client`. Install it today and unlock the full potential of AI in your 
+projects!
+
 
 ## Installation
 

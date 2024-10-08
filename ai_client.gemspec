@@ -10,21 +10,16 @@ Gem::Specification.new do |spec|
 
   spec.summary      = "A generic AI Client for many providers"
   spec.description  = <<~TEXT
-    `ai_client` is a versatile Ruby gem that serves as a generic client 
-    for interacting with various AI service providers through a unified 
-    API. Designed to simplify the integration of large language models 
-    (LLMs) into applications, `ai_client` allows developers to create 
-    instances using just the model name, greatly reducing configuration 
-    overhead. With built-in support for popular AI providers—including 
-    OpenAI, Anthropic, Google, Mistral, LocalAI and Ollama—the gem abstracts the 
-    complexities of API interactions, offering methods for tasks such 
-    as chatting, transcription, speech synthesis, and embedding. The 
-    middleware architecture enables customizable processing of requests 
-    and responses, making it easy to implement features like logging and 
-    retry logic. Seamlessly integrated with the `OmniAI` framework, 
-    `ai_client` empowers developers to leverage cutting-edge AI capabilities 
-    without vendor lock-in, making it an essential tool for modern AI-driven 
-    applications.
+    `ai_client` is a versatile Ruby gem that offers a seamless interface 
+    for integrating a wide range of AI service providers through a single, 
+    unified API. With `ai_client`, you can simply specify the model name 
+    and quickly leverage advanced features such as chatting, transcription, 
+    and speech synthesis. The gem supports prominent providers, including 
+    OpenAI, Anthropic, Google, Mistral, LocalAI, Ollama, and OpenRouter, 
+    making it easier than ever to build innovative applications. Plus, its 
+    flexible middleware architecture allows for easy customization of request 
+    and response handling, ensuring that you can harness the power of AI 
+    without vendor lock-in.
   TEXT
 
   spec.homepage     = "https://github.com/MadBomber/ai_client"
