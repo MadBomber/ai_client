@@ -19,6 +19,7 @@ class AiClient
 
     private
 
+    # Similar to fetch_api_key but for the class_config
     def fetch_access_token
       class_config.envar_api_key_names.open_router
                   .map { |key| ENV[key] }

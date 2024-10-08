@@ -172,9 +172,8 @@ class AiClient
 
 
   def create_client
-    api_key = fetch_api_key  # Fetching the API key should only happen for valid providers
     client_options = {
-      api_key:  api_key,
+      api_key:  fetch_api_key,
       logger:   @logger,
       timeout:  @timeout
     }
@@ -209,19 +208,13 @@ class AiClient
   end
 
 
+  # Similar to fetch_access_tokne but for the instance config
   def fetch_api_key
-    env_var_name = "#{@provider.upcase}_API_KEY"
-    api_key = ENV[env_var_name]
-
-    if api_key.nil? || api_key.empty?
-      unless [:localai, :ollama].include? provider
-        raise ArgumentError, "API key not found in environment variable #{env_var_name}"
-      end
-    end
-
-    api_key
+    config.envar_api_key_names[@provider]
+      .map { |key| ENV[key] }
+      .compact
+      .first
   end
-
 
   def determine_provider(model)
     config.provider_patterns.find { |provider, pattern| model.match?(pattern) }&.first ||
