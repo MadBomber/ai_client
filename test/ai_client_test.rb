@@ -195,7 +195,7 @@ class AiClientTest < Minitest::Test
     mock_client.expects(:chat).returns(OpenStruct.new(data: {'choices' => [{'message' => {'content' => 'Stored response'}}]}))
     @client.instance_variable_set(:@client, mock_client)
 
-    response = @client.chat([{role: 'user', content: 'Store this'}])
+    @client.chat([{role: 'user', content: 'Store this'}])
     assert_equal 'Stored response', @client.last_response.data.dig('choices', 0, 'message', 'content')
   end
 end

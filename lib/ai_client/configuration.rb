@@ -91,16 +91,6 @@ class AiClient
     include Hashie::Extensions::Mash::PermissiveRespondTo
     include Hashie::Extensions::Mash::SymbolizeKeys
     include Hashie::Extensions::Mash::DefineAccessors
-  
-
-    # I'm not sure about this ...
-    # def provider(name, &block)
-    #   if block_given?
-    #     providers[name] = block.call
-    #   else
-    #     providers[name] || {}
-    #   end
-    # end
 
 
     def save(filepath=ENV['HOME']+'/aiclient_config.yml')
@@ -137,6 +127,13 @@ class AiClient
         timeout: nil,
         return_raw: false,
         providers: {},
+        envar_api_key_names: {
+          anthropic: ['ANTHROPIC_API_KEY'],
+          google: ['GOOGLE_API_KEY'],
+          mistral: ['MISTRAL_API_KEY'],
+          open_router: ['OPEN_ROUTER_API_KEY', 'OPENROUTER_API_KEY'],
+          openai: ['OPENAI_API_KEY']
+        },
         provider_patterns: {
           anthropic: /^claude/i,
           openai: /^(gpt|chatgpt|o1|davinci|curie|babbage|ada|whisper|tts|dall-e)/i,

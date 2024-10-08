@@ -14,11 +14,23 @@
     binmode: false
     reraise_write_errors: []
     mon_data: !ruby/object:Monitor {}
-    mon_data_owner_object_id: 920
+    mon_data_owner_object_id: 700
   level_override: {}
 :timeout:
 :return_raw: false
 :providers: {}
+:envar_api_key_names:
+  :anthropic:
+  - ANTHROPIC_API_KEY
+  :google:
+  - GOOGLE_API_KEY
+  :mistral:
+  - MISTRAL_API_KEY
+  :open_router:
+  - OPEN_ROUTER_API_KEY
+  - OPENROUTER_API_KEY
+  :openai:
+  - OPENAI_API_KEY
 :provider_patterns:
   :anthropic: !ruby/regexp /^claude/i
   :openai: !ruby/regexp /^(gpt|chatgpt|o1|davinci|curie|babbage|ada|whisper|tts|dall-e)/i
