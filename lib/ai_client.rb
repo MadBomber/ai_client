@@ -26,6 +26,7 @@ require_relative 'ai_client/middleware'
 require_relative 'ai_client/version'
 
 require_relative 'ai_client/open_router_extensions'
+require_relative 'ai_client/llm' # SMELL: must come after the open router stuff
 
 # Create a generic client instance using only model name
 #   client = AiClient.new('gpt-3.5-turbo')
