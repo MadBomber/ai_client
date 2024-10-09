@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+# bin/save_default_config
+
+require_relative '../lib/ai_client'
+
+class AiClient
+  def self.save_default_config
+    initialize_defaults
+      .save(__dir__ + '/../lib/ai_client/config.yml')
+  end
+end
+
+AiClient.save_default_config

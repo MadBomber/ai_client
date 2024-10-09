@@ -16,10 +16,6 @@ require 'omniai/openai'
 
 require 'open_router'
 
-require_relative 'extensions/omniai-localai'
-require_relative 'extensions/omniai-ollama'
-require_relative 'extensions/omniai-open_router'
-
 require_relative 'ai_client/chat'
 require_relative 'ai_client/embed'
 require_relative 'ai_client/speak'
@@ -28,6 +24,9 @@ require_relative 'ai_client/transcribe'
 require_relative 'ai_client/configuration'
 require_relative 'ai_client/middleware'
 require_relative 'ai_client/version'
+
+require_relative 'ai_client/open_router_extensions'
+require_relative 'ai_client/llm' # SMELL: must come after the open router stuff
 
 # Create a generic client instance using only model name
 #   client = AiClient.new('gpt-3.5-turbo')
@@ -131,24 +130,11 @@ class AiClient
 
   def content
     case @provider
-    when :openai, :localai, :ollama
-      # last_response.data.dig('choices', 0, 'message', 'content')
+    when :localai, :mistral, :ollama, :open_router, :openai
       last_response.data.tunnel 'content'
       
-    when :anthropic
-      # last_response.data.dig('content',0,'text')
+    when :anthropic, :google
       last_response.data.tunnel 'text'
-
-    when :google
-      # last_response.data.dig('candidates', 0, 'content', 'parts', 0, 'text')
-      last_response.data.tunnel 'text'
-
-    when :mistral
-      # last_response.data.dig('choices', 0, 'message', 'content')
-      last_response.data.tunnel 'content'
-
-    when :open_router
-      last_response.data.tunnel 'content'
 
     else
       raise NotImplementedError, "Content extraction not implemented for provider: #{@provider}"
@@ -187,9 +173,8 @@ class AiClient
 
 
   def create_client
-    api_key = fetch_api_key  # Fetching the API key should only happen for valid providers
     client_options = {
-      api_key:  api_key,
+      api_key:  fetch_api_key,
       logger:   @logger,
       timeout:  @timeout
     }
@@ -210,13 +195,13 @@ class AiClient
       OmniAI::Mistral::Client.new(**client_options)
 
     when :ollama
-      OmniAI::Ollama::Client.new(**client_options)
+      OmniAI::OpenAI::Client.new(host: 'http://localhost:11434', api_key: nil, **client_options)
 
     when :localai
-      OmniAI::LocalAI::Client.new(**client_options)
+      OmniAI::OpenAI::Client.new(host: 'http://localhost:8080', api_key: nil, **client_options)
 
     when :open_router
-      OmniAI::OpenRouter::Client.new(**client_options)
+      OmniAI::OpenAI::Client.new(host: 'https://openrouter.ai', api_prefix: 'api', **client_options)
 
     else
       raise ArgumentError, "Unsupported provider: #{@provider}"
@@ -224,19 +209,13 @@ class AiClient
   end
 
 
+  # Similar to fetch_access_tokne but for the instance config
   def fetch_api_key
-    env_var_name = "#{@provider.upcase}_API_KEY"
-    api_key = ENV[env_var_name]
-
-    if api_key.nil? || api_key.empty?
-      unless [:localai, :ollama].include? provider
-        raise ArgumentError, "API key not found in environment variable #{env_var_name}"
-      end
-    end
-
-    api_key
+    config.envar_api_key_names[@provider]
+      .map { |key| ENV[key] }
+      .compact
+      .first
   end
-
 
   def determine_provider(model)
     config.provider_patterns.find { |provider, pattern| model.match?(pattern) }&.first ||
