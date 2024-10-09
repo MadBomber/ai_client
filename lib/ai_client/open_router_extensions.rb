@@ -7,6 +7,13 @@
 require 'open_router'
 
 class AiClient
+
+  def models                        = self.class.models
+  def providers                     = self.class.providers
+  def model_names(a_provider=nil)   = self.class.model_names(a_provider)
+  def model_details(a_model)        = self.class.model_details(a_model)
+  def find_model(a_model_substring) = self.class.find_model(a_model_substring)
+
   class << self
     def add_open_router_extensions
       access_token = fetch_access_token
@@ -17,6 +24,34 @@ class AiClient
       initialize_orc_client
     end
 
+    def orc_client
+      @orc_client ||= add_open_router_extensions || raise("OpenRouter extensions are not available")
+    end
+
+    def models
+      @models ||= orc_client.models
+    end
+
+    def model_names(provider=nil)
+      model_ids = models.map { _1['id'] }
+
+      return model_ids unless provider
+
+      model_ids.filter_map { _1.split('/')[1] if _1.start_with?(provider.to_s.downcase) }
+    end
+
+    def model_details(model)
+      orc_models.find { _1['id'].include?(model) }
+    end
+
+    def providers
+      @providers ||= models.map{ _1['id'].split('/')[0] }.sort.uniq      
+    end
+
+    def find_model(a_model_substring)
+      model_names.select{ _1.include?(a_model_substring) }
+    end
+  
     private
 
     # Similar to fetch_api_key but for the class_config
@@ -33,31 +68,6 @@ class AiClient
 
     def initialize_orc_client
       @orc_client ||= OpenRouter::Client.new
-    end
-
-    def orc_client
-      @orc_client ||= add_open_router_extensions || raise("OpenRouter extensions are not available")
-    end
-
-    def orc_models
-      @orc_models ||= orc_client.models
-    end
-
-    # Using named parameters for better readability
-    def orc_model_names(provider: nil)
-      model_ids = orc_models.map { _1['id'] }
-
-      return model_ids unless provider
-
-      model_ids.filter_map { _1.split('/')[1] if _1.start_with?(provider.to_s.downcase) }
-    end
-
-    def orc_model_details(model)
-      orc_models.find { _1['id'].include?(model) }
-    end
-
-    def orc_providers
-      @orc_providers ||= orc_models.map{ _1['id'].split('/')[0] }.sort.uniq      
     end
   end
 end
