@@ -47,6 +47,7 @@ Gem::Specification.new do |spec|
 
   spec.require_paths  = ["lib"]
 
+  spec.add_dependency "active_hash"
   spec.add_dependency "hashie"
   spec.add_dependency "omniai"
   spec.add_dependency "omniai-anthropic"

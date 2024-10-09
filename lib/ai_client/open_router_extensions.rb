@@ -32,6 +32,9 @@ class AiClient
       @models ||= orc_client.models
     end
 
+    # TODO: Refactor these DB like methods to take
+    #       advantage of AiClient::LLM
+
     def model_names(provider=nil)
       model_ids = models.map { _1['id'] }
 
@@ -71,5 +74,6 @@ class AiClient
     end
   end
 end
+
 
 AiClient.add_open_router_extensions

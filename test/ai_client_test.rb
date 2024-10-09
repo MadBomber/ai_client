@@ -184,7 +184,7 @@ class AiClientTest < Minitest::Test
 
 
   def test_invalid_api_key
-    ENV['OPENAI_API_KEY'] = ''
+    ENV.delete('OPENAI_API_KEY')
     assert_raises(ArgumentError) { AiClient.new('gpt-3.5-turbo') }
     ENV['OPENAI_API_KEY'] = 'valid_api_key' # reset to avoid affecting other tests
   end
