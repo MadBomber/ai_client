@@ -1,6 +1,13 @@
 ## [Unreleased]
 
 ## Released
+### [0.2.4] - 2024-10-10
+- constrained gem omniai-openai to version 1.8.3+ for access to open_router.ai
+- caching models database from open_router.ai
+- added class methods reset_default_config and reset_llm_data
+- support for open_router.ai should be fully integrated now that omniai-openai is at version 1.8.3
+
+
 ### [0.2.3] - 2024-10-08
 - refactored the OmniAI extensions for Ollama, LocalAI and OpenRouter
 - added a file for OpenRouter extensions
