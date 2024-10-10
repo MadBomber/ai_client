@@ -212,9 +212,9 @@ class AiClient
   # Similar to fetch_access_tokne but for the instance config
   def fetch_api_key
     config.envar_api_key_names[@provider]
-      .map { |key| ENV[key] }
-      .compact
-      .first
+      &.map { |key| ENV[key] }
+      &.compact
+      &.first
   end
 
   def determine_provider(model)
