@@ -1,26 +1,23 @@
 # lib/ai_client/llm.rb
 
 require 'active_hash'
+require 'yaml'
+
 
 class AiClient
-
-  # TODO: Think about this for the OpenRouter modesl DB
-  #       Might cahnge this to ActiveYaml
-
   class LLM < ActiveHash::Base
-    self.data = AiClient.models
+    DATA_PATH = Pathname.new( __dir__ + '/models.yml')
+    self.data = YAML.parse(DATA_PATH.read).to_ruby 
 
     def model     = id.split('/')[1]
     def provider  = id.split('/')[0]
+  end
 
-    class << self
-      def import(path_to_uml_file) # TODO: load
-        raise "TODO: Not Implemented: #{path_to_yml_file}"
-      end
-
-      def export(path_to_uml_file) # TODO: Dump
-        raise "TODO: Not Implemented: #{path_to_yml_file}"
-      end
+  class << self
+    def reset_llm_data
+      orc_models = AiClient.orc_client.models
+      AiClient::LLM.data = orc_models
+      AiClient::LLM::DATA_PATH.write(orc_models.to_yaml)
     end
   end
 end

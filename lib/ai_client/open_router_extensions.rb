@@ -5,6 +5,7 @@
 # a valid API Key for the open_router.ai web-service
 
 require 'open_router'
+require 'yaml'
 
 class AiClient
 
@@ -28,8 +29,8 @@ class AiClient
       @orc_client ||= add_open_router_extensions || raise("OpenRouter extensions are not available")
     end
 
-    def models
-      @models ||= orc_client.models
+    def orc_models
+      @orc_models ||= orc_client.models
     end
 
     # TODO: Refactor these DB like methods to take
@@ -55,6 +56,12 @@ class AiClient
       model_names.select{ _1.include?(a_model_substring) }
     end
   
+    def reset_llm_data
+      LLM.data = orc_models
+      LLM::DATA_PATH.write(orc_models.to_yaml)
+    end
+
+
     private
 
     # Similar to fetch_api_key but for the class_config

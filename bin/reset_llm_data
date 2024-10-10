@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+# bin/reset_llm_data
+
+require_relative '../lib/ai_client'
+
+AiClient.reset_llm_data
