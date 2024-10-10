@@ -4,32 +4,55 @@ First and foremost a big **THANK YOU** to [Kevin Sylvestre](https://ksylvest.com
 
 See the  [change log](CHANGELOG.md) for recent modifications.
 
+
+<!-- Tocer[start]: Auto-generated, don't remove. -->
+
+## Table of Contents
+
+  - [Summary](#summary)
+  - [Installation](#installation)
+  - [Environment Variables for Provider Access](#environment-variables-for-provider-access)
+    - [Changing Envar API Key Names](#changing-envar-api-key-names)
+    - [api_key: Parameter](#api_key-parameter)
+    - [provider: Parameter](#provider-parameter)
+  - [Usage](#usage)
+    - [Configuration](#configuration)
+      - [Default Configuration](#default-configuration)
+      - [Class Configuration](#class-configuration)
+        - [1. Class Configuration Block](#1-class-configuration-block)
+        - [2. Set by a Config File](#2-set-by-a-config-file)
+        - [3. Supplemented by a Config File](#3-supplemented-by-a-config-file)
+      - [Instance Configuration](#instance-configuration)
+        - [1. Supplement from a Constructor Block](#1-supplement-from-a-constructor-block)
+        - [2. Supplement from a YAML File](#2-supplement-from-a-yaml-file)
+        - [3. Load Complete Configuration from a YAML File](#3-load-complete-configuration-from-a-yaml-file)
+    - [Top-level Client Methods](#top-level-client-methods)
+        - [chat](#chat)
+        - [embed](#embed)
+        - [speak](#speak)
+        - [transcribe](#transcribe)
+    - [Options](#options)
+    - [Advanced Prompts](#advanced-prompts)
+    - [Advanced Prompts with Tools](#advanced-prompts-with-tools)
+  - [Best ?? Practices](#best--practices)
+  - [OmniAI and OpenRouter](#omniai-and-openrouter)
+  - [Contributing](#contributing)
+  - [License](#license)
+
+<!-- Tocer[finish]: Auto-generated, don't remove. -->
+
+
 ## Summary
 
-Are you ready to supercharge your applications with cutting-edge AI capabilities? 
-Introducing `ai_client`, the ultimate Ruby gem that provides a seamless interface 
-for interacting with a multitude of AI service providers through a single, 
-unified API. 
+Are you ready to supercharge your applications with cutting-edge AI capabilities? Introducing `ai_client`, the ultimate Ruby gem that provides a seamless interface for interacting with a multitude of AI service providers through a single, unified API.
 
-With `ai_client`, you can effortlessly integrate large language models (LLMs) 
-into your projects—simply specify the model name and let the gem handle the 
-rest! Say goodbye to tedious configuration and hello to rapid development.
+With `ai_client`, you can effortlessly integrate large language models (LLMs) into your projects—simply specify the model name and let the gem handle the rest! Say goodbye to tedious configuration and hello to rapid development.
 
-This gem comes packed with built-in support for leading AI providers, including 
-OpenAI, Anthropic, Google, Mistral, LocalAI, and Ollama. Whether you need to 
-implement chatbots, transcription services, speech synthesis, or embeddings, 
-`ai_client` abstracts the complexities of API interactions, allowing you to focus 
-on what truly matters: building amazing applications.
+This gem comes packed with built-in support for leading AI providers, including OpenAI, Anthropic, Google, Mistral, LocalAI, and Ollama. Whether you need to implement chatbots, transcription services, speech synthesis, or embeddings, `ai_client` abstracts the complexities of API interactions, allowing you to focus on what truly matters: building amazing applications.
 
-Plus, with its flexible middleware architecture, you can easily customize request 
-and response processing—implement logging, retry logic, and more with minimal effort. 
-And thanks to its seamless integration with the `OmniAI` framework, you can leverage 
-the latest AI advancements without worrying about vendor lock-in.
+Plus, with its flexible middleware architecture, you can easily customize request and response processing—implement logging, retry logic, and more with minimal effort. And thanks to its seamless integration with the `OmniAI` framework, you can leverage the latest AI advancements without worrying about vendor lock-in.
 
-Join the growing community of developers who are transforming their applications 
-with `ai_client`. Install it today and unlock the full potential of AI in your 
-projects!
-
+Join the growing community of developers who are transforming their applications with `ai_client`. Install it today and unlock the full potential of AI in your projects!
 
 ## Installation
 
@@ -45,13 +68,9 @@ If bundler is not being used to manage dependencies, install the gem by executin
 gem install ai_client
 ```
 
-## Providers Supported
+## Environment Variables for Provider Access
 
-To explicitely designate a provider to use with an AiClient instance
-use the parameter `provider: :your_provider` with the Symbol for the supported
-provider you want to use with the model you specify.  The following providers
-are supported by the OmniAI gem upon which AiClient depends along with a few
-extensions.
+For fee providers require an account and provide an access token to allow the use of their LLM models.  The value of these access tokens is typically saved in system environment variables or some other secure data store.  AiClient has a default set of system environment variable names for these access tokens based upon the pattern of `provider_api_key` which can be over-ridden.
 
 | Symbol | Envar API Key | Client Source |
 | --- | --- | --- |
@@ -63,6 +82,25 @@ extensions.
 | :open_router | [OPEN_ROUTER_API_KEY](https://openrouter.ai/) | AiClient Extension |
 | :openai | [OPENAI_API_KEY](https://www.openai.com/) | OmniAI |
 
+
+### Changing Envar API Key Names
+
+You can also configure the system environment variable names to match your on standards at the class level.
+
+```ruby
+AiClient.class_config.envar_api_key_bames = {
+  anthropic:    'your_envar_name',
+  google:       'your_envar_name',
+  mistral:      'your_envar_name',
+  open_router:  'your_envar_name',
+  opena:        'your_envar_name'
+}
+
+AiClient.class_config.save('path/to/file.yml')
+```
+
+### api_key: Parameter
+
 In case you are using a different environment variable for your access token than the ones shown above you can use the `api_key:` parameter.
 
 ```ruby
@@ -70,6 +108,12 @@ client = AiClient.new('provider/model_name', api_key: ENV['OPENROUTER_API_KEY'])
 ```
 
 This way if you are using `AiClient` inside of a Rails application you can retrieve your access token from a secretes file.
+
+
+### provider: Parameter
+
+To explicitly designate a provider to use with an AiClient instance use the parameter `provider: :your_provider` with the Symbol for the supported provider you want to use with the model you specify.  The following providers are supported by the OmniAI gem upon which AiClient depends along with a few extensions.
+
 
 ## Usage
 
@@ -95,22 +139,17 @@ AI = AiClient.new('nomic-embed-text', provider: :ollama)
 
 ### Configuration
 
-There are three levels of configuration, each inherenting from the level above. The following sections
-describe those configuration levels.
+There are three levels of configuration, each inherenting from the level above. The following sections describe those configuration levels.
 
 #### Default Configuration
 
-The file [lib/ai_client/configuration.rb] hard codes the default configuration.  This is used to
-update the [lib/ai_client/config.yml] file during development.  If you have
-some changes for this configuration please send me a pull request so we
-can all benefit from your efforts.
+The file [lib/ai_client/configuration.rb] hard codes the default configuration.  This is used to update the [lib/ai_client/config.yml] file during development.  If you have some changes for this configuration please send me a pull request so we can all benefit from your efforts.
 
 #### Class Configuration
 
-The class configuration is derived initially from the default configuration.  It
-can be changed in three ways.
+The class configuration is derived initially from the default configuration.  It can be changed in three ways.
 
-1. Class Configuration Block
+##### 1. Class Configuration Block
 
 ```ruby
 AiClient.configuration do |config|
@@ -119,13 +158,13 @@ AiClient.configuration do |config|
 end
 ```
 
-2. Set by a Config File
+##### 2. Set by a Config File
 
 ```ruby
 AiClient.class_config = AiClient::Config.load('path/to/file.yml')
 ```
 
-3. Supplemented by a Config File
+##### 3. Supplemented by a Config File
 
 ```ruby
 AiClient.class_config.merge! AiClient::Config.load('path/to/file.yml')
@@ -133,12 +172,9 @@ AiClient.class_config.merge! AiClient::Config.load('path/to/file.yml')
 
 #### Instance Configuration
 
-All instances have a configuration.  Initially that configuration is the same
-as the class configuration; however, each instance can have its own separate
-configuration.  For an instance the class configuration can either be supplemented 
-or complete over-ridden.
+All instances have a configuration.  Initially that configuration is the same as the class configuration; however, each instance can have its own separate configuration.  For an instance the class configuration can either be supplemented or complete over-ridden.
 
-1. Supplement from a Constructor Block
+##### 1. Supplement from a Constructor Block
 
 ```ruby
 client = AiClient.new('super-ai-overlord-model') do |config|
@@ -147,42 +183,110 @@ client = AiClient.new('super-ai-overlord-model') do |config|
 end
 ```
 
-2. Suppliment from a YAML File
+##### 2. Supplement from a YAML File
 
 ```ruby
 client = AiClient.new('baby-model', config: 'path/to/file.yml')
 ```
 
-3. Load Complete Configuration from a YAML File
+##### 3. Load Complete Configuration from a YAML File
 
 ```ruby
 client = AiClient.new('your-model')
 client.config = AiClient::Config.load('path/to/file.yml')
 ```
 
-### What Now?
-
-TODO: Document the methods and their options.
-
-```ruby
-AI.chat(...)
-AI.transcribe(...)
-AI.speak(...)
-AI.embed(...)
-AI.batch_embed(...)
-```
+### Top-level Client Methods
 
 See the [examples directory](examples/README.md) for some ideas on how to use AiClient.
 
-### System Environment Variables
+The following examples are based upon the same client configuration.
 
-The API keys used with each LLM provider have the pattern `XXX_API_KEY` where XXX is the name of the provided.  For example `OPENAI_API_KEY1` and `ANTROPIC_API_KEY` etc.
+```ruby
+AI = AiClient.new(...) do ... end
+```
 
-TODO: list all providers supported and their envar
+##### chat
+
+Typically `chat(...)` is the most used top-level.  Sometimes refered to as completion.  You are giving a prompt to an LLM and expecting the LLM to respond (ie. complete its transformation).  If you consider the prompt to be a question, the response would be the answer.  If the prompt were a task, the response would be the completion of that task.
+
+```ruby
+response = AI.chat(...)
+```
+
+The simplest form is a string prompt.  The prompt can come from anywher - a litteral, variable, or get if from a database or a file.
+
+```ruby
+response = AI.chat("Is there anything simpler than this?")
+```
+
+The response will be a simple string or a response object based upon the setting of your `config.return_raw` item.  If `true` then you get the whole shebang.  If `false` you get just the string.
+
+See the [Advanced Prompts] section to learn how to configure a complex prompt message.
+
+
+##### embed
+
+Embeddings (as in 'embed additional information') is how retrial augmented generation (RAG) works - which is a deeper subject for another place.  Basically when using an LLM that supports the vectorization of stuff to create embeddings you can use `embed(stuff)` to return the vector associated with the stuff you gave the model.  This vector (an Array of Floating Points Numbers) is a mathematical representation of the stuff that can be used to compare, mathematically, one piece of stuff to a collection of stuff to find other stuff in that collection that closely resembles the stuff for which you are looking.  Q: What is stuff?  A: You know; its just stuff.
+
+```ruby
+AI.embed(...)
+response = AI.batch_embed(...)
+```
+
+Recommendation: Use PostgreSQL, pg_vector and the neighbor gem.
+
+##### speak
+
+```ruby
+res[pmse = AI.speak("Isn't it nice to have a computer that will talk to you?")
+```
+
+The response will contain audio data that can be played, manipulated or saved to a file.
+
+##### transcribe
+
+```ruby
+response = AI.transcribe(...)
+```
+
+
 
 ### Options
 
 TODO: document the options like `provider: :ollama`
+
+### Advanced Prompts
+
+In more complex application providing a simple string as your prompt is not sufficient.  AiClient can take advantage of OmniAI's complex message builder.
+
+```ruby
+client = AiClient.new 'some_model_bane'
+
+completion = client.chat do |prompt|
+  prompt.system('You are an expert biologist with an expertise in animals.')
+  prompt.user do |message|
+    message.text 'What species are in the attached photos?'
+    message.url('https://.../cat.jpeg', "image/jpeg")
+    message.url('https://.../dog.jpeg', "image/jpeg")
+    message.file('./hamster.jpeg', "image/jpeg")
+  end
+end
+
+completion #=> 'The photos are of a cat, a dog, and a hamster.'
+```
+
+Of course if `client.config.return_raw` is true, the completion value will be the complete response object.
+
+### Advanced Prompts with Tools
+
+One of the latest innovations in LLMs is the ability to use functions (aka tools) as `callbacks` to gather more information or to execute a task at the direction of the LLM prompt processing.
+
+See [blog post](https://ksylvest.com/posts/2024-08-16/using-omniai-to-leverage-tools-with-llms) by Kevin Sylvestre, author of the OmniAI gem.
+
+
+TODO: Need to create an example RAG that does not need another access token to a service
+
 
 ## Best ?? Practices
 
@@ -199,18 +303,9 @@ AI.speak "warning  Will Robinson! #{bad_things_happened}"
 
 Using the constant for the instance allows you to reference the same client instance inside any method through out your application.  Of course it does not apply to only one instance.  You could assign multiple instances for different models/providers.  For example you could have `AI` for your primary client and `AIbackup` for a fallback client in case you have a problem on the primary; or, maybe `Vectorizer` as a client name tied to a model specializing in embedding vectorization.
 
-## Extensions for OmniAI
-
-The AiClient makes use of extensions to the OmniAI gem that define
-additional providers and protocols.
-
-1. **OmniAI::Ollama^** which wraps the OmniAI::OpenAI class
-2. **OmniAI::LocalAI** which also wraps the OmniAI::OpenAI class
-3. **OmniAI::OpenRouter**  TODO: Still under development
-
 ## OmniAI and OpenRouter
 
-OmniAI is a Ruby gem that supports specific providers directly using a common-ish API.  You incur costs directly from those providers for which you have individual API keys (aka access tokens.) OpenRouter, on the other hand, is a web service that also establishes a common API for many providers and models; however, OpenRouter adds a small fee on top of the fee charged by those providers.  You trade off cost for flexibility.  With OpenRouter you only need one API key (OPEN_ROUTER_API_KEY) to access all of its supported services.
+Both OmniAI and OpenRouter have similar goals - to provide a common interface to multiple providers and LLMs.  OmniAI is a Ruby gem that supports specific providers directly using a common-ish API.  You incur costs directly from those providers for which you have individual API keys (aka access tokens.) OpenRouter, on the other hand, is a web service that also establishes a common API for many providers and models; however, OpenRouter adds a small fee on top of the fee charged by those providers.  You trade off cost for flexibility.  With OpenRouter you only need one API key (OPEN_ROUTER_API_KEY) to access all of its supported services.
 
 The advantage of AiClient is that you have the added flexibility to choose on a client by client bases where you want your model to be processed.  You get free local processing through Ollama and LocalAI.  You get less costly direct access to some providers via OmniAI.  You get slightly more costly wide-spread access via OpenRouter
 

@@ -60,6 +60,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "debug_me"
   spec.add_development_dependency "hashdiff"
   spec.add_development_dependency "mocha"
+  spec.add_development_dependency "tocer"
 
 
 end
