@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+# bin/reset_default_config
+
+require_relative '../lib/ai_client'
+
+AiClient.reset_default_config

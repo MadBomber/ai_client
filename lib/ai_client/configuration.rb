@@ -119,6 +119,11 @@ class AiClient
       yield(class_config)
     end
 
+    def reset_default_config
+      initialize_defaults
+        .save(Config::DEFAULT_CONFIG_FILEPATH)      
+    end
+
     private
 
     def initialize_defaults
