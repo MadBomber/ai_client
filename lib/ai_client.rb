@@ -16,6 +16,8 @@ require 'omniai/openai'
 
 require 'open_router'
 
+require_relative 'ai_client/version'
+
 require_relative 'ai_client/chat'
 require_relative 'ai_client/embed'
 require_relative 'ai_client/speak'
@@ -23,10 +25,10 @@ require_relative 'ai_client/transcribe'
 
 require_relative 'ai_client/configuration'
 require_relative 'ai_client/middleware'
-require_relative 'ai_client/version'
 
 require_relative 'ai_client/open_router_extensions'
 require_relative 'ai_client/llm' # SMELL: must come after the open router stuff
+require_relative 'ai_client/tool'
 
 # Create a generic client instance using only model name
 #   client = AiClient.new('gpt-3.5-turbo')
