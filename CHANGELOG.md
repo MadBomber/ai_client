@@ -1,6 +1,10 @@
 ## [Unreleased]
 
 ## Released
+
+### [0.2.5] - 2024-10-11
+- Added examples/tool.rb to demonstrate use of function callbacks to provide information to the LLM when it needs it.
+
 ### [0.2.4] - 2024-10-10
 - constrained gem omniai-openai to version 1.8.3+ for access to open_router.ai
 - caching models database from open_router.ai

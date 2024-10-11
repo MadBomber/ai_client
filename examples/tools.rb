@@ -2,12 +2,11 @@
 # examples/tools.rb
 # See: https://ksylvest.com/posts/2024-08-16/using-omniai-to-leverage-tools-with-llms
 
-require 'debug_me'
-include DebugMe
-
-require_relative '../lib/ai_client'
+require_relative 'common'
 
 AI = AiClient.new('gpt-4o')
+
+box "omniai-openai's random temp example"
 
 my_weather_function = Proc.new do |location:, unit: 'Celsius'| 
   "#{rand(20..50)}° #{unit} in #{location}"
@@ -32,10 +31,10 @@ simple_prompt = <<~TEXT
 TEXT
 
 response = AI.chat(simple_prompt, tools: [weather])
-print "\n\n"
 puts response
 
 ##########################################
+box "Accessing a database to get information"
 
 llm_db_function = Proc.new do |params|
   records = AiClient::LLM.where(id: /#{params[:model_name]}/i)
@@ -56,7 +55,6 @@ llm_db = AiClient::Tool.new(
 )
 
 response = AI.chat("Get details on an LLM model named bison.  Which one is the cheapest per prompt token.", tools: [llm_db])
-print "\n\n"
 puts response
 
 ##########################################
@@ -68,6 +66,8 @@ puts response
 #       The symboles are looked up and the
 #       proper instance is inserted in its
 #       place.
+
+box "Using a function class and multiple tools"
 
 class FunctionClass
   def self.call
@@ -86,5 +86,5 @@ end
 perfect_date = FunctionClass.new.function('perfect_date')
 
 response = AI.chat("what is the perfect date for paris weather?", tools: [weather, perfect_date])
-print "\n\n"
 puts response
+puts

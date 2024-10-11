@@ -284,8 +284,7 @@ One of the latest innovations in LLMs is the ability to use functions (aka tools
 
 See [blog post](https://ksylvest.com/posts/2024-08-16/using-omniai-to-leverage-tools-with-llms) by Kevin Sylvestre, author of the OmniAI gem.
 
-
-TODO: Need to create an example RAG that does not need another access token to a service
+Take a look at the [examples/tools.rb](examples/tools.rb) file to see different ways in which these callable processes can be defined.
 
 
 ## Best ?? Practices
