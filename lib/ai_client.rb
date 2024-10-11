@@ -76,6 +76,8 @@ class AiClient
               :timeout,
               :config         # Instance configuration
 
+  # Initializes a new AiClient instance.
+  #
   # You can over-ride the class config by providing a block like this
   #   c = AiClient.new(...) do |config|
   #         config.logger = nil
@@ -89,6 +91,14 @@ class AiClient
   #
   # The options object is basically those things that the
   # OmniAI clients want to see.
+  #
+  # @param model [String] The model name to use for the client.
+  # @param options [Hash] Optional named parameters:
+  #   - :provider [Symbol] Specify the provider.
+  #   - :config [String] Path to a YAML configuration file.
+  #   - :logger [Logger] Logger instance for the client.
+  #   - :timeout [Integer] Timeout value for requests.
+  # @yield [config] An optional block to configure the instance.
   #
   def initialize(model, **options, &block)
     # Assign the instance variable @config from the class variable @@config
@@ -121,13 +131,34 @@ class AiClient
     @last_response  = nil
   end
 
+  # TODO: Review these raw-ish methods are they really needed?
+  #       raw? should be a private method ??
+
+  # Returns the last response received from the client.
+  #
+  # @return [OmniAI::Response] The last response.
+  #
   def response  = last_response
+  
+  # Checks if the client is set to return raw responses.
+  #
+  # @return [Boolean] True if raw responses are to be returned.
   def raw?      = config.return_raw
   
+
+  # Sets whether to return raw responses.
+  #
+  # @param value [Boolean] The value to set for raw responses return.
+  #
   def raw=(value)
     config.return_raw = value
   end
 
+  # Extracts the content from the last response based on the provider.
+  #
+  # @return [String] The extracted content.
+  # @raise [NotImplementedError] If content extraction is not implemented for the provider.
+  #
   def content
     case @provider
     when :localai, :mistral, :ollama, :open_router, :openai
@@ -142,6 +173,13 @@ class AiClient
   end
   alias_method :text, :content
 
+  # Handles calls to methods that are missing on the AiClient instance.
+  #
+  # @param method_name [Symbol] The name of the method called.
+  # @param args [Array] Arguments passed to the method.
+  # @param block [Proc] Optional block associated with the method call.
+  # @return [Object] The result from the underlying client or raises NoMethodError.
+  #
   def method_missing(method_name, *args, &block)
     if @client.respond_to?(method_name)
       result = @client.send(method_name, *args, &block)
@@ -152,6 +190,12 @@ class AiClient
     end
   end
 
+  # Checks if the instance responds to the missing method.
+  #
+  # @param method_name [Symbol] The name of the method to check.
+  # @param include_private [Boolean] Whether to include private methods in the check.
+  # @return [Boolean] True if the method is supported by the client, false otherwise.
+  #
   def respond_to_missing?(method_name, include_private = false)
     @client.respond_to?(method_name) || super
   end
@@ -160,6 +204,12 @@ class AiClient
   ##############################################
   private
 
+  # Validates the specified provider.
+  #
+  # @param provider [Symbol] The provider to validate.
+  # @return [Symbol, nil] Returns the validated provider or nil.
+  # @raise [ArgumentError] If the provider is unsupported.
+  #
   def validate_provider(provider)
     return nil if provider.nil?
 
@@ -171,7 +221,11 @@ class AiClient
     provider
   end
 
-
+  # Creates an instance of the appropriate OmniAI client based on the provider.
+  #
+  # @return [OmniAI::Client] An instance of the configured OmniAI client.
+  # @raise [ArgumentError] If the provider is unsupported.
+  #
   def create_client
     client_options = {
       api_key:  fetch_api_key,
@@ -209,7 +263,10 @@ class AiClient
   end
 
 
-  # Similar to fetch_access_tokne but for the instance config
+  # Similar to fetch_access_token but for the instance config
+  #
+  # @return [String, nil] The retrieved API key or nil if not found.
+  #
   def fetch_api_key
     config.envar_api_key_names[@provider]
       &.map { |key| ENV[key] }
@@ -217,6 +274,12 @@ class AiClient
       &.first
   end
 
+  # Determines the provider based on the provided model.
+  #
+  # @param model [String] The model name.
+  # @return [Symbol] The corresponding provider.
+  # @raise [ArgumentError] If the model is unsupported.
+  #
   def determine_provider(model)
     config.provider_patterns.find { |provider, pattern| model.match?(pattern) }&.first ||
       raise(ArgumentError, "Unsupported model: #{model}")

@@ -92,7 +92,11 @@ class AiClient
     include Hashie::Extensions::Mash::SymbolizeKeys
     include Hashie::Extensions::Mash::DefineAccessors
 
-
+    # Saves the current configuration to the specified file.
+    #
+    # @param filepath [String] The path to the file where the configuration will be saved.
+    #   Defaults to '~/aiclient_config.yml' if not provided.
+    #
     def save(filepath=ENV['HOME']+'/aiclient_config.yml')
       filepath = Pathname.new(filepath) unless filepath.is_a? Pathname
 
@@ -101,6 +105,13 @@ class AiClient
 
 
     class << self
+      # Loads configuration from the specified YAML file.
+      #
+      # @param filepath [String] The path to the configuration file.
+      #   Defaults to 'config.yml' if not provided.
+      # @return [AiClient::Config] The loaded configuration.
+      # @raise [ArgumentError] If the specified file does not exist.
+      #
       def load(filepath=DEFAULT_CONFIG_FILEPATH)
         filepath = Pathname.new(filepath) unless Pathname == filepath.class
         if filepath.exist?
@@ -115,17 +126,30 @@ class AiClient
   class << self
     attr_accessor :class_config, :default_config
 
+    # Configures the AiClient with a given block.
+    #
+    # @yieldparam config [AiClient::Config] The configuration instance.
+    # @return [void]
+    #
     def configure(&block)
       yield(class_config)
     end
 
+    # Resets the default configuration to the value defined in the class.
+    #
+    # @return [void]
+    #
     def reset_default_config
       initialize_defaults
         .save(Config::DEFAULT_CONFIG_FILEPATH)      
     end
 
     private
-
+    
+    # Initializes the default configuration.
+    #
+    # @return [void]
+    #
     def initialize_defaults
       @default_config = Config.new(
         logger: Logger.new(STDOUT),
