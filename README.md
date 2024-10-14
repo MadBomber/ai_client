@@ -6,6 +6,8 @@ Version 0.3.0 has a breaking change w/r/t how [Callback Functions (aka Tools)](#
 
 See the  [change log](CHANGELOG.md) for recent modifications.
 
+You should also checkout the [raix gem](https://github.com/OlympiaAI/raix).  I like the way that Obie's API is setup for callback functions.  `raix-rails` is also available.
+
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
