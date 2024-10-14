@@ -1,90 +1,123 @@
 #!/usr/bin/env ruby
 # examples/tools.rb
-# See: https://ksylvest.com/posts/2024-08-16/using-omniai-to-leverage-tools-with-llms
+#
+# Uses the AiClient::Function class to encapsulate the
+# tools used as callback functions when specified in a
+# chat prompt.
+
 
 require_relative 'common'
 
 AI = AiClient.new('gpt-4o')
 
-box "omniai-openai's random temp example"
+box "Random Weather (temperature) Example"
+title "Uses two named parameters to the callback function"
 
-my_weather_function = Proc.new do |location:, unit: 'Celsius'| 
-  "#{rand(20..50)}° #{unit} in #{location}"
+# Example subclass implementation
+class WeatherFunction < AiClient::Function
+  def self.call(location:, unit: 'Celsius')
+    "#{rand(20..50)}° #{unit} in #{location}"
+  end
+
+  # Encapsulates registration details for the function
+  def self.details
+    # SMELL:  reconcile regester_tool and details
+    {
+      name:         'weather', # Must be a String
+      description:  "Lookup the weather in a location",
+      parameters:   AiClient::Tool::Parameters.new(
+        properties: {
+          location: AiClient::Tool::Property.string(description: 'e.g. Toronto'),
+          unit:     AiClient::Tool::Property.string(enum: %w[Celsius Fahrenheit]),
+        },
+        required: [:location]
+      )
+    }
+  end
 end
 
-weather = AiClient::Tool.new(
-  my_weather_function,
-  name: 'weather',
-  description: 'Lookup the weather in a location',
-  parameters: AiClient::Tool::Parameters.new(
-    properties: {
-      location: AiClient::Tool::Property.string(description: 'e.g. Toronto'),
-      unit: AiClient::Tool::Property.string(enum: %w[Celsius Fahrenheit]),
-    },
-    required: %i[location]
-  )
-)
+# Register the tool for MyFunction
+WeatherFunction.register
 
 simple_prompt = <<~TEXT
   What is the weather in "London" in Celsius and "Paris" in Fahrenheit?
   Also what are some ideas for activities in both cities given the weather?
 TEXT
 
-response = AI.chat(simple_prompt, tools: [weather])
+response = AI.chat(
+                    simple_prompt, 
+                    tools: ['weather'] # must match the details[:name] value
+                  )
+
 puts response
+
 
 ##########################################
 box "Accessing a database to get information"
+title "Uses one named parameter to the callback function"
 
-llm_db_function = Proc.new do |params|
-  records = AiClient::LLM.where(id: /#{params[:model_name]}/i)
-  records.inspect
+class LLMDetailedFunction < AiClient::Function
+  def self.call(model_name:)
+    records = AiClient::LLM.where(id: /#{model_name}/i)&.first
+    records.inspect
+  end
+
+  def self.details
+    {
+      name:         'llm_db',
+      description:  'lookup details about an LLM model name',
+      parameters:   AiClient::Tool::Parameters.new(
+        properties: {
+          model_name: AiClient::Tool::Property.string
+        },
+        required: %i[model_name]
+      )
+    }  
+  end
 end
 
+# Registering the LLM detail function
+LLMDetailedFunction.register
 
-llm_db = AiClient::Tool.new(
-  llm_db_function,
-  name: 'llm_db',
-  description: 'lookup details about an LLM model name',
-  parameters: AiClient::Tool::Parameters.new(
-    properties: {
-      model_name: AiClient::Tool::Property.string
-    },
-    required: %i[model_name]
-  )
-)
+simple_prompt = <<~PROMPT
+  Get the details on an LLM model named 'bison' from the models database 
+  of #{AiClient::LLM.count} models. Format the details for the model
+  using markdown.  Format pricing information in terms of number of
+  tokens per US dollar.
+PROMPT
 
-response = AI.chat("Get details on an LLM model named bison.  Which one is the cheapest per prompt token.", tools: [llm_db])
+response = AI.chat(simple_prompt, tools: ['llm_db'])
 puts response
+
+
 
 ##########################################
 
-# TODO: Look at creating a better function
-#       process such that the tools parameter
-#       is an Array of Symbols which is
-#       maintained as a class variable.
-#       The symboles are looked up and the
-#       proper instance is inserted in its
-#       place.
-
 box "Using a function class and multiple tools"
+title "Callback function has no parameters; but uses two functions"
 
-class FunctionClass
+class PerfectDateFunction < AiClient::Function
   def self.call
-    "April 25th its not to hot nor too cold."
+    "April 25th, it's not too hot nor too cold."
   end
 
-  def function(my_name)
-    AiClient::Tool.new(
-      self.class, # with a self.call method
-      name: my_name,
-      description: 'what is the perfect date'
-    )
+  def self.details
+    {
+      name:         'perfect_date',
+      description:  'what is the perfect date'
+    }
   end
 end
 
-perfect_date = FunctionClass.new.function('perfect_date')
+# Registering the perfect date function
+PerfectDateFunction.register
 
-response = AI.chat("what is the perfect date for paris weather?", tools: [weather, perfect_date])
+response = AI.chat("what is the perfect date for current weather in Paris?", 
+                   tools: %w[weather perfect_date])
 puts response
 puts
+
+debug_me{[
+  #'AiClient::Function.registry',
+  'AiClient::Function.functions'
+]}

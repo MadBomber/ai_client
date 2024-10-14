@@ -10,7 +10,19 @@ class AiClient
   #   tools:        @tools    [Array<OmniAI::Tool>] optional
   #   temperature:  @temperature  [Float, nil] optional
 
-  def chat(messages, **params)
+  def chat(messages, **params)    
+    if params.has_key? :tools
+      tools = params[:tools]
+      if tools.is_a? Array
+        tools.map!{|function_name| AiClient::Function.registry[function_name]}
+      elsif true == tools
+        tools = AiClient::Function.registry.values
+      else
+        raise 'what is this'
+      end
+      params[:tools] = tools
+    end
+
     result = call_with_middlewares(:chat_without_middlewares, messages, **params)
     @last_response = result
     raw? ? result : content

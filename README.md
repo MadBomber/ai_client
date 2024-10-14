@@ -2,6 +2,8 @@
 
 First and foremost a big **THANK YOU** to [Kevin Sylvestre](https://ksylvest.com/) for his gem [OmniAI](https://github.com/ksylvest/omniai) and [Olympia](https://olympia.chat/) for their [open_router gem](https://github.com/OlympiaAI/open_router) upon which this effort depends.
 
+Version 0.3.0 has a breaking change w/r/t how [Callback Functions (aka Tools)](#callback-functions-aka-tools) are defined and used.
+
 See the  [change log](CHANGELOG.md) for recent modifications.
 
 
@@ -33,7 +35,8 @@ See the  [change log](CHANGELOG.md) for recent modifications.
         - [transcribe](#transcribe)
     - [Options](#options)
     - [Advanced Prompts](#advanced-prompts)
-    - [Advanced Prompts with Tools](#advanced-prompts-with-tools)
+    - [Callback Functions (aka Tools)](#callback-functions-aka-tools)
+        - [Defining a Callback Function](#defining-a-callback-function)
   - [Best ?? Practices](#best--practices)
   - [OmniAI and OpenRouter](#omniai-and-openrouter)
   - [Contributing](#contributing)
@@ -278,13 +281,55 @@ completion #=> 'The photos are of a cat, a dog, and a hamster.'
 
 Of course if `client.config.return_raw` is true, the completion value will be the complete response object.
 
-### Advanced Prompts with Tools
 
-One of the latest innovations in LLMs is the ability to use functions (aka tools) as `callbacks` to gather more information or to execute a task at the direction of the LLM prompt processing.
+### Callback Functions (aka Tools)
 
-See [blog post](https://ksylvest.com/posts/2024-08-16/using-omniai-to-leverage-tools-with-llms) by Kevin Sylvestre, author of the OmniAI gem.
+With the release of version 0.3.0, the way callback functions (also referred to as tools) are defined in the `ai_client` gem has undergone significant changes. This section outlines the new approach in detail.  These changes are designed to create a clearer and more robust interface for developers when working with callback functions. If you encounter any issues while updating your functions, please consult the official documentation or raise an issue in the repository.
 
-Take a look at the [examples/tools.rb](examples/tools.rb) file to see different ways in which these callable processes can be defined.
+##### Defining a Callback Function
+
+To define a callback function, you need to create a subclass of `AiClient::Function`. In this subclass, both the `call` and `details` methods must be implemented.
+
+**Example**
+
+Here's an example illustrating how to define a callback function using the new convention:
+
+```ruby
+class WeatherFunction < AiClient::Function
+  # The call class method returns a String to be used by the LLM
+  def self.call(location:, unit: 'Celsius')
+    "#{rand(20..50)}° #{unit} in #{location}"
+  end
+
+  # The details method must return a hash with metadata about the function.
+  def self.details
+    {
+      name:         'weather',
+      description:  "Lookup the weather in a location",
+      parameters:   AiClient::Tool::Parameters.new(
+        properties: {
+          location: AiClient::Tool::Property.string(description: 'e.g. Toronto'),
+          unit:     AiClient::Tool::Property.string(enum: %w[Celsius Fahrenheit]),
+        },
+        required: [:location]
+      )
+    }
+  end
+end
+
+# Register the WeatherFunction for use.
+WeatherFunction.register
+
+# Use the *.details[:name] value to reference the tools available for
+# the LLM to use in processing the prompt.
+response = AI.chat("what is the weather in London", tools: ['weather'])
+```
+
+In this example:
+- The `call` method is defined to accept named parameters: `location` and `unit`. The default value for `unit` is set to `'Celsius'`.
+- The `details` method provides metadata about the function, ensuring that the parameters section clearly indicates which parameters are required.
+
+See the [examples/tools.rb file](examples/tools.rb) for additional examples.
 
 
 ## Best ?? Practices
@@ -301,6 +346,7 @@ AI.speak "warning  Will Robinson! #{bad_things_happened}"
 ```
 
 Using the constant for the instance allows you to reference the same client instance inside any method through out your application.  Of course it does not apply to only one instance.  You could assign multiple instances for different models/providers.  For example you could have `AI` for your primary client and `AIbackup` for a fallback client in case you have a problem on the primary; or, maybe `Vectorizer` as a client name tied to a model specializing in embedding vectorization.
+
 
 ## OmniAI and OpenRouter
 
