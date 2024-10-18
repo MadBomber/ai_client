@@ -256,10 +256,43 @@ response = AI.transcribe(...)
 ```
 
 
-
 ### Options
 
-TODO: document the options like `provider: :ollama`
+The four major methods (chat, embed, speak, and transcribe) support various options that can be passed to the underlying client code. Here's a breakdown of the common options for each method:
+
+#### Common Options for All Methods
+
+- `provider:` - Specifies the AI provider to use (e.g., `:openai`, `:anthropic`, `:google`, `:mistral`, `:ollama`, `:localai`).
+- `model:` - Specifies the model to use within the chosen provider.
+- `api_key:` - Allows passing a specific API key, overriding the default environment variable.
+- `temperature:` - Controls the randomness of the output (typically a float between 0 and 1).
+- `max_tokens:` - Limits the length of the generated response.
+
+#### Chat-specific Options
+
+- `messages:` - An array of message objects for multi-turn conversations.
+- `functions:` - An array of available functions/tools for the model to use.
+- `function_call:` - Specifies how the model should use functions ("auto", "none", or a specific function name).
+- `stream:` - Boolean to enable streaming responses.
+
+#### Embed-specific Options
+
+- `input:` - The text or array of texts to embed.
+- `dimensions:` - The desired dimensionality of the resulting embeddings (if supported by the model).
+
+#### Speak-specific Options
+
+- `voice:` - Specifies the voice to use for text-to-speech (provider-dependent).
+- `speed:` - Adjusts the speaking rate (typically a float, where 1.0 is normal speed).
+- `format:` - Specifies the audio format of the output (e.g., "mp3", "wav").
+
+#### Transcribe-specific Options
+
+- `file:` - The audio file to transcribe (can be a file path or audio data).
+- `language:` - Specifies the language of the audio (if known).
+- `prompt:` - Provides context or specific words to aid in transcription accuracy.
+
+Note: The availability and exact names of these options may vary depending on the specific provider and model being used. Always refer to the documentation of the chosen provider for the most up-to-date and accurate information on supported options.
 
 ### Advanced Prompts
 
