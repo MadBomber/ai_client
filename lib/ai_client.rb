@@ -146,6 +146,14 @@ class AiClient
   end
 
   
+  # Checks if the client is set to return raw responses.
+  #
+  # @return [Boolean] True if raw responses are to be returned.
+  def raw?
+    config.return_raw
+  end
+
+
   # Sets whether to return raw responses.
   #
   # @param value [Boolean] The value to set for raw responses return.
@@ -210,15 +218,6 @@ class AiClient
 
   ##############################################
   private
-
-
-  # Checks if the client is set to return raw responses.
-  #
-  # @return [Boolean] True if raw responses are to be returned.
-  def raw?
-    config.return_raw
-  end
-
 
   # Validates the specified provider.
   #
