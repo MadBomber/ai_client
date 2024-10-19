@@ -1,6 +1,17 @@
 # ai_client.rb
-# WIP:  a generic client to access LLM providers
-#       kinda like the SaaS "open router"
+
+# A generic client to access various LLM providers
+# Inspired by the SaaS "open router" concept
+
+
+# AiClient: A unified interface for interacting with various LLM providers
+#
+# Usage:
+#   client = AiClient.new('gpt-3.5-turbo')
+#
+# Add middlewares:
+#   AiClient.use(RetryMiddleware.new(max_retries: 5, base_delay: 2, max_delay: 30))
+#   AiClient.use(LoggingMiddleware.new(AiClient.configuration.logger))
 #
 
 unless defined?(DebugMe)
@@ -134,28 +145,21 @@ class AiClient
     @last_response  = nil
   end
 
-  # TODO: Review these raw-ish methods are they really needed?
-  #       raw? should be a private method ??
+  
+  # Sets whether to return raw responses.
+  #
+  # @param value [Boolean] The value to set for raw responses return.
+  def raw=(value)
+    config.return_raw = value
+  end
+
 
   # Returns the last response received from the client.
   #
   # @return [OmniAI::Response] The last response.
   #
   def response  = last_response
-  
-  # Checks if the client is set to return raw responses.
-  #
-  # @return [Boolean] True if raw responses are to be returned.
-  def raw?      = config.return_raw
-  
 
-  # Sets whether to return raw responses.
-  #
-  # @param value [Boolean] The value to set for raw responses return.
-  #
-  def raw=(value)
-    config.return_raw = value
-  end
 
   # Extracts the content from the last response based on the provider.
   #
@@ -206,6 +210,15 @@ class AiClient
 
   ##############################################
   private
+
+
+  # Checks if the client is set to return raw responses.
+  #
+  # @return [Boolean] True if raw responses are to be returned.
+  def raw?
+    config.return_raw
+  end
+
 
   # Validates the specified provider.
   #
@@ -288,5 +301,3 @@ class AiClient
       raise(ArgumentError, "Unsupported model: #{model}")
   end
 end
-
-

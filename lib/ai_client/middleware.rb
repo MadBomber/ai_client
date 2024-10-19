@@ -1,6 +1,6 @@
 # lib/ai_client/middleware.rb
 
-# TODO: As concurrently designed the middleware must
+# TODO: As currently designed the middleware must
 #       be set before an instance of AiClient is created.
 #       Any `use` commands for middleware made after
 #       the instance is created will not be available
