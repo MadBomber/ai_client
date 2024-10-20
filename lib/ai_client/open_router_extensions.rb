@@ -1,7 +1,21 @@
 # lib/ai_client/open_router_extensions.rb
 
-# These extensions to AiClient utilize the AiClient::LLM class
-# and the models.yml file for model information
+# OpenRouter Extensions for AiClient
+#
+# This file adds several public instance and class methods to the AiClient class
+# to provide information about AI models and providers.
+#
+# Instance Methods:
+# - model_details: Retrieves details for the current model.
+# - models: Retrieves model names for the current provider.
+#
+# Class Methods:
+# - providers: Retrieves all available providers.
+# - models: Retrieves model names, optionally filtered by provider.
+# - model_details: Retrieves details for a specific model.
+#
+# These methods utilize the AiClient::LLM class and the models.yml file
+# for model information.
 
 require 'open_router'
 require 'yaml'
@@ -13,13 +27,13 @@ class AiClient
   # @return [Hash, nil] Details of the current model or nil if not found.
   def model_details
     id = "#{@provider}/#{@model}"
-    AiClient::LLM.find(id)&.attributes
+    LLM.find(id.downcase)
   end
 
   # Retrieves model names for the current provider.
   #
   # @return [Array<String>] List of model names for the current provider.
-  def models = self.class.models(provider: @provider)
+  def models = LLM.models(@provider)
 
 
   class << self
@@ -27,39 +41,34 @@ class AiClient
     # Retrieves all available providers.
     #
     # @return [Array<Symbol>] List of all provider names.
-    def providers
-      AiClient::LLM.all.map(&:provider).uniq.map(&:to_sym)
-    end
+    def providers = LLM.providers
+
 
     # Retrieves model names, optionally filtered by provider.
     #
-    # @param provider [String, nil] The provider to filter models by.
+    # @param substring [String, nil] Optional substring to filter models by.
     # @return [Array<String>] List of model names.
-    def models(provider: nil)
-      models = AiClient::LLM.all
-      models = models.select { |m| m.id.starts_with?(provider.to_s) } if provider
-      provider.nil? ? models.map(&:id) : models.map(&:model)
-    end
+    def models(substring = nil) = LLM.models(substring)
 
     # Retrieves details for a specific model.
     #
-    # @param a_model [String] The model ID to retrieve details for.
-    # @return [Hash, nil] Details of the model or nil if not found.
-    def model_details(a_model)
-      AiClient::LLM.find(a_model)&.attributes
-    end
+    # @param model_id [String] The model ID to retrieve details for,
+    #     in the pattern "provider/model".downcase
+    # @return [AiClient::LLM, nil] Details of the model or nil if not found.
+    def model_details(model_id) = LLM.find(model_id.downcase)
 
-    # Finds models matching a given substring.
-    #
-    # @param a_model_substring [String] The substring to search for.
-    # @return [Array<String>] List of matching model names.
-    def find_model(a_model_substring)
-      AiClient::LLM.where(id: /#{a_model_substring}/i).pluck(:id)
-    end
-  
 
-    # Adds OpenRouter extensions to AiClient.
+    # Resets LLM data with the available ORC models.
     #
+    # @return [void]
+    #
+    def reset_llm_data = LLM.reset_llm_data
+
+
+    # Initializes OpenRouter extensions for AiClient.
+    #
+    # This sets up the access token and initializes the ORC client.
+    # 
     # @return [void]
     #
     def add_open_router_extensions
@@ -71,7 +80,10 @@ class AiClient
       initialize_orc_client
     end
 
-    # Retrieves ORC client instance.
+
+    private
+
+    # Retrieves the ORC client instance.
     #
     # @return [OpenRouter::Client] Instance of the OpenRouter client.
     #
@@ -88,17 +100,6 @@ class AiClient
     end
 
 
-    # Resets LLM data with the available ORC models.
-    #
-    # @return [void]
-    #
-    def reset_llm_data
-      LLM.data = orc_models
-      LLM::DATA_PATH.write(orc_models.to_yaml)
-    end
-
-
-    private
 
     # Fetches the access token from environment variables.
     #
@@ -120,7 +121,7 @@ class AiClient
       OpenRouter.configure { |config| config.access_token = access_token }
     end
 
-    # Initializes the ORC client.
+    # Initializes the ORC client instance.
     #
     # @return [OpenRouter::Client] Instance of the OpenRouter client.
     def initialize_orc_client

@@ -30,15 +30,7 @@ Minitest::TestTask.create
 require 'minitest/autorun'
 require 'mocha/minitest'
 
-class ExampleTest < Minitest::Test
-  def test_example
-    # Call a method from your `ai_client`.
-    client = AIClient.new
-    response = client.some_method # Replace `some_method` with actual method you want to test.
-    
-    assert response # Adjust this assertion based on what you expect from the method.
-  end
-end
+
 
 # After running tests, display the coverage report
 Minitest.after_run do

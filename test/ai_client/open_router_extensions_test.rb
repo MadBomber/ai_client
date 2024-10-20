@@ -10,7 +10,7 @@ class OpenRouterExtensionsTest < Minitest::Test
   
   def test_model_details_returns_hash    
     result = @ai_client.model_details
-    assert_instance_of Hash, result
+    assert_instance_of AiClient::LLM, result
     assert_equal 'openai/gpt-3.5-turbo', result[:id]
   end
 
@@ -91,7 +91,7 @@ class OpenRouterExtensionsTest < Minitest::Test
   end
 
   def test_models_with_provider_filters_models
-    result = AiClient.models(provider: :openai)
+    result = AiClient.models(:openai)
     expected = [
       "o1-mini-2024-09-12", 
       "o1-mini", 
@@ -129,18 +129,18 @@ class OpenRouterExtensionsTest < Minitest::Test
     assert_equal('openai/gpt-3.5-turbo', result[:id])
   end
 
-  def test_find_model_returns_matching_models    
-    result = AiClient.find_model('turbo')
+  def test_models_returns_matching_models    
+    result = AiClient.models('turbo')
     expected = [
-      "openai/gpt-4-turbo", 
-      "openai/gpt-4-turbo-preview", 
-      "openai/gpt-3.5-turbo-0613", 
-      "openai/gpt-3.5-turbo-1106", 
-      "openai/gpt-3.5-turbo-instruct", 
-      "openai/gpt-3.5-turbo-16k", 
-      "openai/gpt-3.5-turbo-0301", 
-      "openai/gpt-3.5-turbo-0125", 
-      "openai/gpt-3.5-turbo"
+      "gpt-4-turbo", 
+      "gpt-4-turbo-preview", 
+      "gpt-3.5-turbo-0613", 
+      "gpt-3.5-turbo-1106", 
+      "gpt-3.5-turbo-instruct", 
+      "gpt-3.5-turbo-16k", 
+      "gpt-3.5-turbo-0301", 
+      "gpt-3.5-turbo-0125", 
+      "gpt-3.5-turbo"
     ].sort
     assert_equal expected, result.sort
   end

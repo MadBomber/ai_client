@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+### [0.3.0] - 2024-10-13
+- updated the open_routed_extensions file
+- added simplecov to see code coverage
+- updated README with options doc
+
 ## Released
 
 ### [0.3.0] - 2024-10-13

@@ -36,9 +36,23 @@ You should also checkout the [raix gem](https://github.com/OlympiaAI/raix).  I l
         - [speak](#speak)
         - [transcribe](#transcribe)
     - [Options](#options)
+        - [Common Options for All Methods](#common-options-for-all-methods)
+        - [Chat-specific Options](#chat-specific-options)
+        - [Embed-specific Options](#embed-specific-options)
+        - [Speak-specific Options](#speak-specific-options)
+        - [Transcribe-specific Options](#transcribe-specific-options)
     - [Advanced Prompts](#advanced-prompts)
     - [Callback Functions (aka Tools)](#callback-functions-aka-tools)
         - [Defining a Callback Function](#defining-a-callback-function)
+    - [OpenRouter Extensions and AiClient::LLM](#openrouter-extensions-and-aiclientllm)
+        - [Instance Methods](#instance-methods)
+        - [Class Methods](#class-methods)
+    - [AiClient::LLM Data Table](#aiclientllm-data-table)
+        - [Key Features](#key-features)
+        - [Class Methods](#class-methods-1)
+        - [Instance Methods](#instance-methods-1)
+        - [Usage Example](#usage-example)
+        - [Integration with ActiveHash](#integration-with-activehash)
   - [Best ?? Practices](#best--practices)
   - [OmniAI and OpenRouter](#omniai-and-openrouter)
   - [Contributing](#contributing)
@@ -260,7 +274,7 @@ response = AI.transcribe(...)
 
 The four major methods (chat, embed, speak, and transcribe) support various options that can be passed to the underlying client code. Here's a breakdown of the common options for each method:
 
-#### Common Options for All Methods
+##### Common Options for All Methods
 
 - `provider:` - Specifies the AI provider to use (e.g., `:openai`, `:anthropic`, `:google`, `:mistral`, `:ollama`, `:localai`).
 - `model:` - Specifies the model to use within the chosen provider.
@@ -268,25 +282,25 @@ The four major methods (chat, embed, speak, and transcribe) support various opti
 - `temperature:` - Controls the randomness of the output (typically a float between 0 and 1).
 - `max_tokens:` - Limits the length of the generated response.
 
-#### Chat-specific Options
+##### Chat-specific Options
 
 - `messages:` - An array of message objects for multi-turn conversations.
 - `functions:` - An array of available functions/tools for the model to use.
 - `function_call:` - Specifies how the model should use functions ("auto", "none", or a specific function name).
 - `stream:` - Boolean to enable streaming responses.
 
-#### Embed-specific Options
+##### Embed-specific Options
 
 - `input:` - The text or array of texts to embed.
 - `dimensions:` - The desired dimensionality of the resulting embeddings (if supported by the model).
 
-#### Speak-specific Options
+##### Speak-specific Options
 
 - `voice:` - Specifies the voice to use for text-to-speech (provider-dependent).
 - `speed:` - Adjusts the speaking rate (typically a float, where 1.0 is normal speed).
 - `format:` - Specifies the audio format of the output (e.g., "mp3", "wav").
 
-#### Transcribe-specific Options
+##### Transcribe-specific Options
 
 - `file:` - The audio file to transcribe (can be a file path or audio data).
 - `language:` - Specifies the language of the audio (if known).
@@ -365,6 +379,130 @@ In this example:
 - The `details` method provides metadata about the function, ensuring that the parameters section clearly indicates which parameters are required.
 
 See the [examples/tools.rb file](examples/tools.rb) for additional examples.
+
+### OpenRouter Extensions and AiClient::LLM
+
+The `open_router.ai` API provides a service that allows you to download a JSON file containing detailed information about all of the providers and their available models. `AiClient` has saved an old copy of this information in the [`models.yml`](lib/ai_client/models.yml) file. If you want to update this file with the latest information from `open_router.ai`, you must have a valid API key.
+
+You can still use the included `models.yml` file with the `AiClient::LLM` class. The following sections describe the convenient instance and class methods that are available. See the section on `AiClient::LLM` for complete details.
+
+##### Instance Methods
+
+- **`model_details`**: Retrieves details for the current model. Returns a hash containing the model's attributes or `nil` if not found.
+
+```ruby
+client = AiClient.new('gpt-3.5-turbo')
+details = client.model_details
+details #=>
+{
+                    :id => "openai/gpt-3.5-turbo",
+                  :name => "OpenAI: GPT-3.5 Turbo",
+               :created => 1685232000,
+           :description => "GPT-3.5 Turbo is OpenAI's fastest model. It can understand and generate natural language or code, and is optimized for chat and traditional completion tasks.\n\nTraining data up to Sep 2021.",
+        :context_length => 16385,
+          :architecture => {
+             "modality" => "text->text",
+            "tokenizer" => "GPT",
+        "instruct_type" => nil
+    },
+               :pricing => {
+            "prompt" => "0.0000005",
+        "completion" => "0.0000015",
+             "image" => "0",
+           "request" => "0"
+    },
+          :top_provider => {
+               "context_length" => 16385,
+        "max_completion_tokens" => 4096,
+                 "is_moderated" => true
+    },
+    :per_request_limits => {
+            "prompt_tokens" => "40395633",
+        "completion_tokens" => "13465211"
+    }
+}
+```
+
+- **`models`**: Retrieves model names for the current provider. Returns an array of strings with the names of the models.
+
+```ruby
+models = client.models
+```
+
+##### Class Methods
+
+- **`providers`**: Retrieves all available providers. Returns an array of unique symbols representing provider names.
+
+```ruby
+available_providers = AiClient.providers
+```
+
+- **`models(substring = nil)`**: Retrieves model IDs, optionally filtered by a substring.
+
+```ruby
+available_models = AiClient.models('turbo')
+```
+
+- **`model_details(model_id)`**: Retrieves details for a specific model using its ID. Accepts a string representing the model ID. Returns a hash containing the model's attributes or `nil` if not found.
+
+```ruby
+model_info = AiClient.model_details('openai/gpt-3.5-turbo')
+```
+
+- **`reset_llm_data`**: Resets the LLM data with the available ORC models. Returns `void`.
+
+```ruby
+AiClient.reset_llm_data
+```
+
+### AiClient::LLM Data Table
+
+The `AiClient::LLM` class serves as a central point for managing information about large language models (LLMs) available via the `open_router.ai` API service. The YAML file (`models.yml`) contains information about various LLMs and their providers. To update this information to the latest available, you must have an access API key for the `open_router.ai` service.
+
+`AiClient::LLM` is a subclass of `ActiveHash::Base`, enabling it to act like and interact with `ActiveRecord::Base` defined models. Each entry in this data store is uniquely identified by an `id` in the pattern "provider/model" all lowercase without spaces.
+
+##### Key Features
+
+- **Model and Provider Extraction**:
+  - The class provides methods to extract the model name and provider from the LLM's ID.
+  - The `model` method returns the model ID derived from the ID.
+  - The `provider` method extracts the provider name as a Symbol.
+
+##### Class Methods
+
+- **`reset_llm_data`**:
+  - A class-level method that fetches the latest model data from the open_router.ai service and updates the `models.yml` file accordingly.
+
+##### Instance Methods
+
+- **`model`**:
+  - Returns the name of the model derived from the LLM's ID.
+
+```ruby
+llm_instance = AiClient::LLM.find('openai/gpt-3.5-turbo')
+puts llm_instance.model # Output: gpt-3.5-turbo
+```
+
+- **`provider`**:
+  - Returns the name of the provider associated with the LLM's ID.
+
+```ruby
+llm_instance = AiClient::LLM.find('openai/gpt-3.5-turbo')
+puts llm_instance.provider # Output: :openai
+```
+
+##### Usage Example
+
+The `AiClient::LLM` class is predominantly used to interact with different providers of LLMs. By utilizing the `model` and `provider` methods, users can seamlessly retrieve and utilize models in their applications.
+
+```ruby
+llm_instance = AiClient::LLM.find('google/bard')
+puts "Model: #{llm_instance.model}, Provider: #{llm_instance.provider}"
+```
+
+##### Integration with ActiveHash
+
+The `AiClient::LLM` class inherits from `ActiveHash::Base`, which provides an easy way to define a set of data and allows for lookups and easy manipulation of the data structure. The use of ActiveHash makes it easier to manage the LLM data effectively without needing a full database.
 
 
 ## Best ?? Practices

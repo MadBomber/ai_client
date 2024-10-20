@@ -9,6 +9,13 @@ class AiClient
     DATA_PATH = Pathname.new( __dir__ + '/models.yml')
     self.data = YAML.parse(DATA_PATH.read).to_ruby 
 
+    scope :providers,  -> {all.map(&:provider).uniq.map(&:to_sym)}
+
+    scope :models, ->(substring=nil) do
+      (substring.nil? ? all : all.where(id: /#{substring}/i))
+        .map(&:model).sort.uniq
+    end
+
     # Extracts the model name from the LLM ID.
     #
     # @return [String] the model name.
@@ -17,9 +24,12 @@ class AiClient
 
     # Extracts the provider name from the LLM ID.
     #
-    # @return [String] the provider name.
+    # @return [Symbol] the provider name.
     #
-    def provider  = id.split('/')[0]
+    def provider  = id.split('/')[0].to_sym
+  
+    def to_h = attributes
+
   end
 
   class << self
@@ -34,5 +44,6 @@ class AiClient
       AiClient::LLM.data = orc_models
       AiClient::LLM::DATA_PATH.write(orc_models.to_yaml)
     end
+
   end
 end
