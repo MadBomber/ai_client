@@ -152,9 +152,10 @@ class AiClient
     #
     def initialize_defaults
       @default_config = Config.new(
-        logger: Logger.new(STDOUT),
+        logger: Logger.new(STDOUT), # TODO: drop the logger as a default
         timeout: nil,
         return_raw: false,
+        context_length: 5, # number of responses to add as context
         providers: {},
         envar_api_key_names: {
           anthropic: ['ANTHROPIC_API_KEY'],

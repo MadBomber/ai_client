@@ -23,7 +23,7 @@ class AiClient
   #
   def call_with_middlewares(method, *args, **kwargs, &block)
     stack = self.class.middlewares.reverse.reduce(-> { send(method, *args, **kwargs, &block) }) do |next_middleware, middleware|
-      -> { middleware.call(self, next_middleware, *args, **kwargs) }
+      -> { middleware.call(self, next_middleware, *args, **kwargs, &block) }
     end
     stack.call
   end

@@ -85,10 +85,12 @@ class AiClient
   attr_reader :client,        # OmniAI's client instance
               :provider,      # [Symbol]
               :model,         # [String]
-              :logger, 
+              :logger,
+              :last_message,
               :last_response,
               :timeout,
-              :config         # Instance configuration
+              :config,        # Instance configuration
+              :context        # chat-bot context
 
   # Initializes a new AiClient instance.
   #
@@ -115,6 +117,9 @@ class AiClient
   # @yield [config] An optional block to configure the instance.
   #
   def initialize(model, **options, &block)
+    # Place to keep a chat-bot's context
+    @context = [] # An Array of Hash; {message:, response:}
+
     # Assign the instance variable @config from the class variable @@config
     @config = self.class.class_config.dup  
     
@@ -142,6 +147,7 @@ class AiClient
     # @client is an instance of an OmniAI::* class
     @client         = create_client
 
+    @last_messages  = nil
     @last_response  = nil
   end
 
@@ -174,13 +180,13 @@ class AiClient
   # @return [String] The extracted content.
   # @raise [NotImplementedError] If content extraction is not implemented for the provider.
   #
-  def content
+  def content(response=last_response)
     case @provider
     when :localai, :mistral, :ollama, :open_router, :openai
-      last_response.data.tunnel 'content'
+      response.data.tunnel 'content'
       
     when :anthropic, :google
-      last_response.data.tunnel 'text'
+      response.data.tunnel 'text'
 
     else
       raise NotImplementedError, "Content extraction not implemented for provider: #{@provider}"

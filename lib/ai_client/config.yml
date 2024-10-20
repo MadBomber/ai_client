@@ -18,6 +18,7 @@
   level_override: {}
 :timeout:
 :return_raw: false
+:context_level: 5
 :providers: {}
 :envar_api_key_names:
   :anthropic:

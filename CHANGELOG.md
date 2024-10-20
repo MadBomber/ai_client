@@ -1,11 +1,18 @@
 ## [Unreleased]
 
-### [0.3.0] - 2024-10-13
+### [0.3.2] - 2024-10-19
+- Adding basic @context for chat-bots
+- Added `context_length` to configuration as the number of responses to remember as context
+- Fixed problem with advanced block-based prompt construction for chat
+
+
+
+## Released
+
+### [0.3.1] - 2024-10-19
 - updated the open_routed_extensions file
 - added simplecov to see code coverage
 - updated README with options doc
-
-## Released
 
 ### [0.3.0] - 2024-10-13
 - Breaking Change
