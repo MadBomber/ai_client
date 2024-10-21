@@ -58,6 +58,7 @@ You should also checkout the [raix gem](https://github.com/OlympiaAI/raix).  I l
         - [Integration with ActiveHash](#integration-with-activehash)
   - [Best ?? Practices](#best--practices)
   - [OmniAI and OpenRouter](#omniai-and-openrouter)
+  - [The `chatbot` Method](#the-chatbot-method)
   - [Contributing](#contributing)
   - [License](#license)
 
@@ -622,6 +623,16 @@ Using the constant for the instance allows you to reference the same client inst
 Both OmniAI and OpenRouter have similar goals - to provide a common interface to multiple providers and LLMs.  OmniAI is a Ruby gem that supports specific providers directly using a common-ish API.  You incur costs directly from those providers for which you have individual API keys (aka access tokens.) OpenRouter, on the other hand, is a web service that also establishes a common API for many providers and models; however, OpenRouter adds a small fee on top of the fee charged by those providers.  You trade off cost for flexibility.  With OpenRouter you only need one API key (OPEN_ROUTER_API_KEY) to access all of its supported services.
 
 The advantage of AiClient is that you have the added flexibility to choose on a client by client bases where you want your model to be processed.  You get free local processing through Ollama and LocalAI.  You get less costly direct access to some providers via OmniAI.  You get slightly more costly wide-spread access via OpenRouter
+
+## The `chatbot` Method
+
+Just for grins I added a `chatbot` instance method.  Try this out in IRB:
+
+```ruby
+require 'ai_client'
+ai = AiClient,new
+ai.chatbot
+```
 
 ## Contributing
 
