@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+### [0.4.1] - 2024-10-20
+- Chat context stinks!  Need to fix it.
+
 ## Released
 
 ### [0.4.0] - 2024-10-20

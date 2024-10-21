@@ -43,7 +43,7 @@ class AiClient
     @last_response  = result
     result          = raw? ? result : content
 
-    @context.push(@last_response)
+    @context.push(@last_messages)
 
     result
   end
@@ -61,12 +61,12 @@ class AiClient
                         @context.empty?
 
 
-    prompt << "\nUse the following context in crafting your response.\n"
+    prompt.prepend(@context.join("\n"))
 
-    @context[..config.context_length].each do |result|
-      prompt << "You previously responded with:\n"
-      prompt << "#{raw? ? result.inspect : content(result)}"
-    end
+    # @context[..config.context_length].each do |result|
+    #   prompt << "You previously responded with:\n"
+    #   prompt << "#{raw? ? result.inspect : content(result)}"
+    # end
 
     prompt
   end
@@ -89,5 +89,18 @@ class AiClient
   #
   def chat_without_middlewares(messages, **params, &block)
     @client.chat(messages, model: @model, **params, &block)
+  end
+
+
+  def chatbot
+    prompt = "hello"
+    until prompt.empty? do
+      response = chat prompt
+      puts
+      puts content
+      puts
+      print "Follow Up: "
+      prompt = gets.chomp
+    end
   end
 end
