@@ -116,39 +116,16 @@ class AiClient
   #   - :timeout [Integer] Timeout value for requests.
   # @yield [config] An optional block to configure the instance.
   #
-  def initialize(model, **options, &block)
-    # Place to keep a chat-bot's context
-    @context = [] # An Array of Hash; {message:, response:}
-
-    # Assign the instance variable @config from the class variable @@config
-    @config = self.class.class_config.dup  
-    
-    # Yield the @config to a block if given
-    yield(@config) if block_given?
-
-    # Merge in an instance-specific YAML file
-    if options.has_key?(:config)
-      @config.merge! Config.load(options[:config])
-      options.delete(:config) # Lconfig not supported by OmniAI
-    end
-
-    @model            = model
-    explicit_provider = options.fetch(:provider, config.provider)
-
-    @provider   = validate_provider(explicit_provider) || determine_provider(model)
-
-    provider_config = @config.providers[@provider] || {}
-
-    @logger   = options[:logger]    || @config.logger
-    @timeout  = options[:timeout]   || @config.timeout
-    @base_url = options[:base_url]  || provider_config[:base_url]
-    @options  = options.merge(provider_config)
-
-    # @client is an instance of an OmniAI::* class
-    @client         = create_client
-
+  def initialize(model = nil, **options, &block)
+    @context        = [] # An Array of String or response objects
     @last_messages  = nil
     @last_response  = nil
+
+    setup_config(options, &block)
+    set_provider_and_model(model, options[:provider])
+    setup_instance_variables(options)
+
+    @client = create_client
   end
 
   
@@ -225,6 +202,52 @@ class AiClient
   ##############################################
   private
 
+  def setup_config(options, &block)
+    @config = self.class.class_config.dup  
+
+    yield(@config) if block_given?
+
+    if options.key?(:config)
+      @config.merge!(Config.load(options[:config]))
+      options.delete(:config) # config not supported by OmniAI
+    end
+  end
+
+
+  def set_provider_and_model(my_model, my_provider)
+    debug_me{[
+      :my_model,
+      :my_provider
+    ]}
+
+    if my_model.nil?
+      if my_provider.nil?
+        @provider = @config.default_provider.to_sym
+      else
+        @provider = validate_provider(my_provider)
+      end
+      @model    = @config.default_model[@provider]
+    else
+      @model = my_model
+      if my_provider.nil?
+        @provider = determine_provider(my_model)
+      else
+        @provider = validate_provider(my_provider)
+      end
+    end
+  end
+
+
+  def setup_instance_variables(options)
+    provider_config = @config.providers[@provider] || {}
+
+    @logger   = options[:logger] || @config.logger
+    @timeout  = options[:timeout] || @config.timeout
+    @base_url = options[:base_url] || provider_config[:base_url]
+    @options  = options.merge(provider_config)
+  end
+
+
   # Validates the specified provider.
   #
   # @param provider [Symbol] The provider to validate.
@@ -232,6 +255,12 @@ class AiClient
   # @raise [ArgumentError] If the provider is unsupported.
   #
   def validate_provider(provider)
+    debug_me{[
+      :provider,
+      'provider.class'
+    ]}
+
+
     return nil if provider.nil?
 
     valid_providers = config.provider_patterns.keys
@@ -302,6 +331,8 @@ class AiClient
   # @raise [ArgumentError] If the model is unsupported.
   #
   def determine_provider(model)
+    return nil if model.nil? || model.empty?
+
     config.provider_patterns.find { |provider, pattern| model.match?(pattern) }&.first ||
       raise(ArgumentError, "Unsupported model: #{model}")
   end

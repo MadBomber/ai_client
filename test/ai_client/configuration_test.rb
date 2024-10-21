@@ -6,6 +6,7 @@ class AiClient::ConfigurationTest < Minitest::Test
   def setup
     # Reset the class-level configuration before each test
     AiClient.class_config = AiClient.default_config.dup
+    AiClient.class_config.merge!(logger: Logger.new(STDOUT))
   end
 
   def test_default_configuration

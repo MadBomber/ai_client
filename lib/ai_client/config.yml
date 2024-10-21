@@ -1,24 +1,8 @@
 ---
-:logger: !ruby/object:Logger
-  level: 0
-  progname:
-  default_formatter: !ruby/object:Logger::Formatter
-    datetime_format:
-  formatter:
-  logdev: !ruby/object:Logger::LogDevice
-    shift_period_suffix:
-    shift_size:
-    shift_age:
-    filename:
-    dev: !ruby/object:IO {}
-    binmode: false
-    reraise_write_errors: []
-    mon_data: !ruby/object:Monitor {}
-    mon_data_owner_object_id: 45380
-  level_override: {}
+:logger:
 :timeout:
 :return_raw: false
-:context_level: 5
+:context_length: 5
 :providers: {}
 :envar_api_key_names:
   :anthropic:
@@ -40,3 +24,12 @@
   :localai: !ruby/regexp /^local-/i
   :ollama: !ruby/regexp /(llama|nomic)/i
   :open_router: !ruby/regexp /\//
+:default_provider: :openai
+:default_model:
+  :anthropic: claude-3-5-sonnet-20240620
+  :openai: gpt-4o
+  :google: gemini-pro-1.5
+  :mistral: mistral-large
+  :localai: llama3.2
+  :ollama: llama3.2
+  :open_router: auto

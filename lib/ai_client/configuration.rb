@@ -152,7 +152,7 @@ class AiClient
     #
     def initialize_defaults
       @default_config = Config.new(
-        logger: Logger.new(STDOUT), # TODO: drop the logger as a default
+        logger: nil, # Logger.new(STDOUT),
         timeout: nil,
         return_raw: false,
         context_length: 5, # number of responses to add as context
@@ -172,6 +172,16 @@ class AiClient
           localai: /^local-/i,
           ollama: /(llama|nomic)/i,
           open_router: /\//
+        },
+        default_provider: :openai,
+        default_model: {
+          anthropic: 'claude-3-5-sonnet-20240620',
+          openai: 'gpt-4o',
+          google: 'gemini-pro-1.5',
+          mistral: 'mistral-large',
+          localai: 'llama3.2',
+          ollama: 'llama3.2',
+          open_router: 'auto'
         }
       )
 

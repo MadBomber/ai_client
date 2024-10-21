@@ -1,13 +1,16 @@
 ## [Unreleased]
 
-### [0.3.2] - 2024-10-19
+## Released
+
+### [0.4.0] - 2024-10-20
+- Removed Logger.new(STDOUT) from the default configuration
+  > config.logger now returns nil  If you want a class or instance logger setup, then you will have to do a config.logger = Logger.new(STDOUT) or whatever you need.
 - Adding basic @context for chat-bots
 - Added `context_length` to configuration as the number of responses to remember as context
+- Added a default model for each major provider; using "auto" for open_router.ai
+- Added a default provider (OpenAI)
+  > AiClient.new() will use the config.default_provider and that provider's default_model
 - Fixed problem with advanced block-based prompt construction for chat
-
-
-
-## Released
 
 ### [0.3.1] - 2024-10-19
 - updated the open_routed_extensions file
