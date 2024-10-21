@@ -43,7 +43,10 @@ class AiClient
     @last_response  = result
     result          = raw? ? result : content
 
-    @context.push(@last_messages)
+    @context  = @context.push({
+                  user: @last_messages,
+                  bot:  result
+                }).last(config.context_length)
 
     result
   end
@@ -54,19 +57,18 @@ class AiClient
   # @param prompt [String, Array<String>] the current prompt.
   # @return [String, Array<String>] the prompt with context added.
   #
-  def add_context(prompt)
-    return(prompt)  if  @config.context_length.nil? || 
-                        0 == @config.context_length ||
-                        prompt.is_a?(Array)         || 
-                        @context.empty?
+  def add_context(my_prompt)
+    return(my_prompt)   if  @config.context_length.nil? || 
+                            0 == @config.context_length ||
+                            my_prompt.is_a?(Array)      || 
+                            @context.empty?
 
-
-    prompt.prepend(@context.join("\n"))
-
-    # @context[..config.context_length].each do |result|
-    #   prompt << "You previously responded with:\n"
-    #   prompt << "#{raw? ? result.inspect : content(result)}"
-    # end
+    prompt = "\nUser: #{my_prompt} Bot: "
+    prompt.prepend(
+      @context.map{|entry|
+        "User: #{entry[:user]} Bot: #{entry[:bot]}"
+      }.join("\n")
+    )
 
     prompt
   end
