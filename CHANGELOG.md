@@ -1,9 +1,9 @@
 ## [Unreleased]
 
-### [0.4.1] - 2024-10-20
-- Chat context stinks!  Need to fix it.
-
 ## Released
+
+### [0.4.1] - 2024-10-21
+- fixed the context problem.  the chatbot method works now.
 
 ### [0.4.0] - 2024-10-20
 - Removed Logger.new(STDOUT) from the default configuration
