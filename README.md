@@ -630,7 +630,7 @@ Just for grins I added a `chatbot` instance method.  Try this out in IRB:
 
 ```ruby
 require 'ai_client'
-ai = AiClient,new
+ai = AiClient.new
 ai.chatbot
 ```
 
