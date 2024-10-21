@@ -2,11 +2,13 @@
 
 First and foremost a big **THANK YOU** to [Kevin Sylvestre](https://ksylvest.com/) for his gem [OmniAI](https://github.com/ksylvest/omniai) and [Olympia](https://olympia.chat/) for their [open_router gem](https://github.com/OlympiaAI/open_router) upon which this effort depends.
 
-Version 0.3.0 has a breaking change w/r/t how [Callback Functions (aka Tools)](#callback-functions-aka-tools) are defined and used.
+Version 0.4.0 has two changes which may break your existing application.
+1. The default configuration no longer has a Logger instance.  You will need to add your own instance to either the class or instance configuration using `AiClient.class_config.logger = YourLogger` and/or `client.config.logger = YourLogger`
+2. The `chat` method now keeps a context window.  The window length is defined by the configuration item `context_length`  If you do not want to maintain a context window, set the `context_length` configuration item to either nil or zero.
 
 See the  [change log](CHANGELOG.md) for recent modifications.
 
-You should also checkout the [raix gem](https://github.com/OlympiaAI/raix).  I like the way that Obie's API is setup for callback functions.  `raix-rails` is also available.
+You should also checkout the [raix gem](https://github.com/OlympiaAI/raix).  I like the way that Obie's API is setup for callback functions.  [raix-rails](https://github.com/OlympiaAI/raix-rails) is also available.
 
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
@@ -32,6 +34,7 @@ You should also checkout the [raix gem](https://github.com/OlympiaAI/raix).  I l
         - [3. Load Complete Configuration from a YAML File](#3-load-complete-configuration-from-a-yaml-file)
     - [Top-level Client Methods](#top-level-client-methods)
         - [chat](#chat)
+            - [Cpmtext](#cpmtext)
         - [embed](#embed)
         - [speak](#speak)
         - [transcribe](#transcribe)
@@ -112,7 +115,7 @@ AiClient.class_config.envar_api_key_bames = {
   google:       'your_envar_name',
   mistral:      'your_envar_name',
   open_router:  'your_envar_name',
-  opena:        'your_envar_name'
+  openai:       'your_envar_name'
 }
 
 AiClient.class_config.save('path/to/file.yml')
@@ -139,13 +142,49 @@ To explicitly designate a provider to use with an AiClient instance use the para
 Basic usage:
 
 ```ruby
-AI = AiClient.new('gpt-4o')
+require 'ai_client'
+ai = AiClient.new # use default model and provider
+ai.model    #=> 'gpt-4o' is the default
+ai.provider #=> :openai  is the default
+#
+# To change the class defaults:
+#
+AiClient.default_provider       = :anthropic
+AiClient.default_model[:openai] = 'gpt-4o-mini'
+#
+# To get an Array of models and providers
+#
+AiClient.models     # from open_router.ai
+AiClient.providers  # from open_router.ai
+#
+# To get details about a specific provider/model pair:
+#
+AiClient.model_details('openai/gpt-4o-mini')  # from open_router.ai
 ```
 
-That's it.  Just provide the model name that you want to use.  If you application is using more than one model, no worries, just create multiple AiClient instances.
+You can specify which model you want to use and `AiClient` will use the provider associated with that model.
+
 
 ```ruby
-c1 = AiClient.new('nomic-embeddings-text')
+AI = AiClient.new('gpt-4o-mini') # sets provider to :openai
+#
+# If you want to use the open_router.ai service instead of
+# going directly to OpenAI do it this way:
+#
+AI = AiClient.new('openai/gpt-4o-mini') # sets provider to :open_router
+```
+
+Of course you could specify both the model and the provider that you want to use:
+
+
+```ruby
+AI = AiClient.new('mistral', provider: :ollama)
+```
+
+That's it.  What could be simpler?  If your application is using more than one model, no worries, just create multiple `AiClient` instances.
+
+```ruby
+c1 = AiClient.new('nomic-embed-text')
 c2 = AiClient.new('gpt-4o-mini')
 ```
 
@@ -163,6 +202,53 @@ There are three levels of configuration, each inherenting from the level above. 
 #### Default Configuration
 
 The file [lib/ai_client/configuration.rb] hard codes the default configuration.  This is used to update the [lib/ai_client/config.yml] file during development.  If you have some changes for this configuration please send me a pull request so we can all benefit from your efforts.
+
+```ruby
+{
+                 :logger => nil,
+                :timeout => nil,
+             :return_raw => false,
+         :context_length => 5,
+              :providers => {},
+    :envar_api_key_names => {
+          :anthropic => [
+            "ANTHROPIC_API_KEY"
+        ],
+             :google => [
+            "GOOGLE_API_KEY"
+        ],
+            :mistral => [
+            "MISTRAL_API_KEY"
+        ],
+        :open_router => [
+            "OPEN_ROUTER_API_KEY",
+            "OPENROUTER_API_KEY"
+        ],
+             :openai => [
+            "OPENAI_API_KEY"
+        ]
+    },
+      :provider_patterns => {
+          :anthropic => /^claude/i,
+             :openai => /^(gpt|chatgpt|o1|davinci|curie|babbage|ada|whisper|tts|dall-e)/i,
+             :google => /^(gemini|gemma|palm)/i,
+            :mistral => /^(mistral|codestral|mixtral)/i,
+            :localai => /^local-/i,
+             :ollama => /(llama|nomic)/i,
+        :open_router => /\//
+    },
+       :default_provider => :openai,
+          :default_model => {
+          :anthropic => "claude-3-5-sonnet-20240620",
+             :openai => "gpt-4o",
+             :google => "gemini-pro-1.5",
+            :mistral => "mistral-large",
+            :localai => "llama3.2",
+             :ollama => "llama3.2",
+        :open_router => "auto"
+    }
+}
+```
 
 #### Class Configuration
 
@@ -243,6 +329,16 @@ The response will be a simple string or a response object based upon the setting
 
 See the [Advanced Prompts] section to learn how to configure a complex prompt message.
 
+####### Cpmtext
+
+**context_length**
+
+The `context_length` configuration item is used to keep the last "context_length" responses within the chat context window.  If you do not want to keep a context window, you should set the value of `config.context_length = 0`  When you do either at the class or instance level, the chat response will be provided without the LLM knowing any prior context.  If you are implementing a chat-bot, you will want it to have a context of the current conversation.
+
+```ruby
+AiClient.config.context_length #=> 5
+AiClient.config.context_length = 0  # Turns off the context window
+```
 
 ##### embed
 
@@ -258,7 +354,7 @@ Recommendation: Use PostgreSQL, pg_vector and the neighbor gem.
 ##### speak
 
 ```ruby
-res[pmse = AI.speak("Isn't it nice to have a computer that will talk to you?")
+response = AI.speak("Isn't it nice to have a computer that will talk to you?")
 ```
 
 The response will contain audio data that can be played, manipulated or saved to a file.
@@ -313,7 +409,7 @@ Note: The availability and exact names of these options may vary depending on th
 In more complex application providing a simple string as your prompt is not sufficient.  AiClient can take advantage of OmniAI's complex message builder.
 
 ```ruby
-client = AiClient.new 'some_model_bane'
+client = AiClient.new 'some_model_name'
 
 completion = client.chat do |prompt|
   prompt.system('You are an expert biologist with an expertise in animals.')

@@ -81,7 +81,6 @@ class AiClient
     end
 
 
-    private
 
     # Retrieves the ORC client instance.
     #
@@ -90,6 +89,10 @@ class AiClient
     def orc_client
       @orc_client ||= add_open_router_extensions || raise("OpenRouter extensions are not available")
     end
+
+
+    private
+
 
     # Retrieves models from the ORC client.
     #

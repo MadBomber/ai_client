@@ -16,112 +16,20 @@ class OpenRouterExtensionsTest < Minitest::Test
 
   def test_models_returns_array_of_strings    
     result = @ai_client.models
-    expected = [
-      "o1-mini-2024-09-12", 
-      "o1-mini", 
-      "o1-preview-2024-09-12", 
-      "o1-preview", 
-      "chatgpt-4o-latest", 
-      "gpt-4o-2024-08-06", 
-      "gpt-4o-mini-2024-07-18", 
-      "gpt-4o-mini", 
-      "gpt-4o-2024-05-13", 
-      "gpt-4o", 
-      "gpt-4o:extended", 
-      "gpt-4-turbo", 
-      "gpt-4-turbo-preview", 
-      "gpt-3.5-turbo-0613", 
-      "gpt-4-vision-preview", 
-      "gpt-4-1106-preview", 
-      "gpt-3.5-turbo-1106", 
-      "gpt-3.5-turbo-instruct", 
-      "gpt-4-32k-0314", 
-      "gpt-4-32k", 
-      "gpt-3.5-turbo-16k", 
-      "gpt-4-0314", 
-      "gpt-4", 
-      "gpt-3.5-turbo-0301", 
-      "gpt-3.5-turbo-0125", 
-      "gpt-3.5-turbo"
-    ].sort
-    assert_equal expected, result.sort
+    expected = ["chatgpt-4o-latest", "gpt-3.5-turbo", "gpt-3.5-turbo-0125", "gpt-3.5-turbo-0613", "gpt-3.5-turbo-1106", "gpt-3.5-turbo-16k", "gpt-3.5-turbo-instruct", "gpt-4", "gpt-4-0314", "gpt-4-1106-preview", "gpt-4-32k", "gpt-4-32k-0314", "gpt-4-turbo", "gpt-4-turbo-preview", "gpt-4-vision-preview", "gpt-4o", "gpt-4o-2024-05-13", "gpt-4o-2024-08-06", "gpt-4o-mini", "gpt-4o-mini-2024-07-18", "gpt-4o:extended", "o1-mini", "o1-mini-2024-09-12", "o1-preview", "o1-preview-2024-09-12"]
+    assert_equal expected.sort, result.sort
   end
 
   def test_providers_returns_array_of_symbols
     result = AiClient.providers
-    expected = [
-      :google, 
-      :liquid, 
-      :thedrummer, 
-      :"eva-unit-01", 
-      :"anthracite-org", 
-      :"meta-llama", 
-      :qwen, 
-      :neversleep, 
-      :openai, 
-      :mistralai, 
-      :cohere, 
-      :sao10k, 
-      :ai21, 
-      :microsoft, 
-      :nousresearch, 
-      :perplexity, 
-      :aetherwiing, 
-      :nothingiisreal, 
-      :alpindale, 
-      :anthropic, 
-      :cognitivecomputations, 
-      :deepseek, 
-      :databricks, 
-      :sophosympatheia, 
-      :gryphe, 
-      :openchat, 
-      :teknium, 
-      :lizpreciatior, 
-      :undi95, 
-      :openrouter, 
-      :jondurbin, 
-      :"xwin-lm", 
-      :pygmalionai, 
-      :huggingfaceh4, 
-      :mancer
-    ].sort
-
-    assert_equal expected, result.sort
+    expected = [:aetherwiing, :ai21, :alpindale, :"anthracite-org", :anthropic, :cognitivecomputations, :cohere, :databricks, :deepseek, :"eva-unit-01", :google, :gryphe, :huggingfaceh4, :inflection, :jondurbin, :liquid, :lizpreciatior, :mancer, :"meta-llama", :microsoft, :mistralai, :neversleep, :nothingiisreal, :nousresearch, :nvidia, :openai, :openchat, :openrouter, :perplexity, :pygmalionai, :qwen, :sao10k, :sophosympatheia, :teknium, :thedrummer, :undi95, :"x-ai", :"xwin-lm"]
+    assert_equal expected.sort, result.sort
   end
 
   def test_models_with_provider_filters_models
     result = AiClient.models(:openai)
-    expected = [
-      "o1-mini-2024-09-12", 
-      "o1-mini", 
-      "o1-preview-2024-09-12", 
-      "o1-preview", 
-      "chatgpt-4o-latest", 
-      "gpt-4o-2024-08-06", 
-      "gpt-4o-mini-2024-07-18", 
-      "gpt-4o-mini", 
-      "gpt-4o-2024-05-13", 
-      "gpt-4o", 
-      "gpt-4o:extended", 
-      "gpt-4-turbo", 
-      "gpt-4-turbo-preview", 
-      "gpt-3.5-turbo-0613", 
-      "gpt-4-vision-preview", 
-      "gpt-4-1106-preview", 
-      "gpt-3.5-turbo-1106", 
-      "gpt-3.5-turbo-instruct", 
-      "gpt-4-32k-0314", 
-      "gpt-4-32k", 
-      "gpt-3.5-turbo-16k", 
-      "gpt-4-0314", 
-      "gpt-4", 
-      "gpt-3.5-turbo-0301", 
-      "gpt-3.5-turbo-0125", 
-      "gpt-3.5-turbo"
-    ].sort
-
-    assert_equal expected, result.sort
+    expected = ["chatgpt-4o-latest", "gpt-3.5-turbo", "gpt-3.5-turbo-0125", "gpt-3.5-turbo-0613", "gpt-3.5-turbo-1106", "gpt-3.5-turbo-16k", "gpt-3.5-turbo-instruct", "gpt-4", "gpt-4-0314", "gpt-4-1106-preview", "gpt-4-32k", "gpt-4-32k-0314", "gpt-4-turbo", "gpt-4-turbo-preview", "gpt-4-vision-preview", "gpt-4o", "gpt-4o-2024-05-13", "gpt-4o-2024-08-06", "gpt-4o-mini", "gpt-4o-mini-2024-07-18", "gpt-4o:extended", "o1-mini", "o1-mini-2024-09-12", "o1-preview", "o1-preview-2024-09-12"]
+    assert_equal expected.sort, result.sort
   end
 
   def test_model_details_with_specific_model    
@@ -131,18 +39,8 @@ class OpenRouterExtensionsTest < Minitest::Test
 
   def test_models_returns_matching_models    
     result = AiClient.models('turbo')
-    expected = [
-      "gpt-4-turbo", 
-      "gpt-4-turbo-preview", 
-      "gpt-3.5-turbo-0613", 
-      "gpt-3.5-turbo-1106", 
-      "gpt-3.5-turbo-instruct", 
-      "gpt-3.5-turbo-16k", 
-      "gpt-3.5-turbo-0301", 
-      "gpt-3.5-turbo-0125", 
-      "gpt-3.5-turbo"
-    ].sort
-    assert_equal expected, result.sort
+    expected  = ["gpt-3.5-turbo", "gpt-3.5-turbo-0125", "gpt-3.5-turbo-0613", "gpt-3.5-turbo-1106", "gpt-3.5-turbo-16k", "gpt-3.5-turbo-instruct", "gpt-4-turbo", "gpt-4-turbo-preview"]
+    assert_equal expected.sort, result.sort
   end
 
   def test_add_open_router_extensions_without_access_token

@@ -1,4 +1,186 @@
 ---
+- :id: mistralai/ministral-8b
+  :name: Ministral 8B
+  :created: 1729123200
+  :description: Ministral 8B is an 8B parameter model featuring a unique interleaved
+    sliding-window attention pattern for faster, memory-efficient inference. Designed
+    for edge use cases, it supports up to 128k context length and excels in knowledge
+    and reasoning tasks. It outperforms peers in the sub-10B category, making it perfect
+    for low-latency, privacy-first applications.
+  :context_length: 128000
+  :architecture:
+    modality: text->text
+    tokenizer: Mistral
+    instruct_type:
+  :pricing:
+    prompt: '0.0000001'
+    completion: '0.0000001'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 128000
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+    prompt_tokens: '201951527'
+    completion_tokens: '201951527'
+- :id: mistralai/ministral-3b
+  :name: Ministral 3B
+  :created: 1729123200
+  :description: Ministral 3B is a 3B parameter model optimized for on-device and edge
+    computing. It excels in knowledge, commonsense reasoning, and function-calling,
+    outperforming larger models like Mistral 7B on most benchmarks. Supporting up
+    to 128k context length, it’s ideal for orchestrating agentic workflows and specialist
+    tasks with efficient inference.
+  :context_length: 128000
+  :architecture:
+    modality: text->text
+    tokenizer: Mistral
+    instruct_type:
+  :pricing:
+    prompt: '0.00000004'
+    completion: '0.00000004'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 128000
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+    prompt_tokens: '504878818'
+    completion_tokens: '504878818'
+- :id: qwen/qwen-2.5-7b-instruct
+  :name: Qwen2.5 7B Instruct
+  :created: 1729036800
+  :description: |-
+    Qwen2.5 7B is the latest series of Qwen large language models. Qwen2.5 brings the following improvements upon Qwen2:
+
+    - Significantly more knowledge and has greatly improved capabilities in coding and mathematics, thanks to our specialized expert models in these domains.
+
+    - Significant improvements in instruction following, generating long texts (over 8K tokens), understanding structured data (e.g, tables), and generating structured outputs especially JSON. More resilient to the diversity of system prompts, enhancing role-play implementation and condition-setting for chatbots.
+
+    - Long-context Support up to 128K tokens and can generate up to 8K tokens.
+
+    - Multilingual support for over 29 languages, including Chinese, English, French, Spanish, Portuguese, German, Italian, Russian, Japanese, Korean, Vietnamese, Thai, Arabic, and more.
+
+    Usage of this model is subject to [Tongyi Qianwen LICENSE AGREEMENT](https://huggingface.co/Qwen/Qwen1.5-110B-Chat/blob/main/LICENSE).
+  :context_length: 131072
+  :architecture:
+    modality: text->text
+    tokenizer: Qwen
+    instruct_type: chatml
+  :pricing:
+    prompt: '0.00000027'
+    completion: '0.00000027'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 32768
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+    prompt_tokens: '74796862'
+    completion_tokens: '74796862'
+- :id: nvidia/llama-3.1-nemotron-70b-instruct
+  :name: 'NVIDIA: Llama 3.1 Nemotron 70B Instruct'
+  :created: 1728950400
+  :description: |-
+    NVIDIA's Llama 3.1 Nemotron 70B is a language model designed for generating precise and useful responses. Leveraging [Llama 3.1 70B](/models/meta-llama/llama-3.1-70b-instruct) architecture and Reinforcement Learning from Human Feedback (RLHF), it excels in automatic alignment benchmarks. This model is tailored for applications requiring high accuracy in helpfulness and response generation, suitable for diverse user queries across multiple domains.
+
+    Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
+  :context_length: 131072
+  :architecture:
+    modality: text->text
+    tokenizer: Llama3
+    instruct_type: llama3
+  :pricing:
+    prompt: '0.00000035'
+    completion: '0.0000004'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 131072
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+    prompt_tokens: '57700436'
+    completion_tokens: '50487881'
+- :id: x-ai/grok-2
+  :name: 'xAI: Grok 2'
+  :created: 1728691200
+  :description: |-
+    Grok 2 is xAI's frontier language model with state-of-the-art reasoning capabilities, best for complex and multi-step use cases.
+
+    To use a faster version, see [Grok 2 Mini](/x-ai/grok-2-mini).
+
+    For more information, see the [launch announcement](https://x.ai/blog/grok-2).
+  :context_length: 32768
+  :architecture:
+    modality: text->text
+    tokenizer: Grok
+    instruct_type:
+  :pricing:
+    prompt: '0.000005'
+    completion: '0.00001'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 32768
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+    prompt_tokens: '4039030'
+    completion_tokens: '2019515'
+- :id: inflection/inflection-3-pi
+  :name: 'Inflection: Inflection 3 Pi'
+  :created: 1728604800
+  :description: |-
+    Inflection 3 Pi powers Inflection's [Pi](https://pi.ai) chatbot, including backstory, emotional intelligence, productivity, and safety. It has access to recent news, and excels in scenarios like customer support and roleplay.
+
+    Pi has been trained to mirror your tone and style, if you use more emojis, so will Pi! Try experimenting with various prompts and conversation styles.
+  :context_length: 8000
+  :architecture:
+    modality: text->text
+    tokenizer: Other
+    instruct_type:
+  :pricing:
+    prompt: '0.0000025'
+    completion: '0.00001'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 8000
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+    prompt_tokens: '8078061'
+    completion_tokens: '2019515'
+- :id: inflection/inflection-3-productivity
+  :name: 'Inflection: Inflection 3 Productivity'
+  :created: 1728604800
+  :description: |-
+    Inflection 3 Productivity is optimized for following instructions. It is better for tasks requiring JSON output or precise adherence to provided guidelines. It has access to recent news.
+
+    For emotional intelligence similar to Pi, see [Inflect 3 Pi](/inflection/inflection-3-pi)
+
+    See [Inflection's announcement](https://inflection.ai/blog/enterprise) for more details.
+  :context_length: 8000
+  :architecture:
+    modality: text->text
+    tokenizer: Other
+    instruct_type:
+  :pricing:
+    prompt: '0.0000025'
+    completion: '0.00001'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 8000
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+    prompt_tokens: '8078061'
+    completion_tokens: '2019515'
 - :id: google/gemini-flash-1.5-8b
   :name: 'Google: Gemini 1.5 Flash-8B'
   :created: 1727913600
@@ -23,8 +205,8 @@
     max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '538608446'
-    completion_tokens: '134652111'
+    prompt_tokens: '538537406'
+    completion_tokens: '134634351'
 - :id: liquid/lfm-40b
   :name: 'Liquid: LFM 40B MoE'
   :created: 1727654400
@@ -62,7 +244,7 @@
     See the [launch announcement](https://www.liquid.ai/liquid-foundation-models) for benchmarks and more info.
 
     _These are free, rate-limited endpoints for [LFM 40B MoE](/liquid/lfm-40b). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 32768
+  :context_length: 8192
   :architecture:
     modality: text->text
     tokenizer: Other
@@ -104,8 +286,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '80791266'
-    completion_tokens: '40395633'
+    prompt_tokens: '80780611'
+    completion_tokens: '40390305'
 - :id: eva-unit-01/eva-qwen-2.5-14b
   :name: EVA Qwen2.5 14B
   :created: 1727654400
@@ -128,8 +310,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '80791266'
-    completion_tokens: '40395633'
+    prompt_tokens: '80780611'
+    completion_tokens: '40390305'
 - :id: anthracite-org/magnum-v2-72b
   :name: Magnum v2 72B
   :created: 1727654400
@@ -152,8 +334,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '5386084'
-    completion_tokens: '4488403'
+    prompt_tokens: '5385374'
+    completion_tokens: '4487811'
 - :id: meta-llama/llama-3.2-3b-instruct:free
   :name: 'Meta: Llama 3.2 3B Instruct (free)'
   :created: 1727222400
@@ -167,7 +349,7 @@
     Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
 
     _These are free, rate-limited endpoints for [Llama 3.2 3B Instruct](/meta-llama/llama-3.2-3b-instruct). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 131072
+  :context_length: 4096
   :architecture:
     modality: text->text
     tokenizer: Llama3
@@ -210,8 +392,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '673260558'
-    completion_tokens: '403956334'
+    prompt_tokens: '673171758'
+    completion_tokens: '403903055'
 - :id: meta-llama/llama-3.2-1b-instruct:free
   :name: 'Meta: Llama 3.2 1B Instruct (free)'
   :created: 1727222400
@@ -225,7 +407,7 @@
     Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
 
     _These are free, rate-limited endpoints for [Llama 3.2 1B Instruct](/meta-llama/llama-3.2-1b-instruct). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 131072
+  :context_length: 4096
   :architecture:
     modality: text->text
     tokenizer: Llama3
@@ -268,8 +450,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '2019781674'
-    completion_tokens: '1009890837'
+    prompt_tokens: '2019515275'
+    completion_tokens: '1009757637'
 - :id: meta-llama/llama-3.2-90b-vision-instruct
   :name: 'Meta: Llama 3.2 90B Vision Instruct'
   :created: 1727222400
@@ -296,8 +478,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '57708047'
-    completion_tokens: '50494541'
+    prompt_tokens: '57700436'
+    completion_tokens: '50487881'
 - :id: meta-llama/llama-3.2-11b-vision-instruct:free
   :name: 'Meta: Llama 3.2 11B Vision Instruct (free)'
   :created: 1727222400
@@ -311,7 +493,7 @@
     Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
 
     _These are free, rate-limited endpoints for [Llama 3.2 11B Vision Instruct](/meta-llama/llama-3.2-11b-vision-instruct). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 131072
+  :context_length: 8192
   :architecture:
     modality: text+image->text
     tokenizer: Llama3
@@ -354,8 +536,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '367233031'
-    completion_tokens: '367233031'
+    prompt_tokens: '367184595'
+    completion_tokens: '367184595'
 - :id: qwen/qwen-2.5-72b-instruct
   :name: Qwen2.5 72B Instruct
   :created: 1726704000
@@ -373,7 +555,7 @@
     Usage of this model is subject to [Tongyi Qianwen LICENSE AGREEMENT](https://huggingface.co/Qwen/Qwen1.5-110B-Chat/blob/main/LICENSE).
   :context_length: 131072
   :architecture:
-    modality: text+image->text
+    modality: text->text
     tokenizer: Qwen
     instruct_type: chatml
   :pricing:
@@ -386,8 +568,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '57708047'
-    completion_tokens: '50494541'
+    prompt_tokens: '57700436'
+    completion_tokens: '50487881'
 - :id: qwen/qwen-2-vl-72b-instruct
   :name: Qwen2-VL 72B Instruct
   :created: 1726617600
@@ -420,8 +602,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '50494541'
-    completion_tokens: '50494541'
+    prompt_tokens: '50487881'
+    completion_tokens: '50487881'
 - :id: neversleep/llama-3.1-lumimaid-8b
   :name: Lumimaid v0.2 8B
   :created: 1726358400
@@ -444,8 +626,8 @@
     max_completion_tokens: 2048
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '107721689'
-    completion_tokens: '17953614'
+    prompt_tokens: '107707481'
+    completion_tokens: '17951246'
 - :id: openai/o1-mini-2024-09-12
   :name: 'OpenAI: o1-mini (2024-09-12)'
   :created: 1726099200
@@ -470,8 +652,8 @@
     max_completion_tokens: 65536
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '6732605'
-    completion_tokens: '1683151'
+    prompt_tokens: '6731717'
+    completion_tokens: '1682929'
 - :id: openai/o1-mini
   :name: 'OpenAI: o1-mini'
   :created: 1726099200
@@ -496,8 +678,8 @@
     max_completion_tokens: 65536
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '6732605'
-    completion_tokens: '1683151'
+    prompt_tokens: '6731717'
+    completion_tokens: '1682929'
 - :id: openai/o1-preview-2024-09-12
   :name: 'OpenAI: o1-preview (2024-09-12)'
   :created: 1726099200
@@ -522,8 +704,8 @@
     max_completion_tokens: 32768
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '1346521'
-    completion_tokens: '336630'
+    prompt_tokens: '1346343'
+    completion_tokens: '336585'
 - :id: openai/o1-preview
   :name: 'OpenAI: o1-preview'
   :created: 1726099200
@@ -548,8 +730,8 @@
     max_completion_tokens: 32768
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '1346521'
-    completion_tokens: '336630'
+    prompt_tokens: '1346343'
+    completion_tokens: '336585'
 - :id: mistralai/pixtral-12b
   :name: 'Mistral: Pixtral 12B'
   :created: 1725926400
@@ -570,8 +752,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '201978167'
-    completion_tokens: '201978167'
+    prompt_tokens: '201951527'
+    completion_tokens: '201951527'
 - :id: cohere/command-r-plus-08-2024
   :name: 'Cohere: Command R+ (08-2024)'
   :created: 1724976000
@@ -596,8 +778,8 @@
     max_completion_tokens: 4000
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '8504343'
-    completion_tokens: '2126085'
+    prompt_tokens: '8503222'
+    completion_tokens: '2125805'
 - :id: cohere/command-r-08-2024
   :name: 'Cohere: Command R (08-2024)'
   :created: 1724976000
@@ -622,8 +804,8 @@
     max_completion_tokens: 4000
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '141739064'
-    completion_tokens: '35434766'
+    prompt_tokens: '141720370'
+    completion_tokens: '35430092'
 - :id: qwen/qwen-2-vl-7b-instruct
   :name: Qwen2-VL 7B Instruct
   :created: 1724803200
@@ -656,8 +838,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '201978167'
-    completion_tokens: '201978167'
+    prompt_tokens: '201951527'
+    completion_tokens: '201951527'
 - :id: google/gemini-flash-1.5-8b-exp
   :name: 'Google: Gemini Flash 8B 1.5 Experimental'
   :created: 1724803200
@@ -706,8 +888,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '57708047'
-    completion_tokens: '50494541'
+    prompt_tokens: '57700436'
+    completion_tokens: '50487881'
 - :id: google/gemini-flash-1.5-exp
   :name: 'Google: Gemini Flash 1.5 Experimental'
   :created: 1724803200
@@ -762,8 +944,8 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '10098908'
-    completion_tokens: '2524727'
+    prompt_tokens: '10097576'
+    completion_tokens: '2524394'
 - :id: ai21/jamba-1-5-mini
   :name: 'AI21: Jamba 1.5 Mini'
   :created: 1724371200
@@ -790,8 +972,8 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '100989083'
-    completion_tokens: '50494541'
+    prompt_tokens: '100975763'
+    completion_tokens: '50487881'
 - :id: microsoft/phi-3.5-mini-128k-instruct
   :name: Phi-3.5 Mini 128K Instruct
   :created: 1724198400
@@ -814,8 +996,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '201978167'
-    completion_tokens: '201978167'
+    prompt_tokens: '201951527'
+    completion_tokens: '201951527'
 - :id: nousresearch/hermes-3-llama-3.1-70b
   :name: 'Nous: Hermes 3 70B Instruct'
   :created: 1723939200
@@ -840,8 +1022,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '50494541'
-    completion_tokens: '50494541'
+    prompt_tokens: '50487881'
+    completion_tokens: '50487881'
 - :id: nousresearch/hermes-3-llama-3.1-405b:free
   :name: 'Nous: Hermes 3 405B Instruct (free)'
   :created: 1723766400
@@ -855,7 +1037,7 @@
     Hermes 3 is competitive, if not superior, to Llama-3.1 Instruct models at general capabilities, with varying strengths and weaknesses attributable between the two.
 
     _These are free, rate-limited endpoints for [Hermes 3 405B Instruct](/nousresearch/hermes-3-llama-3.1-405b). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 131072
+  :context_length: 8192
   :architecture:
     modality: text->text
     tokenizer: Llama3
@@ -889,17 +1071,17 @@
     tokenizer: Llama3
     instruct_type: chatml
   :pricing:
-    prompt: '0.0000045'
-    completion: '0.0000045'
+    prompt: '0.00000179'
+    completion: '0.00000249'
     image: '0'
     request: '0'
   :top_provider:
-    context_length: 18000
+    context_length: 131072
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '4488403'
-    completion_tokens: '4488403'
+    prompt_tokens: '11282208'
+    completion_tokens: '8110503'
 - :id: nousresearch/hermes-3-llama-3.1-405b:extended
   :name: 'Nous: Hermes 3 405B Instruct (extended)'
   :created: 1723766400
@@ -928,8 +1110,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '4488403'
-    completion_tokens: '4488403'
+    prompt_tokens: '4487811'
+    completion_tokens: '4487811'
 - :id: perplexity/llama-3.1-sonar-huge-128k-online
   :name: 'Perplexity: Llama 3.1 Sonar 405B Online'
   :created: 1723593600
@@ -951,8 +1133,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '4039563'
-    completion_tokens: '4039563'
+    prompt_tokens: '4039030'
+    completion_tokens: '4039030'
 - :id: openai/chatgpt-4o-latest
   :name: 'OpenAI: ChatGPT-4o'
   :created: 1723593600
@@ -975,8 +1157,8 @@
     max_completion_tokens: 16384
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '4039563'
-    completion_tokens: '1346521'
+    prompt_tokens: '4039030'
+    completion_tokens: '1346343'
 - :id: sao10k/l3-lunaris-8b
   :name: Llama 3 8B Lunaris
   :created: 1723507200
@@ -1001,8 +1183,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '10098908'
-    completion_tokens: '10098908'
+    prompt_tokens: '10097576'
+    completion_tokens: '10097576'
 - :id: aetherwiing/mn-starcannon-12b
   :name: Mistral Nemo 12B Starcannon
   :created: 1723507200
@@ -1025,8 +1207,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '10098908'
-    completion_tokens: '10098908'
+    prompt_tokens: '10097576'
+    completion_tokens: '10097576'
 - :id: openai/gpt-4o-2024-08-06
   :name: 'OpenAI: GPT-4o (2024-08-06)'
   :created: 1722902400
@@ -1051,8 +1233,8 @@
     max_completion_tokens: 16384
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '8079126'
-    completion_tokens: '2019781'
+    prompt_tokens: '8078061'
+    completion_tokens: '2019515'
 - :id: meta-llama/llama-3.1-405b
   :name: 'Meta: Llama 3.1 405B (base)'
   :created: 1722556800
@@ -1077,8 +1259,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '10098908'
-    completion_tokens: '10098908'
+    prompt_tokens: '10097576'
+    completion_tokens: '10097576'
 - :id: nothingiisreal/mn-celeste-12b
   :name: Mistral Nemo 12B Celeste
   :created: 1722556800
@@ -1103,8 +1285,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '13465211'
-    completion_tokens: '13465211'
+    prompt_tokens: '13463435'
+    completion_tokens: '13463435'
 - :id: google/gemini-pro-1.5-exp
   :name: 'Google: Gemini Pro 1.5 Experimental'
   :created: 1722470400
@@ -1155,8 +1337,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '20197816'
+    prompt_tokens: '20195152'
+    completion_tokens: '20195152'
 - :id: perplexity/llama-3.1-sonar-large-128k-chat
   :name: 'Perplexity: Llama 3.1 Sonar 70B'
   :created: 1722470400
@@ -1179,8 +1361,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '20197816'
+    prompt_tokens: '20195152'
+    completion_tokens: '20195152'
 - :id: perplexity/llama-3.1-sonar-small-128k-online
   :name: 'Perplexity: Llama 3.1 Sonar 8B Online'
   :created: 1722470400
@@ -1203,8 +1385,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '100989083'
-    completion_tokens: '100989083'
+    prompt_tokens: '100975763'
+    completion_tokens: '100975763'
 - :id: perplexity/llama-3.1-sonar-small-128k-chat
   :name: 'Perplexity: Llama 3.1 Sonar 8B'
   :created: 1722470400
@@ -1227,8 +1409,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '100989083'
-    completion_tokens: '100989083'
+    prompt_tokens: '100975763'
+    completion_tokens: '100975763'
 - :id: meta-llama/llama-3.1-70b-instruct:free
   :name: 'Meta: Llama 3.1 70B Instruct (free)'
   :created: 1721692800
@@ -1240,7 +1422,7 @@
     Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
 
     _These are free, rate-limited endpoints for [Llama 3.1 70B Instruct](/meta-llama/llama-3.1-70b-instruct). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 131072
+  :context_length: 8192
   :architecture:
     modality: text->text
     tokenizer: Llama3
@@ -1272,17 +1454,17 @@
     tokenizer: Llama3
     instruct_type: llama3
   :pricing:
-    prompt: '0.0000003'
-    completion: '0.0000003'
+    prompt: '0.00000035'
+    completion: '0.0000004'
     image: '0'
     request: '0'
   :top_provider:
-    context_length: 131072
+    context_length: 100000
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '67326055'
-    completion_tokens: '67326055'
+    prompt_tokens: '57700436'
+    completion_tokens: '50487881'
 - :id: meta-llama/llama-3.1-8b-instruct:free
   :name: 'Meta: Llama 3.1 8B Instruct (free)'
   :created: 1721692800
@@ -1294,7 +1476,7 @@
     Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
 
     _These are free, rate-limited endpoints for [Llama 3.1 8B Instruct](/meta-llama/llama-3.1-8b-instruct). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 131072
+  :context_length: 8192
   :architecture:
     modality: text->text
     tokenizer: Llama3
@@ -1335,8 +1517,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '367233031'
-    completion_tokens: '367233031'
+    prompt_tokens: '367184595'
+    completion_tokens: '367184595'
 - :id: meta-llama/llama-3.1-405b-instruct:free
   :name: 'Meta: Llama 3.1 405B Instruct (free)'
   :created: 1721692800
@@ -1350,7 +1532,7 @@
     Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
 
     _These are free, rate-limited endpoints for [Llama 3.1 405B Instruct](/meta-llama/llama-3.1-405b-instruct). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 131072
+  :context_length: 8000
   :architecture:
     modality: text->text
     tokenizer: Llama3
@@ -1361,8 +1543,8 @@
     image: '0'
     request: '0'
   :top_provider:
-    context_length: 8192
-    max_completion_tokens: 4096
+    context_length: 8000
+    max_completion_tokens: 4000
     is_moderated: false
   :per_request_limits:
     prompt_tokens: Infinity
@@ -1393,8 +1575,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '11283696'
-    completion_tokens: '11283696'
+    prompt_tokens: '11282208'
+    completion_tokens: '11282208'
 - :id: mistralai/codestral-mamba
   :name: 'Mistral: Codestral Mamba'
   :created: 1721347200
@@ -1421,8 +1603,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '80791266'
-    completion_tokens: '80791266'
+    prompt_tokens: '80780611'
+    completion_tokens: '80780611'
 - :id: mistralai/mistral-nemo
   :name: 'Mistral: Mistral Nemo'
   :created: 1721347200
@@ -1447,8 +1629,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '155367821'
-    completion_tokens: '155367821'
+    prompt_tokens: '155347328'
+    completion_tokens: '155347328'
 - :id: openai/gpt-4o-mini-2024-07-18
   :name: 'OpenAI: GPT-4o-mini (2024-07-18)'
   :created: 1721260800
@@ -1475,8 +1657,8 @@
     max_completion_tokens: 16384
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '134652111'
-    completion_tokens: '33663027'
+    prompt_tokens: '134634351'
+    completion_tokens: '33658587'
 - :id: openai/gpt-4o-mini
   :name: 'OpenAI: GPT-4o-mini'
   :created: 1721260800
@@ -1503,8 +1685,8 @@
     max_completion_tokens: 16384
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '134652111'
-    completion_tokens: '33663027'
+    prompt_tokens: '134634351'
+    completion_tokens: '33658587'
 - :id: qwen/qwen-2-7b-instruct:free
   :name: Qwen 2 7B Instruct (free)
   :created: 1721088000
@@ -1518,7 +1700,7 @@
     Usage of this model is subject to [Tongyi Qianwen LICENSE AGREEMENT](https://huggingface.co/Qwen/Qwen1.5-110B-Chat/blob/main/LICENSE).
 
     _These are free, rate-limited endpoints for [Qwen 2 7B Instruct](/qwen/qwen-2-7b-instruct). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 32768
+  :context_length: 8192
   :architecture:
     modality: text->text
     tokenizer: Qwen
@@ -1561,8 +1743,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '374033643'
-    completion_tokens: '374033643'
+    prompt_tokens: '373984310'
+    completion_tokens: '373984310'
 - :id: google/gemma-2-27b-it
   :name: 'Google: Gemma 2 27B'
   :created: 1720828800
@@ -1587,8 +1769,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '74806728'
-    completion_tokens: '74806728'
+    prompt_tokens: '74796862'
+    completion_tokens: '74796862'
 - :id: alpindale/magnum-72b
   :name: Magnum 72B
   :created: 1720656000
@@ -1611,8 +1793,8 @@
     max_completion_tokens: 1024
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '5386084'
-    completion_tokens: '4488403'
+    prompt_tokens: '5385374'
+    completion_tokens: '4487811'
 - :id: nousresearch/hermes-2-theta-llama-3-8b
   :name: 'Nous: Hermes 2 Theta 8B'
   :created: 1720656000
@@ -1635,8 +1817,8 @@
     max_completion_tokens: 2048
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '107721689'
-    completion_tokens: '17953614'
+    prompt_tokens: '107707481'
+    completion_tokens: '17951246'
 - :id: google/gemma-2-9b-it:free
   :name: 'Google: Gemma 2 9B (free)'
   :created: 1719532800
@@ -1648,7 +1830,7 @@
     See the [launch announcement](https://blog.google/technology/developers/google-gemma-2/) for more details. Usage of Gemma is subject to Google's [Gemma Terms of Use](https://ai.google.dev/gemma/terms).
 
     _These are free, rate-limited endpoints for [Gemma 2 9B](/google/gemma-2-9b-it). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 8192
+  :context_length: 4096
   :architecture:
     modality: text->text
     tokenizer: Gemini
@@ -1689,8 +1871,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '336630279'
-    completion_tokens: '336630279'
+    prompt_tokens: '336585879'
+    completion_tokens: '336585879'
 - :id: ai21/jamba-instruct
   :name: 'AI21: Jamba Instruct'
   :created: 1719273600
@@ -1718,8 +1900,8 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '40395633'
-    completion_tokens: '28854023'
+    prompt_tokens: '40390305'
+    completion_tokens: '28850218'
 - :id: anthropic/claude-3.5-sonnet
   :name: 'Anthropic: Claude 3.5 Sonnet'
   :created: 1718841600
@@ -1747,8 +1929,8 @@
     max_completion_tokens: 8192
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '6732605'
-    completion_tokens: '1346521'
+    prompt_tokens: '6731717'
+    completion_tokens: '1346343'
 - :id: anthropic/claude-3.5-sonnet:beta
   :name: 'Anthropic: Claude 3.5 Sonnet (self-moderated)'
   :created: 1718841600
@@ -1778,8 +1960,8 @@
     max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '6732605'
-    completion_tokens: '1346521'
+    prompt_tokens: '6731717'
+    completion_tokens: '1346343'
 - :id: sao10k/l3-euryale-70b
   :name: Llama 3 Euryale 70B v2.1
   :created: 1718668800
@@ -1806,8 +1988,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '57708047'
-    completion_tokens: '50494541'
+    prompt_tokens: '57700436'
+    completion_tokens: '50487881'
 - :id: cognitivecomputations/dolphin-mixtral-8x22b
   :name: "Dolphin 2.9.2 Mixtral 8x22B \U0001F42C"
   :created: 1717804800
@@ -1834,8 +2016,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '22442018'
-    completion_tokens: '22442018'
+    prompt_tokens: '22439058'
+    completion_tokens: '22439058'
 - :id: qwen/qwen-2-72b-instruct
   :name: Qwen 2 72B Instruct
   :created: 1717718400
@@ -1862,8 +2044,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '59405343'
-    completion_tokens: '51789273'
+    prompt_tokens: '59397508'
+    completion_tokens: '51782442'
 - :id: nousresearch/hermes-2-pro-llama-3-8b
   :name: 'NousResearch: Hermes 2 Pro - Llama-3 8B'
   :created: 1716768000
@@ -1885,8 +2067,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '144270119'
-    completion_tokens: '144270119'
+    prompt_tokens: '144251091'
+    completion_tokens: '144251091'
 - :id: mistralai/mistral-7b-instruct-v0.3
   :name: 'Mistral: Mistral 7B Instruct v0.3'
   :created: 1716768000
@@ -1915,8 +2097,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '367233031'
-    completion_tokens: '367233031'
+    prompt_tokens: '367184595'
+    completion_tokens: '367184595'
 - :id: mistralai/mistral-7b-instruct:free
   :name: 'Mistral: Mistral 7B Instruct (free)'
   :created: 1716768000
@@ -1926,7 +2108,7 @@
     *Mistral 7B Instruct has multiple version variants, and this is intended to be the latest version.*
 
     _These are free, rate-limited endpoints for [Mistral 7B Instruct](/mistralai/mistral-7b-instruct). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 32768
+  :context_length: 8192
   :architecture:
     modality: text->text
     tokenizer: Mistral
@@ -1965,8 +2147,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '367233031'
-    completion_tokens: '367233031'
+    prompt_tokens: '367184595'
+    completion_tokens: '367184595'
 - :id: mistralai/mistral-7b-instruct:nitro
   :name: 'Mistral: Mistral 7B Instruct (nitro)'
   :created: 1716768000
@@ -1991,8 +2173,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '288540239'
-    completion_tokens: '288540239'
+    prompt_tokens: '288502182'
+    completion_tokens: '288502182'
 - :id: microsoft/phi-3-mini-128k-instruct:free
   :name: Phi-3 Mini 128K Instruct (free)
   :created: 1716681600
@@ -2002,7 +2184,7 @@
     At time of release, Phi-3 Medium demonstrated state-of-the-art performance among lightweight models. This model is static, trained on an offline dataset with an October 2023 cutoff date.
 
     _These are free, rate-limited endpoints for [Phi-3 Mini 128K Instruct](/microsoft/phi-3-mini-128k-instruct). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 128000
+  :context_length: 8192
   :architecture:
     modality: text->text
     tokenizer: Other
@@ -2041,8 +2223,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '201978167'
-    completion_tokens: '201978167'
+    prompt_tokens: '201951527'
+    completion_tokens: '201951527'
 - :id: microsoft/phi-3-medium-128k-instruct:free
   :name: Phi-3 Medium 128K Instruct (free)
   :created: 1716508800
@@ -2054,7 +2236,7 @@
     For 4k context length, try [Phi-3 Medium 4K](/microsoft/phi-3-medium-4k-instruct).
 
     _These are free, rate-limited endpoints for [Phi-3 Medium 128K Instruct](/microsoft/phi-3-medium-128k-instruct). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 128000
+  :context_length: 8192
   :architecture:
     modality: text->text
     tokenizer: Other
@@ -2095,8 +2277,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '20197816'
+    prompt_tokens: '20195152'
+    completion_tokens: '20195152'
 - :id: neversleep/llama-3-lumimaid-70b
   :name: Llama 3 Lumimaid 70B
   :created: 1715817600
@@ -2121,8 +2303,8 @@
     max_completion_tokens: 2048
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '5984538'
-    completion_tokens: '4488403'
+    prompt_tokens: '5983748'
+    completion_tokens: '4487811'
 - :id: google/gemini-flash-1.5
   :name: 'Google: Gemini Flash 1.5'
   :created: 1715644800
@@ -2149,8 +2331,8 @@
     max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '269304223'
-    completion_tokens: '67326055'
+    prompt_tokens: '269268703'
+    completion_tokens: '67317175'
 - :id: deepseek/deepseek-chat
   :name: DeepSeek V2.5
   :created: 1715644800
@@ -2177,8 +2359,8 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '144270119'
-    completion_tokens: '72135059'
+    prompt_tokens: '144251091'
+    completion_tokens: '72125545'
 - :id: perplexity/llama-3-sonar-large-32k-online
   :name: 'Perplexity: Llama3 Sonar 70B Online'
   :created: 1715644800
@@ -2201,8 +2383,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '20197816'
+    prompt_tokens: '20195152'
+    completion_tokens: '20195152'
 - :id: perplexity/llama-3-sonar-large-32k-chat
   :name: 'Perplexity: Llama3 Sonar 70B'
   :created: 1715644800
@@ -2225,32 +2407,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '20197816'
-- :id: perplexity/llama-3-sonar-small-32k-online
-  :name: 'Perplexity: Llama3 Sonar 8B Online'
-  :created: 1715644800
-  :description: |-
-    Llama3 Sonar is Perplexity's latest model family. It surpasses their earlier Sonar models in cost-efficiency, speed, and performance.
-
-    This is the online version of the [offline chat model](/perplexity/llama-3-sonar-small-32k-chat). It is focused on delivering helpful, up-to-date, and factual responses. #online
-  :context_length: 28000
-  :architecture:
-    modality: text->text
-    tokenizer: Llama3
-    instruct_type:
-  :pricing:
-    prompt: '0.0000002'
-    completion: '0.0000002'
-    image: '0'
-    request: '0.005'
-  :top_provider:
-    context_length: 28000
-    max_completion_tokens:
-    is_moderated: false
-  :per_request_limits:
-    prompt_tokens: '100989083'
-    completion_tokens: '100989083'
+    prompt_tokens: '20195152'
+    completion_tokens: '20195152'
 - :id: perplexity/llama-3-sonar-small-32k-chat
   :name: 'Perplexity: Llama3 Sonar 8B'
   :created: 1715644800
@@ -2273,8 +2431,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '100989083'
-    completion_tokens: '100989083'
+    prompt_tokens: '100975763'
+    completion_tokens: '100975763'
 - :id: meta-llama/llama-guard-2-8b
   :name: 'Meta: LlamaGuard 2 8B'
   :created: 1715558400
@@ -2303,8 +2461,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '112210093'
-    completion_tokens: '112210093'
+    prompt_tokens: '112195293'
+    completion_tokens: '112195293'
 - :id: openai/gpt-4o-2024-05-13
   :name: 'OpenAI: GPT-4o (2024-05-13)'
   :created: 1715558400
@@ -2327,8 +2485,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '4039563'
-    completion_tokens: '1346521'
+    prompt_tokens: '4039030'
+    completion_tokens: '1346343'
 - :id: openai/gpt-4o
   :name: 'OpenAI: GPT-4o'
   :created: 1715558400
@@ -2351,8 +2509,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '8079126'
-    completion_tokens: '2019781'
+    prompt_tokens: '8078061'
+    completion_tokens: '2019515'
 - :id: openai/gpt-4o:extended
   :name: 'OpenAI: GPT-4o (extended)'
   :created: 1715558400
@@ -2375,8 +2533,8 @@
     max_completion_tokens: 64000
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '3366302'
-    completion_tokens: '1122100'
+    prompt_tokens: '3365858'
+    completion_tokens: '1121952'
 - :id: qwen/qwen-72b-chat
   :name: Qwen 1.5 72B Chat
   :created: 1715212800
@@ -2405,8 +2563,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '24935576'
-    completion_tokens: '24935576'
+    prompt_tokens: '24932287'
+    completion_tokens: '24932287'
 - :id: qwen/qwen-110b-chat
   :name: Qwen 1.5 110B Chat
   :created: 1715212800
@@ -2435,8 +2593,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '12467788'
-    completion_tokens: '12467788'
+    prompt_tokens: '12466143'
+    completion_tokens: '12466143'
 - :id: neversleep/llama-3-lumimaid-8b
   :name: Llama 3 Lumimaid 8B
   :created: 1714780800
@@ -2461,8 +2619,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '107721689'
-    completion_tokens: '17953614'
+    prompt_tokens: '107707481'
+    completion_tokens: '17951246'
 - :id: neversleep/llama-3-lumimaid-8b:extended
   :name: Llama 3 Lumimaid 8B (extended)
   :created: 1714780800
@@ -2489,8 +2647,8 @@
     max_completion_tokens: 2048
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '107721689'
-    completion_tokens: '17953614'
+    prompt_tokens: '107707481'
+    completion_tokens: '17951246'
 - :id: sao10k/fimbulvetr-11b-v2
   :name: Fimbulvetr 11B v2
   :created: 1713657600
@@ -2513,8 +2671,8 @@
     max_completion_tokens: 2048
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '53860844'
-    completion_tokens: '13465211'
+    prompt_tokens: '53853740'
+    completion_tokens: '13463435'
 - :id: meta-llama/llama-3-70b-instruct
   :name: 'Meta: Llama 3 70B Instruct'
   :created: 1713398400
@@ -2539,8 +2697,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '57708047'
-    completion_tokens: '50494541'
+    prompt_tokens: '57700436'
+    completion_tokens: '50487881'
 - :id: meta-llama/llama-3-70b-instruct:nitro
   :name: 'Meta: Llama 3 70B Instruct (nitro)'
   :created: 1713398400
@@ -2567,8 +2725,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '25502293'
-    completion_tokens: '25502293'
+    prompt_tokens: '25498930'
+    completion_tokens: '25498930'
 - :id: meta-llama/llama-3-8b-instruct:free
   :name: 'Meta: Llama 3 8B Instruct (free)'
   :created: 1713398400
@@ -2621,8 +2779,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '367233031'
-    completion_tokens: '367233031'
+    prompt_tokens: '367184595'
+    completion_tokens: '367184595'
 - :id: meta-llama/llama-3-8b-instruct:nitro
   :name: 'Meta: Llama 3 8B Instruct (nitro)'
   :created: 1713398400
@@ -2649,8 +2807,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '124677881'
-    completion_tokens: '124677881'
+    prompt_tokens: '124661436'
+    completion_tokens: '124661436'
 - :id: meta-llama/llama-3-8b-instruct:extended
   :name: 'Meta: Llama 3 8B Instruct (extended)'
   :created: 1713398400
@@ -2677,8 +2835,8 @@
     max_completion_tokens: 2048
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '107721689'
-    completion_tokens: '17953614'
+    prompt_tokens: '107707481'
+    completion_tokens: '17951246'
 - :id: mistralai/mixtral-8x22b-instruct
   :name: 'Mistral: Mixtral 8x22B Instruct'
   :created: 1713312000
@@ -2705,8 +2863,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '22442018'
-    completion_tokens: '22442018'
+    prompt_tokens: '22439058'
+    completion_tokens: '22439058'
 - :id: microsoft/wizardlm-2-7b
   :name: WizardLM-2 7B
   :created: 1713225600
@@ -2733,8 +2891,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '367233031'
-    completion_tokens: '367233031'
+    prompt_tokens: '367184595'
+    completion_tokens: '367184595'
 - :id: microsoft/wizardlm-2-8x22b
   :name: WizardLM-2 8x22B
   :created: 1713225600
@@ -2761,8 +2919,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '40395633'
-    completion_tokens: '40395633'
+    prompt_tokens: '40390305'
+    completion_tokens: '40390305'
 - :id: google/gemini-pro-1.5
   :name: 'Google: Gemini Pro 1.5'
   :created: 1712620800
@@ -2791,15 +2949,15 @@
   :pricing:
     prompt: '0.00000125'
     completion: '0.000005'
-    image: '0.00263'
+    image: '0.0006575'
     request: '0'
   :top_provider:
     context_length: 2000000
     max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '16158253'
-    completion_tokens: '4039563'
+    prompt_tokens: '16156122'
+    completion_tokens: '4039030'
 - :id: openai/gpt-4-turbo
   :name: 'OpenAI: GPT-4 Turbo'
   :created: 1712620800
@@ -2822,8 +2980,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '2019781'
-    completion_tokens: '673260'
+    prompt_tokens: '2019515'
+    completion_tokens: '673171'
 - :id: cohere/command-r-plus
   :name: 'Cohere: Command R+'
   :created: 1712188800
@@ -2848,8 +3006,8 @@
     max_completion_tokens: 4000
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '7086953'
-    completion_tokens: '1417390'
+    prompt_tokens: '7086018'
+    completion_tokens: '1417203'
 - :id: cohere/command-r-plus-04-2024
   :name: 'Cohere: Command R+ (04-2024)'
   :created: 1712016000
@@ -2874,8 +3032,8 @@
     max_completion_tokens: 4000
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '7086953'
-    completion_tokens: '1417390'
+    prompt_tokens: '7086018'
+    completion_tokens: '1417203'
 - :id: databricks/dbrx-instruct
   :name: 'Databricks: DBRX 132B Instruct'
   :created: 1711670400
@@ -2902,8 +3060,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '18701682'
-    completion_tokens: '18701682'
+    prompt_tokens: '18699215'
+    completion_tokens: '18699215'
 - :id: sophosympatheia/midnight-rose-70b
   :name: Midnight Rose 70B
   :created: 1711065600
@@ -2926,8 +3084,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '25247270'
-    completion_tokens: '25247270'
+    prompt_tokens: '25243940'
+    completion_tokens: '25243940'
 - :id: cohere/command-r
   :name: 'Cohere: Command R'
   :created: 1710374400
@@ -2952,8 +3110,8 @@
     max_completion_tokens: 4000
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '42521719'
-    completion_tokens: '14173906'
+    prompt_tokens: '42516111'
+    completion_tokens: '14172037'
 - :id: cohere/command
   :name: 'Cohere: Command'
   :created: 1710374400
@@ -2976,8 +3134,8 @@
     max_completion_tokens: 4000
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '21260859'
-    completion_tokens: '10630429'
+    prompt_tokens: '21258055'
+    completion_tokens: '10629027'
 - :id: anthropic/claude-3-haiku
   :name: 'Anthropic: Claude 3 Haiku'
   :created: 1710288000
@@ -3003,8 +3161,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '80791266'
-    completion_tokens: '16158253'
+    prompt_tokens: '80780611'
+    completion_tokens: '16156122'
 - :id: anthropic/claude-3-haiku:beta
   :name: 'Anthropic: Claude 3 Haiku (self-moderated)'
   :created: 1710288000
@@ -3032,8 +3190,8 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '80791266'
-    completion_tokens: '16158253'
+    prompt_tokens: '80780611'
+    completion_tokens: '16156122'
 - :id: anthropic/claude-3-sonnet
   :name: 'Anthropic: Claude 3 Sonnet'
   :created: 1709596800
@@ -3058,8 +3216,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '6732605'
-    completion_tokens: '1346521'
+    prompt_tokens: '6731717'
+    completion_tokens: '1346343'
 - :id: anthropic/claude-3-sonnet:beta
   :name: 'Anthropic: Claude 3 Sonnet (self-moderated)'
   :created: 1709596800
@@ -3086,8 +3244,8 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '6732605'
-    completion_tokens: '1346521'
+    prompt_tokens: '6731717'
+    completion_tokens: '1346343'
 - :id: anthropic/claude-3-opus
   :name: 'Anthropic: Claude 3 Opus'
   :created: 1709596800
@@ -3112,8 +3270,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '1346521'
-    completion_tokens: '269304'
+    prompt_tokens: '1346343'
+    completion_tokens: '269268'
 - :id: anthropic/claude-3-opus:beta
   :name: 'Anthropic: Claude 3 Opus (self-moderated)'
   :created: 1709596800
@@ -3140,8 +3298,8 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '1346521'
-    completion_tokens: '269304'
+    prompt_tokens: '1346343'
+    completion_tokens: '269268'
 - :id: cohere/command-r-03-2024
   :name: 'Cohere: Command R (03-2024)'
   :created: 1709341200
@@ -3166,8 +3324,8 @@
     max_completion_tokens: 4000
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '42521719'
-    completion_tokens: '14173906'
+    prompt_tokens: '42516111'
+    completion_tokens: '14172037'
 - :id: mistralai/mistral-large
   :name: Mistral Large
   :created: 1708905600
@@ -3190,8 +3348,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '10098908'
-    completion_tokens: '3366302'
+    prompt_tokens: '10097576'
+    completion_tokens: '3365858'
 - :id: openai/gpt-4-turbo-preview
   :name: 'OpenAI: GPT-4 Turbo Preview'
   :created: 1706140800
@@ -3214,8 +3372,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '2019781'
-    completion_tokens: '673260'
+    prompt_tokens: '2019515'
+    completion_tokens: '673171'
 - :id: openai/gpt-3.5-turbo-0613
   :name: 'OpenAI: GPT-3.5 Turbo (older v0613)'
   :created: 1706140800
@@ -3238,8 +3396,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '10098908'
+    prompt_tokens: '20195152'
+    completion_tokens: '10097576'
 - :id: nousresearch/nous-hermes-2-mixtral-8x7b-dpo
   :name: 'Nous: Hermes 2 Mixtral 8x7B DPO'
   :created: 1705363200
@@ -3264,8 +3422,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '37403364'
-    completion_tokens: '37403364'
+    prompt_tokens: '37398431'
+    completion_tokens: '37398431'
 - :id: mistralai/mistral-medium
   :name: Mistral Medium
   :created: 1704844800
@@ -3287,8 +3445,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '7344660'
-    completion_tokens: '2493557'
+    prompt_tokens: '7343691'
+    completion_tokens: '2493228'
 - :id: mistralai/mistral-small
   :name: Mistral Small
   :created: 1704844800
@@ -3309,8 +3467,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '100989083'
-    completion_tokens: '33663027'
+    prompt_tokens: '100975763'
+    completion_tokens: '33658587'
 - :id: mistralai/mistral-tiny
   :name: Mistral Tiny
   :created: 1704844800
@@ -3333,32 +3491,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '80791266'
-    completion_tokens: '80791266'
-- :id: nousresearch/nous-hermes-yi-34b
-  :name: 'Nous: Hermes 2 Yi 34B'
-  :created: 1704153600
-  :description: |-
-    Nous Hermes 2 Yi 34B was trained on 1,000,000 entries of primarily GPT-4 generated data, as well as other high quality data from open datasets across the AI landscape.
-
-    Nous-Hermes 2 on Yi 34B outperforms all Nous-Hermes & Open-Hermes models of the past, achieving new heights in all benchmarks for a Nous Research LLM as well as surpassing many popular finetunes.
-  :context_length: 4096
-  :architecture:
-    modality: text->text
-    tokenizer: Yi
-    instruct_type: chatml
-  :pricing:
-    prompt: '0.00000072'
-    completion: '0.00000072'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 4096
-    max_completion_tokens:
-    is_moderated: false
-  :per_request_limits:
-    prompt_tokens: '28052523'
-    completion_tokens: '28052523'
+    prompt_tokens: '80780611'
+    completion_tokens: '80780611'
 - :id: mistralai/mistral-7b-instruct-v0.2
   :name: 'Mistral: Mistral 7B Instruct v0.2'
   :created: 1703721600
@@ -3385,8 +3519,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '112210093'
-    completion_tokens: '112210093'
+    prompt_tokens: '112195293'
+    completion_tokens: '112195293'
 - :id: cognitivecomputations/dolphin-mixtral-8x7b
   :name: "Dolphin 2.6 Mixtral 8x7B \U0001F42C"
   :created: 1703116800
@@ -3411,8 +3545,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '40395633'
-    completion_tokens: '40395633'
+    prompt_tokens: '40390305'
+    completion_tokens: '40390305'
 - :id: google/gemini-pro
   :name: 'Google: Gemini Pro 1.0'
   :created: 1702425600
@@ -3437,8 +3571,8 @@
     max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '40395633'
-    completion_tokens: '13465211'
+    prompt_tokens: '40390305'
+    completion_tokens: '13463435'
 - :id: google/gemini-pro-vision
   :name: 'Google: Gemini Pro Vision 1.0'
   :created: 1702425600
@@ -3465,8 +3599,8 @@
     max_completion_tokens: 2048
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '40395633'
-    completion_tokens: '13465211'
+    prompt_tokens: '40390305'
+    completion_tokens: '13463435'
 - :id: mistralai/mixtral-8x7b-instruct
   :name: Mixtral 8x7B Instruct
   :created: 1702166400
@@ -3489,8 +3623,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '84157569'
-    completion_tokens: '84157569'
+    prompt_tokens: '84146469'
+    completion_tokens: '84146469'
 - :id: mistralai/mixtral-8x7b-instruct:nitro
   :name: Mixtral 8x7B Instruct (nitro)
   :created: 1702166400
@@ -3515,8 +3649,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '37403364'
-    completion_tokens: '37403364'
+    prompt_tokens: '37398431'
+    completion_tokens: '37398431'
 - :id: mistralai/mixtral-8x7b
   :name: Mixtral 8x7B (base)
   :created: 1702166400
@@ -3539,8 +3673,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '37403364'
-    completion_tokens: '37403364'
+    prompt_tokens: '37398431'
+    completion_tokens: '37398431'
 - :id: gryphe/mythomist-7b:free
   :name: MythoMist 7B (free)
   :created: 1701907200
@@ -3552,7 +3686,7 @@
     #merge
 
     _These are free, rate-limited endpoints for [MythoMist 7B](/gryphe/mythomist-7b). Outputs may be cached. Read about rate limits [here](/docs/limits)._
-  :context_length: 32768
+  :context_length: 8192
   :architecture:
     modality: text->text
     tokenizer: Mistral
@@ -3593,8 +3727,8 @@
     max_completion_tokens: 2048
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '53860844'
-    completion_tokens: '53860844'
+    prompt_tokens: '53853740'
+    completion_tokens: '53853740'
 - :id: openchat/openchat-7b:free
   :name: OpenChat 3.5 7B (free)
   :created: 1701129600
@@ -3649,8 +3783,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '367233031'
-    completion_tokens: '367233031'
+    prompt_tokens: '367184595'
+    completion_tokens: '367184595'
 - :id: neversleep/noromaid-20b
   :name: Noromaid 20B
   :created: 1700956800
@@ -3673,8 +3807,8 @@
     max_completion_tokens: 2048
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '13465211'
-    completion_tokens: '8976807'
+    prompt_tokens: '13463435'
+    completion_tokens: '8975623'
 - :id: anthropic/claude-instant-1.1
   :name: 'Anthropic: Claude Instant v1.1'
   :created: 1700611200
@@ -3695,8 +3829,8 @@
     max_completion_tokens: 2048
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '25247270'
-    completion_tokens: '8415756'
+    prompt_tokens: '25243940'
+    completion_tokens: '8414646'
 - :id: anthropic/claude-2.1
   :name: 'Anthropic: Claude v2.1'
   :created: 1700611200
@@ -3718,8 +3852,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '2524727'
-    completion_tokens: '841575'
+    prompt_tokens: '2524394'
+    completion_tokens: '841464'
 - :id: anthropic/claude-2.1:beta
   :name: 'Anthropic: Claude v2.1 (self-moderated)'
   :created: 1700611200
@@ -3742,8 +3876,8 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '2524727'
-    completion_tokens: '841575'
+    prompt_tokens: '2524394'
+    completion_tokens: '841464'
 - :id: anthropic/claude-2
   :name: 'Anthropic: Claude v2'
   :created: 1700611200
@@ -3765,8 +3899,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '2524727'
-    completion_tokens: '841575'
+    prompt_tokens: '2524394'
+    completion_tokens: '841464'
 - :id: anthropic/claude-2:beta
   :name: 'Anthropic: Claude v2 (self-moderated)'
   :created: 1700611200
@@ -3789,8 +3923,8 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '2524727'
-    completion_tokens: '841575'
+    prompt_tokens: '2524394'
+    completion_tokens: '841464'
 - :id: teknium/openhermes-2.5-mistral-7b
   :name: OpenHermes 2.5 Mistral 7B
   :created: 1700438400
@@ -3812,8 +3946,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '118810686'
-    completion_tokens: '118810686'
+    prompt_tokens: '118795016'
+    completion_tokens: '118795016'
 - :id: openai/gpt-4-vision-preview
   :name: 'OpenAI: GPT-4 Vision'
   :created: 1699833600
@@ -3838,8 +3972,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '2019781'
-    completion_tokens: '673260'
+    prompt_tokens: '2019515'
+    completion_tokens: '673171'
 - :id: lizpreciatior/lzlv-70b-fp16-hf
   :name: lzlv 70B
   :created: 1699747200
@@ -3863,8 +3997,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '57708047'
-    completion_tokens: '50494541'
+    prompt_tokens: '57700436'
+    completion_tokens: '50487881'
 - :id: alpindale/goliath-120b
   :name: Goliath 120B
   :created: 1699574400
@@ -3891,8 +4025,8 @@
     max_completion_tokens: 400
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '2154433'
-    completion_tokens: '2154433'
+    prompt_tokens: '2154149'
+    completion_tokens: '2154149'
 - :id: undi95/toppy-m-7b:free
   :name: Toppy M 7B (free)
   :created: 1699574400
@@ -3953,8 +4087,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '288540239'
-    completion_tokens: '288540239'
+    prompt_tokens: '288502182'
+    completion_tokens: '288502182'
 - :id: undi95/toppy-m-7b:nitro
   :name: Toppy M 7B (nitro)
   :created: 1699574400
@@ -3985,8 +4119,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '288540239'
-    completion_tokens: '288540239'
+    prompt_tokens: '288502182'
+    completion_tokens: '288502182'
 - :id: openrouter/auto
   :name: Auto (best for prompt)
   :created: 1699401600
@@ -4031,8 +4165,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '2019781'
-    completion_tokens: '673260'
+    prompt_tokens: '2019515'
+    completion_tokens: '673171'
 - :id: openai/gpt-3.5-turbo-1106
   :name: 'OpenAI: GPT-3.5 Turbo 16k (older v1106)'
   :created: 1699228800
@@ -4054,8 +4188,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '10098908'
+    prompt_tokens: '20195152'
+    completion_tokens: '10097576'
 - :id: google/palm-2-codechat-bison-32k
   :name: 'Google: PaLM 2 Code Chat 32k'
   :created: 1698969600
@@ -4076,8 +4210,8 @@
     max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '10098908'
+    prompt_tokens: '20195152'
+    completion_tokens: '10097576'
 - :id: google/palm-2-chat-bison-32k
   :name: 'Google: PaLM 2 Chat 32k'
   :created: 1698969600
@@ -4098,8 +4232,8 @@
     max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '10098908'
+    prompt_tokens: '20195152'
+    completion_tokens: '10097576'
 - :id: jondurbin/airoboros-l2-70b
   :name: Airoboros 70B
   :created: 1698537600
@@ -4122,8 +4256,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '40395633'
-    completion_tokens: '40395633'
+    prompt_tokens: '40390305'
+    completion_tokens: '40390305'
 - :id: xwin-lm/xwin-lm-70b
   :name: Xwin 70B
   :created: 1697328000
@@ -4146,8 +4280,8 @@
     max_completion_tokens: 400
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '5386084'
-    completion_tokens: '5386084'
+    prompt_tokens: '5385374'
+    completion_tokens: '5385374'
 - :id: mistralai/mistral-7b-instruct-v0.1
   :name: 'Mistral: Mistral 7B Instruct v0.1'
   :created: 1695859200
@@ -4168,8 +4302,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '112210093'
-    completion_tokens: '112210093'
+    prompt_tokens: '112195293'
+    completion_tokens: '112195293'
 - :id: openai/gpt-3.5-turbo-instruct
   :name: 'OpenAI: GPT-3.5 Turbo Instruct'
   :created: 1695859200
@@ -4190,8 +4324,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '13465211'
-    completion_tokens: '10098908'
+    prompt_tokens: '13463435'
+    completion_tokens: '10097576'
 - :id: pygmalionai/mythalion-13b
   :name: 'Pygmalion: Mythalion 13B'
   :created: 1693612800
@@ -4211,8 +4345,8 @@
     max_completion_tokens: 400
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '17953614'
-    completion_tokens: '17953614'
+    prompt_tokens: '17951246'
+    completion_tokens: '17951246'
 - :id: openai/gpt-4-32k-0314
   :name: 'OpenAI: GPT-4 32k (older v0314)'
   :created: 1693180800
@@ -4236,8 +4370,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '336630'
-    completion_tokens: '168315'
+    prompt_tokens: '336585'
+    completion_tokens: '168292'
 - :id: openai/gpt-4-32k
   :name: 'OpenAI: GPT-4 32k'
   :created: 1693180800
@@ -4261,8 +4395,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '336630'
-    completion_tokens: '168315'
+    prompt_tokens: '336585'
+    completion_tokens: '168292'
 - :id: openai/gpt-3.5-turbo-16k
   :name: 'OpenAI: GPT-3.5 Turbo 16k'
   :created: 1693180800
@@ -4284,8 +4418,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '6732605'
-    completion_tokens: '5049454'
+    prompt_tokens: '6731717'
+    completion_tokens: '5048788'
 - :id: nousresearch/nous-hermes-llama2-13b
   :name: 'Nous: Hermes 13B'
   :created: 1692489600
@@ -4306,8 +4440,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '118810686'
-    completion_tokens: '118810686'
+    prompt_tokens: '118795016'
+    completion_tokens: '118795016'
 - :id: huggingfaceh4/zephyr-7b-beta:free
   :name: 'Hugging Face: Zephyr 7B (free)'
   :created: 1690934400
@@ -4352,8 +4486,8 @@
     max_completion_tokens: 1000
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '10772168'
-    completion_tokens: '8976807'
+    prompt_tokens: '10770748'
+    completion_tokens: '8975623'
 - :id: anthropic/claude-instant-1.0
   :name: 'Anthropic: Claude Instant v1.0'
   :created: 1690502400
@@ -4374,8 +4508,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '25247270'
-    completion_tokens: '8415756'
+    prompt_tokens: '25243940'
+    completion_tokens: '8414646'
 - :id: anthropic/claude-1.2
   :name: 'Anthropic: Claude v1.2'
   :created: 1690502400
@@ -4396,8 +4530,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '2524727'
-    completion_tokens: '841575'
+    prompt_tokens: '2524394'
+    completion_tokens: '841464'
 - :id: anthropic/claude-1
   :name: 'Anthropic: Claude v1'
   :created: 1690502400
@@ -4418,8 +4552,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '2524727'
-    completion_tokens: '841575'
+    prompt_tokens: '2524394'
+    completion_tokens: '841464'
 - :id: anthropic/claude-instant-1
   :name: 'Anthropic: Claude Instant v1'
   :created: 1690502400
@@ -4440,8 +4574,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '25247270'
-    completion_tokens: '8415756'
+    prompt_tokens: '25243940'
+    completion_tokens: '8414646'
 - :id: anthropic/claude-instant-1:beta
   :name: 'Anthropic: Claude Instant v1 (self-moderated)'
   :created: 1690502400
@@ -4464,8 +4598,8 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '25247270'
-    completion_tokens: '8415756'
+    prompt_tokens: '25243940'
+    completion_tokens: '8414646'
 - :id: anthropic/claude-2.0
   :name: 'Anthropic: Claude v2.0'
   :created: 1690502400
@@ -4486,8 +4620,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '2524727'
-    completion_tokens: '841575'
+    prompt_tokens: '2524394'
+    completion_tokens: '841464'
 - :id: anthropic/claude-2.0:beta
   :name: 'Anthropic: Claude v2.0 (self-moderated)'
   :created: 1690502400
@@ -4510,8 +4644,8 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '2524727'
-    completion_tokens: '841575'
+    prompt_tokens: '2524394'
+    completion_tokens: '841464'
 - :id: undi95/remm-slerp-l2-13b
   :name: ReMM SLERP 13B
   :created: 1689984000
@@ -4532,8 +4666,8 @@
     max_completion_tokens: 400
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '17953614'
-    completion_tokens: '17953614'
+    prompt_tokens: '17951246'
+    completion_tokens: '17951246'
 - :id: undi95/remm-slerp-l2-13b:extended
   :name: ReMM SLERP 13B (extended)
   :created: 1689984000
@@ -4556,8 +4690,8 @@
     max_completion_tokens: 400
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '17953614'
-    completion_tokens: '17953614'
+    prompt_tokens: '17951246'
+    completion_tokens: '17951246'
 - :id: google/palm-2-codechat-bison
   :name: 'Google: PaLM 2 Code Chat'
   :created: 1689811200
@@ -4578,8 +4712,8 @@
     max_completion_tokens: 1024
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '10098908'
+    prompt_tokens: '20195152'
+    completion_tokens: '10097576'
 - :id: google/palm-2-chat-bison
   :name: 'Google: PaLM 2 Chat'
   :created: 1689811200
@@ -4600,8 +4734,8 @@
     max_completion_tokens: 1024
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '10098908'
+    prompt_tokens: '20195152'
+    completion_tokens: '10097576'
 - :id: gryphe/mythomax-l2-13b:free
   :name: MythoMax 13B (free)
   :created: 1688256000
@@ -4646,8 +4780,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '201978167'
-    completion_tokens: '201978167'
+    prompt_tokens: '201951527'
+    completion_tokens: '201951527'
 - :id: gryphe/mythomax-l2-13b:nitro
   :name: MythoMax 13B (nitro)
   :created: 1688256000
@@ -4670,8 +4804,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '100989083'
-    completion_tokens: '100989083'
+    prompt_tokens: '100975763'
+    completion_tokens: '100975763'
 - :id: gryphe/mythomax-l2-13b:extended
   :name: MythoMax 13B (extended)
   :created: 1688256000
@@ -4694,8 +4828,8 @@
     max_completion_tokens: 400
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '17953614'
-    completion_tokens: '17953614'
+    prompt_tokens: '17951246'
+    completion_tokens: '17951246'
 - :id: meta-llama/llama-2-13b-chat
   :name: 'Meta: Llama v2 13B Chat'
   :created: 1687219200
@@ -4716,8 +4850,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-    prompt_tokens: '102009175'
-    completion_tokens: '102009175'
+    prompt_tokens: '101995720'
+    completion_tokens: '101995720'
 - :id: openai/gpt-4-0314
   :name: 'OpenAI: GPT-4 (older v0314)'
   :created: 1685232000
@@ -4739,8 +4873,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '673260'
-    completion_tokens: '336630'
+    prompt_tokens: '673171'
+    completion_tokens: '336585'
 - :id: openai/gpt-4
   :name: 'OpenAI: GPT-4'
   :created: 1685232000
@@ -4763,32 +4897,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '673260'
-    completion_tokens: '336630'
-- :id: openai/gpt-3.5-turbo-0301
-  :name: 'OpenAI: GPT-3.5 Turbo (older v0301)'
-  :created: 1685232000
-  :description: |-
-    GPT-3.5 Turbo is OpenAI's fastest model. It can understand and generate natural language or code, and is optimized for chat and traditional completion tasks.
-
-    Training data up to Sep 2021.
-  :context_length: 4095
-  :architecture:
-    modality: text->text
-    tokenizer: GPT
-    instruct_type:
-  :pricing:
-    prompt: '0.000001'
-    completion: '0.000002'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 4095
-    max_completion_tokens: 4096
-    is_moderated: true
-  :per_request_limits:
-    prompt_tokens: '20197816'
-    completion_tokens: '10098908'
+    prompt_tokens: '673171'
+    completion_tokens: '336585'
 - :id: openai/gpt-3.5-turbo-0125
   :name: 'OpenAI: GPT-3.5 Turbo 16k'
   :created: 1685232000
@@ -4811,8 +4921,8 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '40395633'
-    completion_tokens: '13465211'
+    prompt_tokens: '40390305'
+    completion_tokens: '13463435'
 - :id: openai/gpt-3.5-turbo
   :name: 'OpenAI: GPT-3.5 Turbo'
   :created: 1685232000
@@ -4835,5 +4945,5 @@
     max_completion_tokens: 4096
     is_moderated: true
   :per_request_limits:
-    prompt_tokens: '40395633'
-    completion_tokens: '13465211'
+    prompt_tokens: '40390305'
+    completion_tokens: '13463435'

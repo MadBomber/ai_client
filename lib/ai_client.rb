@@ -215,11 +215,6 @@ class AiClient
 
 
   def set_provider_and_model(my_model, my_provider)
-    debug_me{[
-      :my_model,
-      :my_provider
-    ]}
-
     if my_model.nil?
       if my_provider.nil?
         @provider = @config.default_provider.to_sym
@@ -255,12 +250,6 @@ class AiClient
   # @raise [ArgumentError] If the provider is unsupported.
   #
   def validate_provider(provider)
-    debug_me{[
-      :provider,
-      'provider.class'
-    ]}
-
-
     return nil if provider.nil?
 
     valid_providers = config.provider_patterns.keys

@@ -55,10 +55,11 @@ class AiClient
   # @return [String, Array<String>] the prompt with context added.
   #
   def add_context(prompt)
-    # TODO: figure out where to add the context in a
-    #       complex message.
-    return prompt if prompt.is_a? Array
-    return prompt if @context.empty?
+    return(prompt)  if  @config.context_length.nil? || 
+                        0 == @config.context_length ||
+                        prompt.is_a?(Array)         || 
+                        @context.empty?
+
 
     prompt << "\nUse the following context in crafting your response.\n"
 
