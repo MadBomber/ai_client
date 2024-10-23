@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+### [0.4.2] - 2024-
+- increasing test coverage
+- tweaking stuff
+
+
 ## Released
 
 ### [0.4.1] - 2024-10-21

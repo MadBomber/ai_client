@@ -9,6 +9,14 @@ end
 # Load the AI client configuration
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "ai_client"
+require "ai_client/retry_middleware"
+
+# A stuf for testing middleware
+module OmniAI
+  class RateLimitError < StandardError; end
+  class NetworkError < StandardError; end
+end
+
 
 require 'logger'
 require 'hashie'
@@ -29,7 +37,6 @@ Minitest::TestTask.create
 # Your tests will go here
 require 'minitest/autorun'
 require 'mocha/minitest'
-
 
 
 # After running tests, display the coverage report

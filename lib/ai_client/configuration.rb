@@ -166,7 +166,7 @@ class AiClient
         },
         provider_patterns: {
           anthropic: /^claude/i,
-          openai: /^(gpt|chatgpt|o1|davinci|curie|babbage|ada|whisper|tts|dall-e)/i,
+          openai: /^(gpt|chatgpt|o1|davinci|curie|babbage|ada|whisper|tts|dall-e|text-embedding)/i,
           google: /^(gemini|gemma|palm)/i,
           mistral: /^(mistral|codestral|mixtral)/i,
           localai: /^local-/i,

@@ -43,9 +43,25 @@ class AiClientFunctionTest < Minitest::Test
     assert_includes TestFunction.functions, :test_function
   end
 
-  def test_disable_function
+  def test_duplicate_function_registration
     TestFunction.disable
+    TestFunction.register
+    assert_equal 1, TestFunction.functions.count(:test_function)
+  end
+
+  def test_function_registration_with_invalid_details
+    invalid_function = Class.new(AiClient::Function) do
+      def self.details
+        { description: "Missing name" }
+      end
+    end
+
+    assert_raises(ArgumentError) { invalid_function.register }
+  end
+
+  def test_function_disable_when_not_registered
+    TestFunction.disable
+    TestFunction.disable  # Should not raise error
     refute_includes TestFunction.functions, :test_function
   end
 end
-

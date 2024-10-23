@@ -94,14 +94,11 @@ class AiClient
   end
 
 
-  def chatbot
-    prompt = "hello"
+  # Just an example ...
+  def chatbot(prompt='hello')
     until prompt.empty? do
       response = chat prompt
-      puts
-      puts content
-      puts
-      print "Follow Up: "
+      print "\n\n#{content}\n\nFollow Up: "
       prompt = gets.chomp
     end
   end
