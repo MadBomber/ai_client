@@ -1,51 +1,50 @@
 #!/usr/bin/env ruby
 # examples/text.rb
+#
+# This example demonstrates basic text chat functionality with different models
+# and providers. It shows both default (processed) and raw responses.
 
 require_relative 'common'
 
-
 ###################################
-## Working with Ollama
+## Basic Chat with Local Model
 
-# This is the default configuration which returns
-# text content from the client.
-#
+title "1. Basic Chat with Local Ollama Model"
+
+# Configure client to return processed text content
 AiClient.configure do |o|
   o.return_raw = false
 end
 
-title "Using Mistral model with Ollama locally"
-
+# Create client using local Ollama model
 ollama_client = AiClient.new('mistral', provider: :ollama)
 
-puts "\nModel: mistral  Provider: Ollama (local)"
+puts "\nSimple chat example:"
 result = ollama_client.chat('Hello, how are you?')
 puts result
 
-puts "\nRaw response:"
+puts "\nRaw response for inspection:"
 puts ollama_client.response.pretty_inspect
 puts
 
+###################################
+## Multi-Provider Example
 
+title "2. Chat Across Different Providers"
 
-###############################################################
-## Lets look an generic configurations based upon model name ##
-###############################################################
-
-models  = [
+# Example models from different providers
+models = [
   'gpt-3.5-turbo',        # OpenAI
   'claude-2.1',           # Anthropic
   'gemini-1.5-flash',     # Google
-  'mistral-large-latest', # Mistral - La Platform
+  'mistral-large-latest', # Mistral
 ]
-clients = []
 
-models.each do |model|
-  clients << AiClient.new(model)
-end
+# Create clients for each model
+clients = models.map { |model| AiClient.new(model) }
 
-
-title "Default Configuration Response to 'hello'"
+# Test with default configuration (processed responses)
+title "Default Configuration (Processed Text)"
 
 clients.each do |c|
   puts "\nModel: #{c.model}  Provider: #{c.provider}"
@@ -53,32 +52,31 @@ clients.each do |c|
     response = c.chat('hello')
     puts response
   rescue => e
-    puts e
+    puts "Error: #{e.message}"
   end
 end
 
 ###################################
+## Raw Response Example
 
+title "3. Raw Response Example"
+
+# Configure for raw responses
 AiClient.configure do |o|
   o.return_raw = true
 end
 
-raw_clients = []
+# Create new clients with raw configuration
+raw_clients = models.map { |model| AiClient.new(model) }
 
-models.each do |model|
-  raw_clients << AiClient.new(model)
-end
-
-puts
-title "Raw Configuration Response to 'hello'"
-
+puts "\nRaw Configuration Responses:"
 raw_clients.each do |c|
   puts "\nModel: #{c.model}  Provider: #{c.provider}"
   begin
     result = c.chat('hello')
     puts result.pretty_inspect
   rescue => e
-    puts e
+    puts "Error: #{e.message}"
   end
 end
 
