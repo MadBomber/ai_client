@@ -22,8 +22,10 @@ You should also checkout the [raix gem](https://github.com/OlympiaAI/raix).  I l
     - [api_key: Parameter](#api_key-parameter)
     - [provider: Parameter](#provider-parameter)
   - [Usage](#usage)
+    - [Basic Top-leve Methods](#basic-top-leve-methods)
+    - [Utility Methods](#utility-methods)
     - [Configuration](#configuration)
-      - [Default Configuration](#default-configuration)
+        - [Default Configuration](#default-configuration)
       - [Class Configuration](#class-configuration)
         - [1. Class Configuration Block](#1-class-configuration-block)
         - [2. Set by a Config File](#2-set-by-a-config-file)
@@ -67,15 +69,18 @@ You should also checkout the [raix gem](https://github.com/OlympiaAI/raix).  I l
 
 ## Summary
 
-Are you ready to supercharge your applications with cutting-edge AI capabilities? Introducing `ai_client`, the ultimate Ruby gem that provides a seamless interface for interacting with a multitude of AI service providers through a single, unified API.
+AiClient is a Ruby gem that simplifies integration with AI services by providing:
 
-With `ai_client`, you can effortlessly integrate large language models (LLMs) into your projects—simply specify the model name and let the gem handle the rest! Say goodbye to tedious configuration and hello to rapid development.
+- Unified interface across multiple LLM providers
+- Automatic provider detection from model names
+- Context management for chat conversations
+- Function calling (tools) support
+- Middleware for logging, retries, and customization
+- Batch processing for embeddings
+- Text-to-speech and transcription
+- Interactive chatbot mode
 
-This gem comes packed with built-in support for leading AI providers, including OpenAI, Anthropic, Google, Mistral, LocalAI, and Ollama. Whether you need to implement chatbots, transcription services, speech synthesis, or embeddings, `ai_client` abstracts the complexities of API interactions, allowing you to focus on what truly matters: building amazing applications.
-
-Plus, with its flexible middleware architecture, you can easily customize request and response processing—implement logging, retry logic, and more with minimal effort. And thanks to its seamless integration with the `OmniAI` framework, you can leverage the latest AI advancements without worrying about vendor lock-in.
-
-Join the growing community of developers who are transforming their applications with `ai_client`. Install it today and unlock the full potential of AI in your projects!
+The gem supports leading providers including OpenAI, Anthropic, Google, Mistral, LocalAI, and Ollama. Whether you're building a chatbot, implementing RAG, or need speech services, AiClient handles the complexity so you can focus on your application logic.
 
 ## Installation
 
@@ -140,7 +145,35 @@ To explicitly designate a provider to use with an AiClient instance use the para
 
 ## Usage
 
-Basic usage:
+### Basic Top-leve Methods
+
+```ruby
+require 'ai_client'
+
+# Simple chat with default model
+ai = AiClient.new
+response = ai.chat('Hello!')
+
+# Interactive chatbot mode
+ai.chatbot('Start conversation')
+
+# Batch embeddings
+texts = ['text1', 'text2', 'text3']
+embeddings = ai.batch_embed(texts)
+
+# Text-to-speech
+audio = ai.speak("Convert this to speech")
+
+# Transcription
+text = ai.transcribe("path/to/audio.mp3")
+
+# Function calling
+WeatherFunction.register
+response = ai.chat("What's the weather?", tools: ['weather'])
+```
+
+
+### Utility Methods
 
 ```ruby
 require 'ai_client'
@@ -167,19 +200,12 @@ You can specify which model you want to use and `AiClient` will use the provider
 
 
 ```ruby
-AI = AiClient.new('gpt-4o-mini') # sets provider to :openai
+ai = AiClient.new('gpt-4o-mini') # sets provider to :openai
 #
 # If you want to use the open_router.ai service instead of
 # going directly to OpenAI do it this way:
 #
-AI = AiClient.new('openai/gpt-4o-mini') # sets provider to :open_router
-```
-
-Of course you could specify both the model and the provider that you want to use:
-
-
-```ruby
-AI = AiClient.new('mistral', provider: :ollama)
+ai = AiClient.new('openai/gpt-4o-mini') # sets provider to :open_router
 ```
 
 That's it.  What could be simpler?  If your application is using more than one model, no worries, just create multiple `AiClient` instances.
@@ -193,14 +219,14 @@ You can also use the `provider:` parameter in the event that the model you want 
 
 
 ```ruby
-AI = AiClient.new('nomic-embed-text', provider: :ollama)
+ai = AiClient.new('nomic-embed-text', provider: :ollama)
 ```
 
 ### Configuration
 
 There are three levels of configuration, each inherenting from the level above. The following sections describe those configuration levels.
 
-#### Default Configuration
+##### Default Configuration
 
 The file [lib/ai_client/configuration.rb] hard codes the default configuration.  This is used to update the [lib/ai_client/config.yml] file during development.  If you have some changes for this configuration please send me a pull request so we can all benefit from your efforts.
 
@@ -554,9 +580,8 @@ AiClient.reset_llm_data
 
 ### AiClient::LLM Data Table
 
-The `AiClient::LLM` class serves as a central point for managing information about large language models (LLMs) available via the `open_router.ai` API service. The YAML file (`models.yml`) contains information about various LLMs and their providers. To update this information to the latest available, you must have an access API key for the `open_router.ai` service.
+AiClient makes use of the [active_hash](http://github.com/active-hash/active_hash) to provide an ActiveRecord-like capability within its AiClient::LLM class.  This class provides database-like access to the [models.yml](lib/ai_client/models.yml) YAML file.  Using the AiClient::LLM class you have access to details on the models maintained and available through the [open_router.ai](https://open_router.ai) service.  With an API key for OpenRouter you cab update your local copy of the `models.yml` file.
 
-`AiClient::LLM` is a subclass of `ActiveHash::Base`, enabling it to act like and interact with `ActiveRecord::Base` defined models. Each entry in this data store is uniquely identified by an `id` in the pattern "provider/model" all lowercase without spaces.
 
 ##### Key Features
 
