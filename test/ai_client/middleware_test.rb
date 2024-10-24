@@ -40,7 +40,7 @@ end
 
 class AiClient::MiddlewareTest < Minitest::Test
   def setup
-    @model = 'gpt-3.5-turbo'
+    @model = 'llama3.1'
 
     @middleware = AiClient::RetryMiddleware.new(
       max_retries: 2,

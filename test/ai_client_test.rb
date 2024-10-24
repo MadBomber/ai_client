@@ -3,32 +3,26 @@
 require_relative 'test_helper'
 
 class AiClientTest < Minitest::Test
-  # SMELL:  There are at least 3 unit tests that
-  #         failing randomly when the tests are run
-  #         run in a random order.  Changed the order
-  #         to normal in hopes that I can find
-  #         what data is being polluted between
-  #         the unit tests.
-  #
   def self.test_order
     :random
   end
 
-
-  # Override the run method to print the test name before executing it
   def self.run_one_method(klass, method_name, reporter)
-    # puts "  Running #{method_name}"
     super
   end
+
+  # Expected to run before each test case
 
 
   # Expected to run before each test case
   def setup
-    @model  = 'gpt-3.5-turbo'
+    @model  = 'llama3.1'
     @logger = Logger.new(STDOUT)
 
     AiClient.clear_middlewares
     @client = AiClient.new(@model, logger: @logger)
+    @client.config.timeout = 5  # Add timeout to prevent long-running tests
+    skip "Ollama server not available - run 'ollama serve'" unless ollama_available?
   end
 
 
@@ -38,7 +32,7 @@ class AiClientTest < Minitest::Test
 
 
   def test_initialize
-    assert_equal :openai, @client.provider
+    assert_equal :ollama, @client.provider
     assert_equal @logger, @client.logger
   end
 
@@ -55,19 +49,26 @@ class AiClientTest < Minitest::Test
   end
 
 
+  # Test chat functionality
   def test_chat
-    mock_client = mock()
-    mock_client.expects(:chat).returns(OpenStruct.new(data: {'choices' => [{'message' => {'content' => 'Generated text'}}]}))
-    @client.instance_variable_set(:@client, mock_client)
+    @client.config.context_length = 0
+    @client.clear_context
 
-    result = @client.chat([{role: 'user', content: 'Hello'}])
-    
-    assert_equal "Generated text", result
+    expected  = "Hello! How are you today? Is there something I can help you with or would you like to chat?"
+    result    = @client.chat('hello', temperature: 0.0)
+
+    refute_nil result
+    refute_empty result
+    assert_equal expected, result
   end
 
 
-
+  # Test transcribe functionality
   def test_transcribe
+    skip "Transcription not supported by Ollama"
+    # Keep original mock for non-Ollama features
+
+
     mock_client = mock()
     mock_client.expects(:transcribe).returns('Transcribed text')
     @client.instance_variable_set(:@client, mock_client)
@@ -78,6 +79,7 @@ class AiClientTest < Minitest::Test
 
 
   def test_speak
+    skip "Text-to-speech not supported by Ollama"
     mock_client = mock()
     mock_client.expects(:speak).returns('Generated audio')
     @client.instance_variable_set(:@client, mock_client)
@@ -88,22 +90,19 @@ class AiClientTest < Minitest::Test
 
 
   def test_embed
-    mock_client = mock()
-    mock_client.expects(:embed).returns([0.1, 0.2, 0.3])
-    @client.instance_variable_set(:@client, mock_client)
-
     result = @client.embed('Text to embed')
-    assert_equal [0.1, 0.2, 0.3], result
+
+    refute_nil      result
+    assert_kind_of  Array,  result.data['data'].first['embedding']
+    assert_equal    4096,   result.data['data'].first['embedding'].size
   end
 
 
+  # Test batch embed functionality
   def test_batch_embed
-    mock_client = mock()
-    mock_client.expects(:embed).twice.returns([0.1, 0.2, 0.3])
-    @client.instance_variable_set(:@client, mock_client)
-
     result = @client.batch_embed(['Text 1', 'Text 2'], batch_size: 1)
-    assert_equal [0.1, 0.2, 0.3, 0.1, 0.2, 0.3], result
+    assert_kind_of Array, result
+    refute_empty result
   end
 
 

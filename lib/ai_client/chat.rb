@@ -51,7 +51,6 @@ class AiClient
     result
   end
 
-
   # Adds context to the current prompt.
   #
   # @param prompt [String, Array<String>] the current prompt.
@@ -81,7 +80,6 @@ class AiClient
   def clear_context
     @context = []
   end
-
 
   # Chats with the client without middleware processing.
   #

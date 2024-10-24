@@ -15,44 +15,39 @@ end
 
 class ChatTest < Minitest::Test
   def setup
-    @model = 'gpt-3.5-turbo'
+    @model  = 'llama3.1'
     @client = AiClient.new(@model)
+    @client.config.timeout = 5  # Add timeout to prevent long-running tests
+    skip "Ollama server not available - run 'ollama serve'" unless ollama_available?
+  end
+
+  def ollama_available?
+    system('curl -s http://localhost:11434/api/tags >/dev/null')
   end
 
   def test_chat_with_context
-    mock_client = mock()
-    mock_client.expects(:chat).returns(OpenStruct.new(data: {'choices' => [{'message' => {'content' => 'Response 1'}}]}))
-    @client.instance_variable_set(:@client, mock_client)
-
     # First chat interaction
     result = @client.chat('Hello')
-    assert_equal 'Response 1', result
+    refute_nil result
+    refute_empty result
     
     # Verify context is stored
     context = @client.instance_variable_get(:@context)
     assert_equal 1, context.length
     assert_equal 'Hello', context.first[:user]
-    assert_equal 'Response 1', context.first[:bot]
+    refute_nil context.first[:bot]
   end
 
   def test_chat_with_tools
     TestChatFunction.register
 
-    mock_client = mock()
-    mock_client.expects(:chat).returns(OpenStruct.new(data: {'choices' => [{'message' => {'content' => 'Tool response'}}]}))
-    @client.instance_variable_set(:@client, mock_client)
-
     result = @client.chat('Use tool', tools: ['test_function'])
-    assert_equal 'Tool response', result
+    refute_nil result
 
     TestChatFunction.disable
   end
 
   def test_clear_context
-    mock_client = mock()
-    mock_client.expects(:chat).returns(OpenStruct.new(data: {'choices' => [{'message' => {'content' => 'Test'}}]}))
-    @client.instance_variable_set(:@client, mock_client)
-
     @client.chat('Add to context')
     assert_equal 1, @client.instance_variable_get(:@context).length
 
@@ -75,5 +70,31 @@ class ChatTest < Minitest::Test
     array_input = [{role: 'user', content: 'Test'}]
     result = @client.add_context(array_input)
     assert_equal array_input, result
+  end
+
+  def test_raw_response
+    @client.raw = true
+    result = @client.chat('Hi')  # Shorter message
+    assert result.respond_to?(:data), "Raw response should have data method"
+    assert_kind_of Hash, result.data
+  end
+
+  def test_context_length_limit
+    @client.config.context_length = 2
+    
+    @client.chat('Hi')  # Shorter messages
+    @client.chat('Hey')
+    @client.chat('Bye')
+    
+    context = @client.instance_variable_get(:@context)
+    assert_equal 2, context.length, "Context should be limited to 2 entries"
+    assert_equal 'Hey', context.first[:user]
+    assert_equal 'Bye', context.last[:user]
+  end
+
+  def test_chat_with_invalid_tools
+    assert_raises(RuntimeError) do
+      @client.chat('Test', tools: 'invalid')
+    end
   end
 end

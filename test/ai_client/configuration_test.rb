@@ -7,10 +7,11 @@ class AiClient::ConfigurationTest < Minitest::Test
     # Reset the class-level configuration before each test
     AiClient.class_config = AiClient.default_config.dup
     AiClient.class_config.merge!(logger: Logger.new(STDOUT))
+    skip "Ollama server not available - run 'ollama serve'" unless ollama_available?
   end
 
   def test_default_configuration
-    client = AiClient.new('gpt-3.5-turbo')
+    client = AiClient.new('llama3.1')
     assert_equal Logger, client.logger.class
     assert_nil client.timeout
     assert_equal false, client.raw?
@@ -24,7 +25,7 @@ class AiClient::ConfigurationTest < Minitest::Test
   end
 
   def test_indifferent_access_instance_config
-    client = AiClient.new('gpt-3.5-turbo')
+    client = AiClient.new('llama3.1')
 
     client.config.timeout = 10
     assert_equal 10, client.config.timeout
@@ -33,7 +34,7 @@ class AiClient::ConfigurationTest < Minitest::Test
   end
 
   def test_client_specific_configuration
-    client = AiClient.new('gpt-3.5-turbo') do |config|
+    client = AiClient.new('llama3.1') do |config|
       config.timeout    = 10
       config.return_raw = true
     end
@@ -43,7 +44,7 @@ class AiClient::ConfigurationTest < Minitest::Test
   end
 
   def test_multiple_clients_with_different_configurations
-    client1 = AiClient.new('gpt-3.5-turbo') do |config|
+    client1 = AiClient.new('llama3.1') do |config|
       config.return_raw = true
     end
 
@@ -61,12 +62,12 @@ class AiClient::ConfigurationTest < Minitest::Test
       config.timeout = 15
     end
 
-    client = AiClient.new('gpt-3.5-turbo')
+    client = AiClient.new('llama3.1')
     assert_equal 15, client.timeout
   end
 
   def test_independent_instance_modification
-    client = AiClient.new('gpt-3.5-turbo')
+    client = AiClient.new('llama3.1')
 
     # Modify the instance config 
     client.raw = true
@@ -81,7 +82,7 @@ class AiClient::ConfigurationTest < Minitest::Test
     assert_nil AiClient.class_config.timeout
 
     filepath = Pathname.new(__dir__) + 'config.yml'
-    client = AiClient.new('gpt-3.5-turbo', config: filepath)
+    client = AiClient.new('llama3.1', config: filepath)
 
     assert_equal 10, client.config.timeout
   end

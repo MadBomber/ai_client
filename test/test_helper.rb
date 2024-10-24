@@ -2,9 +2,16 @@
 
 # Start SimpleCov for code coverage
 require 'simplecov'
+
 SimpleCov.start do
   add_filter '/test/'
 end
+
+
+def ollama_available?
+  system('curl -s http://localhost:11434/api/tags >/dev/null')
+end
+
 
 # Load the AI client configuration
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
