@@ -288,9 +288,11 @@ class AiClient
       OmniAI::Mistral::Client.new(**client_options)
 
     when :ollama
+      # SMELL: what if ollama is not running on localhost?
       OmniAI::OpenAI::Client.new(host: 'http://localhost:11434', api_key: nil, **client_options)
 
     when :localai
+      # SMELL: what if localai is not running on localhost?
       OmniAI::OpenAI::Client.new(host: 'http://localhost:8080', api_key: nil, **client_options)
 
     when :open_router
@@ -322,6 +324,11 @@ class AiClient
   def determine_provider(model)
     return nil if model.nil? || model.empty?
 
+    # SMELL:  ollama has many open-source models.  Its hard to keep
+    #         the patterns updated; hgwever, ollama has an API
+    #         to list the currently installed models.
+    #         http://localhost:11434/api/tags
+    #
     config.provider_patterns.find { |provider, pattern| model.match?(pattern) }&.first ||
       raise(ArgumentError, "Unsupported model: #{model}")
   end

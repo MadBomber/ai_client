@@ -1,6 +1,12 @@
 ## [Unreleased]
 
-### [0.4.2] - 2024-
+### [0.4.3] - 2025-01-05
+- updated models.yml file with latest dump from open_router
+
+### [0.4.2] - 2025-01-05
+- updated models.yml file with latest dump from open_router
+- noted some SMELLS w/r/t ollama processing from a host that is not localhost
+- updzted test cases for new open_router model dump
 - increasing test coverage
 - tweaking stuff
 
