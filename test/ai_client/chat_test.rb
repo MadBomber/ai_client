@@ -14,15 +14,13 @@ class TestChatFunction < AiClient::Function
 end
 
 class ChatTest < Minitest::Test
+  include TestHelpers
+  
   def setup
     @model  = 'llama3.1'
     @client = AiClient.new(@model)
     @client.config.timeout = 5  # Add timeout to prevent long-running tests
     skip "Ollama server not available - run 'ollama serve'" unless ollama_available?
-  end
-
-  def ollama_available?
-    system('curl -s http://localhost:11434/api/tags >/dev/null')
   end
 
   def test_chat_with_context

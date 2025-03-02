@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby -W0
+# bin/list_ollama_models
+#
+# A command-line utility to list available models from an Ollama server.
+#
+# Usage:
+#   list_ollama_models [host_url]
+#
+# Examples:
+#   list_ollama_models
+#   list_ollama_models http://my-ollama-server:11434
+
+
+require_relative '../lib/ai_client'
+
+
+# Get host from command line argument or use default
+host = ARGV[0] || AiClient.ollama_host
+models = AiClient.ollama_available_models(host)
+
+puts "Available Ollama models from #{host}:"
+puts "--------------------------------------"
+
+if models.empty?
+  puts "No models found. Is Ollama server running?"
+else
+  # Find the longest model name for alignment
+  max_name_length = models.map { |m| m['name'].length }.max
+
+  # Print each model with its information
+  models.each do |model|
+    name = model['name'].ljust(max_name_length)
+    modified_at = model['modified_at']
+    size = model['size'] ? "(Size: #{(model['size'].to_f / (1024*1024*1024)).round(2)} GB)" : ""
+
+    puts "- #{name} | Last modified: #{modified_at} #{size}"
+  end
+
+  puts "\nTotal models: #{models.size}"
+end
+
+# Print usage information if requested
+if ARGV.include?('--help') || ARGV.include?('-h')
+  puts "\nUsage:"
+  puts "  list_ollama_models [host_url]"
+  puts "\nExamples:"
+  puts "  list_ollama_models"
+  puts "  list_ollama_models http://my-ollama-server:11434"
+end

@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+### [0.4.4] - 2025-03-02
+- Added ability to obtain a list of available models from an Ollama server.
+- Added `ollama_model_exists?` method to check if a specific model is available on an Ollama server.
+- Added command-line utility `bin/list_ollama_models` to display available Ollama models.
+- Added support for configuring custom Ollama hosts via the providers configuration.
+
 ### [0.4.3] - 2025-01-05
 - updated models.yml file with latest dump from open_router
 

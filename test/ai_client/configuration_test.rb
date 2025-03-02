@@ -3,6 +3,8 @@
 require_relative '../test_helper'
 
 class AiClient::ConfigurationTest < Minitest::Test
+  include TestHelpers
+  
   def setup
     # Reset the class-level configuration before each test
     AiClient.class_config = AiClient.default_config.dup
@@ -109,7 +111,5 @@ class AiClient::ConfigurationTest < Minitest::Test
 
     assert_equal AiClient::Config, my_config.class
     assert_equal [:timeout, :xyzzy, :fourty_two, :was_string], my_config.keys
-
-
   end
 end

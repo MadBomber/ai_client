@@ -9,6 +9,7 @@ rescue LoadError => error
   puts error.message
 end
 
+# Register the rake tasks
 Tocer::Rake::Register.call
 
 Minitest::TestTask.create

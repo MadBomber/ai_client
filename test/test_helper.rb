@@ -7,18 +7,19 @@ SimpleCov.start do
   add_filter '/test/'
 end
 
-
-def ollama_available?
-  system('curl -s http://localhost:11434/api/tags >/dev/null')
+# Make ollama_available? method available to all tests
+module TestHelpers
+  def ollama_available?
+    system('curl -s http://localhost:11434/api/tags >/dev/null 2>&1')
+  end
 end
-
 
 # Load the AI client configuration
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "ai_client"
 require "ai_client/retry_middleware"
 
-# A stuf for testing middleware
+# A stub for testing middleware
 module OmniAI
   class RateLimitError < StandardError; end
   class NetworkError < StandardError; end
@@ -31,14 +32,7 @@ require 'ostruct'
 require "bundler/gem_tasks"
 require "minitest/test_task"
 
-begin
-  require "tocer/rake/register"
-rescue LoadError => error
-  puts error.message
-end
-
 # Register the rake tasks
-Tocer::Rake::Register.call
 Minitest::TestTask.create
 
 # Your tests will go here

@@ -156,13 +156,22 @@ class AiClient
         timeout: nil,
         return_raw: false,
         context_length: 5, # number of responses to add as context
-        providers: {},
+        providers: {
+          ollama: {
+            host: 'http://localhost:11434'
+          },
+          localai: {
+            host: 'http://localhost:8080'
+          }
+        },
         envar_api_key_names: {
           anthropic: ['ANTHROPIC_API_KEY'],
           google: ['GOOGLE_API_KEY'],
           mistral: ['MISTRAL_API_KEY'],
+          ollama: ['OLLAMA_API_KEY'],
           open_router: ['OPEN_ROUTER_API_KEY', 'OPENROUTER_API_KEY'],
-          openai: ['OPENAI_API_KEY']
+          openai: ['OPENAI_API_KEY'],
+          xai: ['XAI_API_KEY'],
         },
         provider_patterns: {
           anthropic: /^claude/i,
@@ -177,10 +186,10 @@ class AiClient
         default_model: {
           anthropic: 'claude-3-5-sonnet-20240620',
           openai: 'gpt-4o',
-          google: 'gemini-pro-1.5',
+          google: 'gemini-2.0-flash',
           mistral: 'mistral-large',
-          localai: 'llama3.2',
-          ollama: 'llama3.2',
+          localai: 'llama3.3',
+          ollama: 'llama3.3',
           open_router: 'auto'
         }
       )

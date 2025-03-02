@@ -1,5 +1,375 @@
 ---
-- :id: qwen/qwen-turbo-2024-11-01
+- :id: perplexity/r1-1776
+  :name: 'Perplexity: R1 1776'
+  :created: 1740004929
+  :description: |-
+    Note: As this model does not return <think> tags, thoughts will be streamed by default directly to the `content` field.
+
+    R1 1776 is a version of DeepSeek-R1 that has been post-trained to remove censorship constraints related to topics restricted by the Chinese government. The model retains its original reasoning capabilities while providing direct responses to a wider range of queries. R1 1776 is an offline chat model that does not use the perplexity search subsystem.
+
+    The model was tested on a multilingual dataset of over 1,000 examples covering sensitive topics to measure its likelihood of refusal or overly filtered responses. [Evaluation Results](https://cdn-uploads.huggingface.co/production/uploads/675c8332d01f593dc90817f5/GiN2VqC5hawUgAGJ6oHla.png) Its performance on math and reasoning benchmarks remains similar to the base R1 model. [Reasoning Performance](https://cdn-uploads.huggingface.co/production/uploads/675c8332d01f593dc90817f5/n4Z9Byqp2S7sKUvCvI40R.png)
+
+    Read more on the [Blog Post](https://perplexity.ai/hub/blog/open-sourcing-r1-1776)
+  :context_length: 128000
+  :architecture:
+    modality: text->text
+    tokenizer: DeepSeek
+    instruct_type:
+  :pricing:
+    prompt: '0.000002'
+    completion: '0.000008'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 128000
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+- :id: mistralai/mistral-saba
+  :name: 'Mistral: Saba'
+  :created: 1739803239
+  :description: Mistral Saba is a 24B-parameter language model specifically designed
+    for the Middle East and South Asia, delivering accurate and contextually relevant
+    responses while maintaining efficient performance. Trained on curated regional
+    datasets, it supports multiple Indian-origin languages—including Tamil and Malayalam—alongside
+    Arabic. This makes it a versatile option for a range of regional and multilingual
+    applications. Read more at the blog post [here](https://mistral.ai/en/news/mistral-saba)
+  :context_length: 32000
+  :architecture:
+    modality: text->text
+    tokenizer: Mistral
+    instruct_type:
+  :pricing:
+    prompt: '0.0000002'
+    completion: '0.0000006'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 32000
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+- :id: cognitivecomputations/dolphin3.0-r1-mistral-24b:free
+  :name: Dolphin3.0 R1 Mistral 24B (free)
+  :created: 1739462498
+  :description: |-
+    Dolphin 3.0 R1 is the next generation of the Dolphin series of instruct-tuned models.  Designed to be the ultimate general purpose local model, enabling coding, math, agentic, function calling, and general use cases.
+
+    The R1 version has been trained for 3 epochs to reason using 800k reasoning traces from the Dolphin-R1 dataset.
+
+    Dolphin aims to be a general purpose reasoning instruct model, similar to the models behind ChatGPT, Claude, Gemini.
+
+    Part of the [Dolphin 3.0 Collection](https://huggingface.co/collections/cognitivecomputations/dolphin-30-677ab47f73d7ff66743979a3) Curated and trained by [Eric Hartford](https://huggingface.co/ehartford), [Ben Gitter](https://huggingface.co/bigstorm), [BlouseJury](https://huggingface.co/BlouseJury) and [Cognitive Computations](https://huggingface.co/cognitivecomputations)
+  :context_length: 32768
+  :architecture:
+    modality: text->text
+    tokenizer: Other
+    instruct_type:
+  :pricing:
+    prompt: '0'
+    completion: '0'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 32768
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+- :id: cognitivecomputations/dolphin3.0-mistral-24b:free
+  :name: Dolphin3.0 Mistral 24B (free)
+  :created: 1739462019
+  :description: "Dolphin 3.0 is the next generation of the Dolphin series of instruct-tuned
+    models.  Designed to be the ultimate general purpose local model, enabling coding,
+    math, agentic, function calling, and general use cases.\n\nDolphin aims to be
+    a general purpose instruct model, similar to the models behind ChatGPT, Claude,
+    Gemini. \n\nPart of the [Dolphin 3.0 Collection](https://huggingface.co/collections/cognitivecomputations/dolphin-30-677ab47f73d7ff66743979a3)
+    Curated and trained by [Eric Hartford](https://huggingface.co/ehartford), [Ben
+    Gitter](https://huggingface.co/bigstorm), [BlouseJury](https://huggingface.co/BlouseJury)
+    and [Cognitive Computations](https://huggingface.co/cognitivecomputations)"
+  :context_length: 32768
+  :architecture:
+    modality: text->text
+    tokenizer: Other
+    instruct_type:
+  :pricing:
+    prompt: '0'
+    completion: '0'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 32768
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+- :id: meta-llama/llama-guard-3-8b
+  :name: Llama Guard 3 8B
+  :created: 1739401318
+  :description: |
+    Llama Guard 3 is a Llama-3.1-8B pretrained model, fine-tuned for content safety classification. Similar to previous versions, it can be used to classify content in both LLM inputs (prompt classification) and in LLM responses (response classification). It acts as an LLM – it generates text in its output that indicates whether a given prompt or response is safe or unsafe, and if unsafe, it also lists the content categories violated.
+
+    Llama Guard 3 was aligned to safeguard against the MLCommons standardized hazards taxonomy and designed to support Llama 3.1 capabilities. Specifically, it provides content moderation in 8 languages, and was optimized to support safety and security for search and code interpreter tool calls.
+  :context_length: 16384
+  :architecture:
+    modality: text->text
+    tokenizer: Llama3
+    instruct_type: none
+  :pricing:
+    prompt: '0.0000003'
+    completion: '0.0000003'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 16384
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+- :id: openai/o3-mini-high
+  :name: 'OpenAI: o3 Mini High'
+  :created: 1739372611
+  :description: "OpenAI o3-mini-high is the same model as [o3-mini](/openai/o3-mini)
+    with reasoning_effort set to high. \n\no3-mini is a cost-efficient language model
+    optimized for STEM reasoning tasks, particularly excelling in science, mathematics,
+    and coding. The model features three adjustable reasoning effort levels and supports
+    key developer capabilities including function calling, structured outputs, and
+    streaming, though it does not include vision processing capabilities.\n\nThe model
+    demonstrates significant improvements over its predecessor, with expert testers
+    preferring its responses 56% of the time and noting a 39% reduction in major errors
+    on complex questions. With medium reasoning effort settings, o3-mini matches the
+    performance of the larger o1 model on challenging reasoning evaluations like AIME
+    and GPQA, while maintaining lower latency and cost."
+  :context_length: 200000
+  :architecture:
+    modality: text->text
+    tokenizer: Other
+    instruct_type:
+  :pricing:
+    prompt: '0.0000011'
+    completion: '0.0000044'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 200000
+    max_completion_tokens: 100000
+    is_moderated: true
+  :per_request_limits:
+- :id: allenai/llama-3.1-tulu-3-405b
+  :name: Llama 3.1 Tulu 3 405B
+  :created: 1739053421
+  :description: Tülu 3 405B is the largest model in the Tülu 3 family, applying fully
+    open post-training recipes at a 405B parameter scale. Built on the Llama 3.1 405B
+    base, it leverages Reinforcement Learning with Verifiable Rewards (RLVR) to enhance
+    instruction following, MATH, GSM8K, and IFEval performance. As part of Tülu 3’s
+    fully open-source approach, it offers state-of-the-art capabilities while surpassing
+    prior open-weight models like Llama 3.1 405B Instruct and Nous Hermes 3 405B on
+    multiple benchmarks. To read more, [click here.](https://allenai.org/blog/tulu-3-405B)
+  :context_length: 16000
+  :architecture:
+    modality: text->text
+    tokenizer: Other
+    instruct_type:
+  :pricing:
+    prompt: '0.000005'
+    completion: '0.00001'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 16000
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+- :id: deepseek/deepseek-r1-distill-llama-8b
+  :name: 'DeepSeek: R1 Distill Llama 8B'
+  :created: 1738937718
+  :description: "DeepSeek R1 Distill Llama 8B is a distilled large language model
+    based on [Llama-3.1-8B-Instruct](/meta-llama/llama-3.1-8b-instruct), using outputs
+    from [DeepSeek R1](/deepseek/deepseek-r1). The model combines advanced distillation
+    techniques to achieve high performance across multiple benchmarks, including:\n\n-
+    AIME 2024 pass@1: 50.4\n- MATH-500 pass@1: 89.1\n- CodeForces Rating: 1205\n\nThe
+    model leverages fine-tuning from DeepSeek R1's outputs, enabling competitive performance
+    comparable to larger frontier models.\n\nHugging Face: \n- [Llama-3.1-8B](https://huggingface.co/meta-llama/Llama-3.1-8B)
+    \n- [DeepSeek-R1-Distill-Llama-8B](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-8B)
+    \  |"
+  :context_length: 32000
+  :architecture:
+    modality: text->text
+    tokenizer: Llama3
+    instruct_type:
+  :pricing:
+    prompt: '0.00000004'
+    completion: '0.00000004'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 32000
+    max_completion_tokens: 32000
+    is_moderated: false
+  :per_request_limits:
+- :id: google/gemini-2.0-flash-001
+  :name: 'Google: Gemini Flash 2.0'
+  :created: 1738769413
+  :description: Gemini Flash 2.0 offers a significantly faster time to first token
+    (TTFT) compared to [Gemini Flash 1.5](/google/gemini-flash-1.5), while maintaining
+    quality on par with larger models like [Gemini Pro 1.5](/google/gemini-pro-1.5).
+    It introduces notable enhancements in multimodal understanding, coding capabilities,
+    complex instruction following, and function calling. These advancements come together
+    to deliver more seamless and robust agentic experiences.
+  :context_length: 1000000
+  :architecture:
+    modality: text+image->text
+    tokenizer: Gemini
+    instruct_type:
+  :pricing:
+    prompt: '0.0000001'
+    completion: '0.0000004'
+    image: '0.0000258'
+    request: '0'
+  :top_provider:
+    context_length: 1000000
+    max_completion_tokens: 8192
+    is_moderated: false
+  :per_request_limits:
+- :id: google/gemini-2.0-flash-lite-preview-02-05:free
+  :name: 'Google: Gemini Flash Lite 2.0 Preview (free)'
+  :created: 1738768262
+  :description: Gemini Flash Lite 2.0 offers a significantly faster time to first
+    token (TTFT) compared to [Gemini Flash 1.5](google/gemini-flash-1.5), while maintaining
+    quality on par with larger models like [Gemini Pro 1.5](google/gemini-pro-1.5).
+    Because it's currently in preview, it will be **heavily rate-limited** by Google.
+    This model will move from free to paid pending a general rollout on February 24th,
+    at $0.075 / $0.30 per million input / ouput tokens respectively.
+  :context_length: 1000000
+  :architecture:
+    modality: text+image->text
+    tokenizer: Gemini
+    instruct_type:
+  :pricing:
+    prompt: '0'
+    completion: '0'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 1000000
+    max_completion_tokens: 8192
+    is_moderated: false
+  :per_request_limits:
+- :id: google/gemini-2.0-pro-exp-02-05:free
+  :name: 'Google: Gemini Pro 2.0 Experimental (free)'
+  :created: 1738768044
+  :description: |-
+    Gemini 2.0 Pro Experimental is a bleeding-edge version of the Gemini 2.0 Pro model. Because it's currently experimental, it will be **heavily rate-limited** by Google.
+
+    Usage of Gemini is subject to Google's [Gemini Terms of Use](https://ai.google.dev/terms).
+
+    #multimodal
+  :context_length: 2000000
+  :architecture:
+    modality: text+image->text
+    tokenizer: Gemini
+    instruct_type:
+  :pricing:
+    prompt: '0'
+    completion: '0'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 2000000
+    max_completion_tokens: 8192
+    is_moderated: false
+  :per_request_limits:
+- :id: qwen/qwen-vl-plus:free
+  :name: 'Qwen: Qwen VL Plus (free)'
+  :created: 1738731255
+  :description: 'Qwen''s Enhanced Large Visual Language Model. Significantly upgraded
+    for detailed recognition capabilities and text recognition abilities, supporting
+    ultra-high pixel resolutions up to millions of pixels and extreme aspect ratios
+    for image input. It delivers significant performance across a broad range of visual
+    tasks.
+
+    '
+  :context_length: 7500
+  :architecture:
+    modality: text+image->text
+    tokenizer: Qwen
+    instruct_type:
+  :pricing:
+    prompt: '0'
+    completion: '0'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 7500
+    max_completion_tokens: 1500
+    is_moderated: false
+  :per_request_limits:
+- :id: aion-labs/aion-1.0
+  :name: 'AionLabs: Aion-1.0'
+  :created: 1738697557
+  :description: Aion-1.0 is a multi-model system designed for high performance across
+    various tasks, including reasoning and coding. It is built on DeepSeek-R1, augmented
+    with additional models and techniques such as Tree of Thoughts (ToT) and Mixture
+    of Experts (MoE). It is Aion Lab's most powerful reasoning model.
+  :context_length: 32768
+  :architecture:
+    modality: text->text
+    tokenizer: Other
+    instruct_type:
+  :pricing:
+    prompt: '0.000004'
+    completion: '0.000008'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 32768
+    max_completion_tokens: 32768
+    is_moderated: false
+  :per_request_limits:
+- :id: aion-labs/aion-1.0-mini
+  :name: 'AionLabs: Aion-1.0-Mini'
+  :created: 1738697107
+  :description: Aion-1.0-Mini 32B parameter model is a distilled version of the DeepSeek-R1
+    model, designed for strong performance in reasoning domains such as mathematics,
+    coding, and logic. It is a modified variant of a FuseAI model that outperforms
+    R1-Distill-Qwen-32B and R1-Distill-Llama-70B, with benchmark results available
+    on its [Hugging Face page](https://huggingface.co/FuseAI/FuseO1-DeepSeekR1-QwQ-SkyT1-32B-Preview),
+    independently replicated for verification.
+  :context_length: 32768
+  :architecture:
+    modality: text->text
+    tokenizer: Other
+    instruct_type:
+  :pricing:
+    prompt: '0.0000007'
+    completion: '0.0000014'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 32768
+    max_completion_tokens: 32768
+    is_moderated: false
+  :per_request_limits:
+- :id: aion-labs/aion-rp-llama-3.1-8b
+  :name: 'AionLabs: Aion-RP 1.0 (8B)'
+  :created: 1738696718
+  :description: Aion-RP-Llama-3.1-8B ranks the highest in the character evaluation
+    portion of the RPBench-Auto benchmark, a roleplaying-specific variant of Arena-Hard-Auto,
+    where LLMs evaluate each other’s responses. It is a fine-tuned base model rather
+    than an instruct model, designed to produce more natural and varied writing.
+  :context_length: 32768
+  :architecture:
+    modality: text->text
+    tokenizer: Other
+    instruct_type:
+  :pricing:
+    prompt: '0.0000002'
+    completion: '0.0000002'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 32768
+    max_completion_tokens: 32768
+    is_moderated: false
+  :per_request_limits:
+- :id: qwen/qwen-turbo
   :name: 'Qwen: Qwen-Turbo'
   :created: 1738410974
   :description: Qwen-Turbo, based on Qwen2.5, is a 1M context model that provides
@@ -17,6 +387,27 @@
   :top_provider:
     context_length: 1000000
     max_completion_tokens: 8192
+    is_moderated: false
+  :per_request_limits:
+- :id: qwen/qwen2.5-vl-72b-instruct:free
+  :name: 'Qwen: Qwen2.5 VL 72B Instruct (free)'
+  :created: 1738410311
+  :description: Qwen2.5-VL is proficient in recognizing common objects such as flowers,
+    birds, fish, and insects. It is also highly capable of analyzing texts, charts,
+    icons, graphics, and layouts within images.
+  :context_length: 131072
+  :architecture:
+    modality: text+image->text
+    tokenizer: Qwen
+    instruct_type:
+  :pricing:
+    prompt: '0'
+    completion: '0'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 131072
+    max_completion_tokens: 2048
     is_moderated: false
   :per_request_limits:
 - :id: qwen/qwen-plus
@@ -66,7 +457,11 @@
   :name: 'OpenAI: o3 Mini'
   :created: 1738351721
   :description: |-
-    OpenAI o3-mini is a cost-efficient language model optimized for STEM reasoning tasks, particularly excelling in science, mathematics, and coding. The model features three adjustable reasoning effort levels and supports key developer capabilities including function calling, structured outputs, and streaming, though it does not include vision processing capabilities.
+    OpenAI o3-mini is a cost-efficient language model optimized for STEM reasoning tasks, particularly excelling in science, mathematics, and coding.
+
+    This model supports the `reasoning_effort` parameter, which can be set to "high", "medium", or "low" to control the thinking time of the model. The default is "medium". OpenRouter also offers the model slug `openai/o3-mini-high` to default the parameter to "high".
+
+    The model features three adjustable reasoning effort levels and supports key developer capabilities including function calling, structured outputs, and streaming, though it does not include vision processing capabilities.
 
     The model demonstrates significant improvements over its predecessor, with expert testers preferring its responses 56% of the time and noting a 39% reduction in major errors on complex questions. With medium reasoning effort settings, o3-mini matches the performance of the larger o1 model on challenging reasoning evaluations like AIME and GPQA, while maintaining lower latency and cost.
   :context_length: 200000
@@ -85,7 +480,7 @@
     is_moderated: true
   :per_request_limits:
 - :id: deepseek/deepseek-r1-distill-qwen-1.5b
-  :name: 'Deepseek: Deepseek R1 Distill Qwen 1.5B'
+  :name: 'DeepSeek: R1 Distill Qwen 1.5B'
   :created: 1738328067
   :description: |-
     DeepSeek R1 Distill Qwen 1.5B is a distilled large language model based on  [Qwen 2.5 Math 1.5B](https://huggingface.co/Qwen/Qwen2.5-Math-1.5B), using outputs from [DeepSeek R1](/deepseek/deepseek-r1). It's a very small and efficient model which outperforms [GPT 4o 0513](/openai/gpt-4o-2024-05-13) on Math Benchmarks.
@@ -109,7 +504,29 @@
     request: '0'
   :top_provider:
     context_length: 131072
-    max_completion_tokens: 2048
+    max_completion_tokens: 32768
+    is_moderated: false
+  :per_request_limits:
+- :id: mistralai/mistral-small-24b-instruct-2501:free
+  :name: 'Mistral: Mistral Small 3 (free)'
+  :created: 1738255409
+  :description: |-
+    Mistral Small 3 is a 24B-parameter language model optimized for low-latency performance across common AI tasks. Released under the Apache 2.0 license, it features both pre-trained and instruction-tuned versions designed for efficient local deployment.
+
+    The model achieves 81% accuracy on the MMLU benchmark and performs competitively with larger models like Llama 3.3 70B and Qwen 32B, while operating at three times the speed on equivalent hardware. [Read the blog post about the model here.](https://mistral.ai/news/mistral-small-3/)
+  :context_length: 32000
+  :architecture:
+    modality: text->text
+    tokenizer: Mistral
+    instruct_type:
+  :pricing:
+    prompt: '0'
+    completion: '0'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 32000
+    max_completion_tokens:
     is_moderated: false
   :per_request_limits:
 - :id: mistralai/mistral-small-24b-instruct-2501
@@ -131,11 +548,11 @@
     request: '0'
   :top_provider:
     context_length: 32768
-    max_completion_tokens:
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: deepseek/deepseek-r1-distill-qwen-32b
-  :name: 'DeepSeek: DeepSeek R1 Distill Qwen 32B'
+  :name: 'DeepSeek: R1 Distill Qwen 32B'
   :created: 1738194830
   :description: |-
     DeepSeek R1 Distill Qwen 32B is a distilled large language model based on [Qwen 2.5 32B](https://huggingface.co/Qwen/Qwen2.5-32B), using outputs from [DeepSeek R1](/deepseek/deepseek-r1). It outperforms OpenAI's o1-mini across various benchmarks, achieving new state-of-the-art results for dense models.
@@ -159,11 +576,11 @@
     request: '0'
   :top_provider:
     context_length: 131072
-    max_completion_tokens:
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: deepseek/deepseek-r1-distill-qwen-14b
-  :name: 'DeepSeek: DeepSeek R1 Distill Qwen 14B'
+  :name: 'DeepSeek: R1 Distill Qwen 14B'
   :created: 1738193940
   :description: |-
     DeepSeek R1 Distill Qwen 14B is a distilled large language model based on [Qwen 2.5 14B](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-14B), using outputs from [DeepSeek R1](/deepseek/deepseek-r1). It outperforms OpenAI's o1-mini across various benchmarks, achieving new state-of-the-art results for dense models.
@@ -187,7 +604,7 @@
     request: '0'
   :top_provider:
     context_length: 131072
-    max_completion_tokens: 2048
+    max_completion_tokens: 32768
     is_moderated: false
   :per_request_limits:
 - :id: perplexity/sonar-reasoning
@@ -282,8 +699,34 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
+- :id: deepseek/deepseek-r1-distill-llama-70b:free
+  :name: 'DeepSeek: R1 Distill Llama 70B (free)'
+  :created: 1737663169
+  :description: |-
+    DeepSeek R1 Distill Llama 70B is a distilled large language model based on [Llama-3.3-70B-Instruct](/meta-llama/llama-3.3-70b-instruct), using outputs from [DeepSeek R1](/deepseek/deepseek-r1). The model combines advanced distillation techniques to achieve high performance across multiple benchmarks, including:
+
+    - AIME 2024 pass@1: 70.0
+    - MATH-500 pass@1: 94.5
+    - CodeForces Rating: 1633
+
+    The model leverages fine-tuning from DeepSeek R1's outputs, enabling competitive performance comparable to larger frontier models.
+  :context_length: 128000
+  :architecture:
+    modality: text->text
+    tokenizer: Llama3
+    instruct_type:
+  :pricing:
+    prompt: '0'
+    completion: '0'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 128000
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
 - :id: deepseek/deepseek-r1-distill-llama-70b
-  :name: 'DeepSeek: DeepSeek R1 Distill Llama 70B'
+  :name: 'DeepSeek: R1 Distill Llama 70B'
   :created: 1737663169
   :description: |-
     DeepSeek R1 Distill Llama 70B is a distilled large language model based on [Llama-3.3-70B-Instruct](/meta-llama/llama-3.3-70b-instruct), using outputs from [DeepSeek R1](/deepseek/deepseek-r1). The model combines advanced distillation techniques to achieve high performance across multiple benchmarks, including:
@@ -305,7 +748,7 @@
     request: '0'
   :top_provider:
     context_length: 131072
-    max_completion_tokens:
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: google/gemini-2.0-flash-thinking-exp:free
@@ -331,55 +774,7 @@
     is_moderated: false
   :per_request_limits:
 - :id: deepseek/deepseek-r1:free
-  :name: 'DeepSeek: DeepSeek R1 (free)'
-  :created: 1737381095
-  :description: |-
-    DeepSeek R1 is here: Performance on par with [OpenAI o1](/openai/o1), but open-sourced and with fully open reasoning tokens. It's 671B parameters in size, with 37B active in an inference pass.
-
-    Fully open-source model & [technical report](https://api-docs.deepseek.com/news/news250120).
-
-    MIT licensed: Distill & commercialize freely!
-  :context_length: 128000
-  :architecture:
-    modality: text->text
-    tokenizer: DeepSeek
-    instruct_type:
-  :pricing:
-    prompt: '0'
-    completion: '0'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 128000
-    max_completion_tokens: 4096
-    is_moderated: false
-  :per_request_limits:
-- :id: deepseek/deepseek-r1
-  :name: 'DeepSeek: DeepSeek R1'
-  :created: 1737381095
-  :description: |-
-    DeepSeek R1 is here: Performance on par with [OpenAI o1](/openai/o1), but open-sourced and with fully open reasoning tokens. It's 671B parameters in size, with 37B active in an inference pass.
-
-    Fully open-source model & [technical report](https://api-docs.deepseek.com/news/news250120).
-
-    MIT licensed: Distill & commercialize freely!
-  :context_length: 16000
-  :architecture:
-    modality: text->text
-    tokenizer: DeepSeek
-    instruct_type:
-  :pricing:
-    prompt: '0.00000075'
-    completion: '0.0000024'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 16000
-    max_completion_tokens: 8192
-    is_moderated: false
-  :per_request_limits:
-- :id: deepseek/deepseek-r1:nitro
-  :name: 'DeepSeek: DeepSeek R1 (nitro)'
+  :name: 'DeepSeek: R1 (free)'
   :created: 1737381095
   :description: |-
     DeepSeek R1 is here: Performance on par with [OpenAI o1](/openai/o1), but open-sourced and with fully open reasoning tokens. It's 671B parameters in size, with 37B active in an inference pass.
@@ -393,13 +788,37 @@
     tokenizer: DeepSeek
     instruct_type:
   :pricing:
-    prompt: '0.000007'
-    completion: '0.000007'
+    prompt: '0'
+    completion: '0'
     image: '0'
     request: '0'
   :top_provider:
     context_length: 163840
-    max_completion_tokens: 32768
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
+- :id: deepseek/deepseek-r1
+  :name: 'DeepSeek: R1'
+  :created: 1737381095
+  :description: |-
+    DeepSeek R1 is here: Performance on par with [OpenAI o1](/openai/o1), but open-sourced and with fully open reasoning tokens. It's 671B parameters in size, with 37B active in an inference pass.
+
+    Fully open-source model & [technical report](https://api-docs.deepseek.com/news/news250120).
+
+    MIT licensed: Distill & commercialize freely!
+  :context_length: 128000
+  :architecture:
+    modality: text->text
+    tokenizer: DeepSeek
+    instruct_type:
+  :pricing:
+    prompt: '0.0000008'
+    completion: '0.0000024'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 128000
+    max_completion_tokens:
     is_moderated: false
   :per_request_limits:
 - :id: sophosympatheia/rogue-rose-103b-v0.2:free
@@ -491,7 +910,7 @@
     request: '0'
   :top_provider:
     context_length: 16384
-    max_completion_tokens:
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: sao10k/l3.1-70b-hanami-x1
@@ -513,6 +932,28 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
+- :id: deepseek/deepseek-chat:free
+  :name: 'DeepSeek: DeepSeek V3 (free)'
+  :created: 1735241320
+  :description: |-
+    DeepSeek-V3 is the latest model from the DeepSeek team, building upon the instruction following and coding abilities of the previous versions. Pre-trained on nearly 15 trillion tokens, the reported evaluations reveal that the model outperforms other open-source models and rivals leading closed-source models.
+
+    For model details, please visit [the DeepSeek-V3 repo](https://github.com/deepseek-ai/DeepSeek-V3) for more information, or see the [launch announcement](https://api-docs.deepseek.com/news/news1226).
+  :context_length: 131072
+  :architecture:
+    modality: text->text
+    tokenizer: DeepSeek
+    instruct_type:
+  :pricing:
+    prompt: '0'
+    completion: '0'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 131072
+    max_completion_tokens:
+    is_moderated: false
+  :per_request_limits:
 - :id: deepseek/deepseek-chat
   :name: 'DeepSeek: DeepSeek V3'
   :created: 1735241320
@@ -520,18 +961,18 @@
     DeepSeek-V3 is the latest model from the DeepSeek team, building upon the instruction following and coding abilities of the previous versions. Pre-trained on nearly 15 trillion tokens, the reported evaluations reveal that the model outperforms other open-source models and rivals leading closed-source models.
 
     For model details, please visit [the DeepSeek-V3 repo](https://github.com/deepseek-ai/DeepSeek-V3) for more information, or see the [launch announcement](https://api-docs.deepseek.com/news/news1226).
-  :context_length: 16000
+  :context_length: 131072
   :architecture:
     modality: text->text
     tokenizer: DeepSeek
     instruct_type:
   :pricing:
-    prompt: '0.00000049'
-    completion: '0.00000089'
+    prompt: '0.0000009'
+    completion: '0.0000009'
     image: '0'
     request: '0'
   :top_provider:
-    context_length: 16000
+    context_length: 131072
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
@@ -559,7 +1000,7 @@
     4. **Performance and Benchmark Limitations:** Despite the improvements in visual reasoning, QVQ doesn’t entirely replace the capabilities of [Qwen2-VL-72B](/qwen/qwen-2-vl-72b-instruct). During multi-step visual reasoning, the model might gradually lose focus on the image content, leading to hallucinations. Moreover, QVQ doesn’t show significant improvement over [Qwen2-VL-72B](/qwen/qwen-2-vl-72b-instruct) in basic recognition tasks like identifying people, animals, or plants.
 
     Note: Currently, the model only supports single-round dialogues and image outputs. It does not support video inputs.
-  :context_length: 128000
+  :context_length: 32000
   :architecture:
     modality: text+image->text
     tokenizer: Qwen
@@ -570,8 +1011,8 @@
     image: '0'
     request: '0'
   :top_provider:
-    context_length: 128000
-    max_completion_tokens: 4096
+    context_length: 32000
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: google/gemini-2.0-flash-thinking-exp-1219:free
@@ -613,7 +1054,7 @@
     request: '0'
   :top_provider:
     context_length: 131072
-    max_completion_tokens:
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: openai/o1
@@ -641,7 +1082,7 @@
     is_moderated: true
   :per_request_limits:
 - :id: eva-unit-01/eva-llama-3.33-70b
-  :name: EVA Llama 3.33 70b
+  :name: EVA Llama 3.33 70B
   :created: 1734377303
   :description: |
     EVA Llama 3.33 70b is a roleplay and storywriting specialist model. It is a full-parameter finetune of [Llama-3.3-70B-Instruct](https://openrouter.ai/meta-llama/llama-3.3-70b-instruct) on mixture of synthetic and natural data.
@@ -710,9 +1151,10 @@
 - :id: cohere/command-r7b-12-2024
   :name: 'Cohere: Command R7B (12-2024)'
   :created: 1734158152
-  :description: Command R7B (12-2024) is a small, fast update of the Command R+ model,
-    delivered in December 2024. It excels at RAG, tool use, agents, and similar tasks
-    requiring complex reasoning and multiple steps.
+  :description: |-
+    Command R7B (12-2024) is a small, fast update of the Command R+ model, delivered in December 2024. It excels at RAG, tool use, agents, and similar tasks requiring complex reasoning and multiple steps.
+
+    Use of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).
   :context_length: 128000
   :architecture:
     modality: text->text
@@ -732,8 +1174,8 @@
   :name: 'Google: Gemini Flash 2.0 Experimental (free)'
   :created: 1733937523
   :description: Gemini Flash 2.0 offers a significantly faster time to first token
-    (TTFT) compared to [Gemini Flash 1.5](google/gemini-flash-1.5), while maintaining
-    quality on par with larger models like [Gemini Pro 1.5](google/gemini-pro-1.5).
+    (TTFT) compared to [Gemini Flash 1.5](/google/gemini-flash-1.5), while maintaining
+    quality on par with larger models like [Gemini Pro 1.5](/google/gemini-pro-1.5).
     It introduces notable enhancements in multimodal understanding, coding capabilities,
     complex instruction following, and function calling. These advancements come together
     to deliver more seamless and robust agentic experiences.
@@ -769,6 +1211,30 @@
   :top_provider:
     context_length: 2097152
     max_completion_tokens: 8192
+    is_moderated: false
+  :per_request_limits:
+- :id: meta-llama/llama-3.3-70b-instruct:free
+  :name: 'Meta: Llama 3.3 70B Instruct (free)'
+  :created: 1733506137
+  :description: |-
+    The Meta Llama 3.3 multilingual large language model (LLM) is a pretrained and instruction tuned generative model in 70B (text in/text out). The Llama 3.3 instruction tuned text only model is optimized for multilingual dialogue use cases and outperforms many of the available open source and closed chat models on common industry benchmarks.
+
+    Supported languages: English, German, French, Italian, Portuguese, Hindi, Spanish, and Thai.
+
+    [Model Card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/MODEL_CARD.md)
+  :context_length: 131072
+  :architecture:
+    modality: text->text
+    tokenizer: Llama3
+    instruct_type: llama3
+  :pricing:
+    prompt: '0'
+    completion: '0'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 131072
+    max_completion_tokens:
     is_moderated: false
   :per_request_limits:
 - :id: meta-llama/llama-3.3-70b-instruct
@@ -888,25 +1354,6 @@
     request: '0'
   :top_provider:
     context_length: 32768
-    max_completion_tokens:
-    is_moderated: false
-  :per_request_limits:
-- :id: google/gemini-exp-1121:free
-  :name: 'Google: Gemini Experimental 1121 (free)'
-  :created: 1732216725
-  :description: Experimental release (November 21st, 2024) of Gemini.
-  :context_length: 40960
-  :architecture:
-    modality: text+image->text
-    tokenizer: Gemini
-    instruct_type:
-  :pricing:
-    prompt: '0'
-    completion: '0'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 40960
     max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
@@ -1061,25 +1508,6 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-- :id: google/gemini-exp-1114:free
-  :name: 'Google: Gemini Experimental 1114 (free)'
-  :created: 1731714740
-  :description: Gemini 11-14 (2024) experimental model features "quality" improvements.
-  :context_length: 40960
-  :architecture:
-    modality: text+image->text
-    tokenizer: Gemini
-    instruct_type:
-  :pricing:
-    prompt: '0'
-    completion: '0'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 40960
-    max_completion_tokens: 8192
-    is_moderated: false
-  :per_request_limits:
 - :id: infermatic/mn-inferor-12b
   :name: 'Infermatic: Mistral Nemo Inferor 12B'
   :created: 1731464428
@@ -1087,19 +1515,19 @@
     Inferor 12B is a merge of top roleplay models, expert on immersive narratives and storytelling.
 
     This model was merged using the [Model Stock](https://arxiv.org/abs/2403.19522) merge method using [anthracite-org/magnum-v4-12b](https://openrouter.ai/anthracite-org/magnum-v4-72b) as a base.
-  :context_length: 32000
+  :context_length: 16384
   :architecture:
     modality: text->text
     tokenizer: Mistral
     instruct_type: mistral
   :pricing:
-    prompt: '0.00000025'
-    completion: '0.0000005'
+    prompt: '0.0000008'
+    completion: '0.0000012'
     image: '0'
     request: '0'
   :top_provider:
-    context_length: 32000
-    max_completion_tokens:
+    context_length: 16384
+    max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
 - :id: qwen/qwen-2.5-coder-32b-instruct
@@ -1174,7 +1602,7 @@
     is_moderated: false
   :per_request_limits:
 - :id: thedrummer/unslopnemo-12b
-  :name: Unslopnemo 12b
+  :name: Unslopnemo 12B
   :created: 1731103448
   :description: UnslopNemo v4.1 is the latest addition from the creator of Rocinante,
     designed for adventure writing and role-play scenarios.
@@ -1482,6 +1910,28 @@
     request: '0'
   :top_provider:
     context_length: 32768
+    max_completion_tokens: 8192
+    is_moderated: false
+  :per_request_limits:
+- :id: nvidia/llama-3.1-nemotron-70b-instruct:free
+  :name: 'NVIDIA: Llama 3.1 Nemotron 70B Instruct (free)'
+  :created: 1728950400
+  :description: |-
+    NVIDIA's Llama 3.1 Nemotron 70B is a language model designed for generating precise and useful responses. Leveraging [Llama 3.1 70B](/models/meta-llama/llama-3.1-70b-instruct) architecture and Reinforcement Learning from Human Feedback (RLHF), it excels in automatic alignment benchmarks. This model is tailored for applications requiring high accuracy in helpfulness and response generation, suitable for diverse user queries across multiple domains.
+
+    Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
+  :context_length: 131072
+  :architecture:
+    modality: text->text
+    tokenizer: Llama3
+    instruct_type: llama3
+  :pricing:
+    prompt: '0'
+    completion: '0'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 131072
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
@@ -1648,32 +2098,6 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-- :id: meta-llama/llama-3.2-3b-instruct:free
-  :name: 'Meta: Llama 3.2 3B Instruct (free)'
-  :created: 1727222400
-  :description: |-
-    Llama 3.2 3B is a 3-billion-parameter multilingual large language model, optimized for advanced natural language processing tasks like dialogue generation, reasoning, and summarization. Designed with the latest transformer architecture, it supports eight languages, including English, Spanish, and Hindi, and is adaptable for additional languages.
-
-    Trained on 9 trillion tokens, the Llama 3.2 3B model excels in instruction-following, complex reasoning, and tool use. Its balanced performance makes it ideal for applications needing accuracy and efficiency in text generation across multilingual settings.
-
-    Click here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md).
-
-    Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
-  :context_length: 4096
-  :architecture:
-    modality: text->text
-    tokenizer: Llama3
-    instruct_type: llama3
-  :pricing:
-    prompt: '0'
-    completion: '0'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 4096
-    max_completion_tokens: 2048
-    is_moderated: false
-  :per_request_limits:
 - :id: meta-llama/llama-3.2-3b-instruct
   :name: 'Meta: Llama 3.2 3B Instruct'
   :created: 1727222400
@@ -1711,7 +2135,7 @@
     Click here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md).
 
     Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
-  :context_length: 4096
+  :context_length: 131072
   :architecture:
     modality: text->text
     tokenizer: Llama3
@@ -1722,8 +2146,8 @@
     image: '0'
     request: '0'
   :top_provider:
-    context_length: 4096
-    max_completion_tokens: 2048
+    context_length: 131072
+    max_completion_tokens:
     is_moderated: false
   :per_request_limits:
 - :id: meta-llama/llama-3.2-1b-instruct
@@ -1752,8 +2176,8 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-- :id: meta-llama/llama-3.2-90b-vision-instruct:free
-  :name: 'Meta: Llama 3.2 90B Vision Instruct (free)'
+- :id: meta-llama/llama-3.2-90b-vision-instruct
+  :name: 'Meta: Llama 3.2 90B Vision Instruct'
   :created: 1727222400
   :description: |-
     The Llama 90B Vision model is a top-tier, 90-billion-parameter multimodal model designed for the most challenging visual reasoning and language tasks. It offers unparalleled accuracy in image captioning, visual question answering, and advanced image-text comprehension. Pre-trained on vast multimodal datasets and fine-tuned with human feedback, the Llama 90B Vision is engineered to handle the most demanding image-based AI tasks.
@@ -1769,39 +2193,13 @@
     tokenizer: Llama3
     instruct_type: llama3
   :pricing:
-    prompt: '0'
-    completion: '0'
-    image: '0'
+    prompt: '0.0000008'
+    completion: '0.0000016'
+    image: '0.0051456'
     request: '0'
   :top_provider:
     context_length: 4096
     max_completion_tokens: 2048
-    is_moderated: false
-  :per_request_limits:
-- :id: meta-llama/llama-3.2-90b-vision-instruct
-  :name: 'Meta: Llama 3.2 90B Vision Instruct'
-  :created: 1727222400
-  :description: |-
-    The Llama 90B Vision model is a top-tier, 90-billion-parameter multimodal model designed for the most challenging visual reasoning and language tasks. It offers unparalleled accuracy in image captioning, visual question answering, and advanced image-text comprehension. Pre-trained on vast multimodal datasets and fine-tuned with human feedback, the Llama 90B Vision is engineered to handle the most demanding image-based AI tasks.
-
-    This model is perfect for industries requiring cutting-edge multimodal AI capabilities, particularly those dealing with complex, real-time visual and textual analysis.
-
-    Click here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD_VISION.md).
-
-    Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
-  :context_length: 131072
-  :architecture:
-    modality: text+image->text
-    tokenizer: Llama3
-    instruct_type: llama3
-  :pricing:
-    prompt: '0.0000009'
-    completion: '0.0000009'
-    image: '0.001301'
-    request: '0'
-  :top_provider:
-    context_length: 131072
-    max_completion_tokens:
     is_moderated: false
   :per_request_limits:
 - :id: meta-llama/llama-3.2-11b-vision-instruct:free
@@ -1841,7 +2239,7 @@
     Click here for the [original model card](https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD_VISION.md).
 
     Usage of this model is subject to [Meta's Acceptable Use Policy](https://www.llama.com/llama3/use-policy/).
-  :context_length: 131072
+  :context_length: 16384
   :architecture:
     modality: text+image->text
     tokenizer: Llama3
@@ -1849,11 +2247,11 @@
   :pricing:
     prompt: '0.000000055'
     completion: '0.000000055'
-    image: '0.00007948'
+    image: '0'
     request: '0'
   :top_provider:
-    context_length: 131072
-    max_completion_tokens: 4096
+    context_length: 16384
+    max_completion_tokens:
     is_moderated: false
   :per_request_limits:
 - :id: qwen/qwen-2.5-72b-instruct
@@ -1871,19 +2269,19 @@
     - Multilingual support for over 29 languages, including Chinese, English, French, Spanish, Portuguese, German, Italian, Russian, Japanese, Korean, Vietnamese, Thai, Arabic, and more.
 
     Usage of this model is subject to [Tongyi Qianwen LICENSE AGREEMENT](https://huggingface.co/Qwen/Qwen1.5-110B-Chat/blob/main/LICENSE).
-  :context_length: 32768
+  :context_length: 128000
   :architecture:
     modality: text->text
     tokenizer: Qwen
     instruct_type: chatml
   :pricing:
-    prompt: '0.00000023'
+    prompt: '0.00000013'
     completion: '0.0000004'
     image: '0'
     request: '0'
   :top_provider:
-    context_length: 32768
-    max_completion_tokens: 4096
+    context_length: 128000
+    max_completion_tokens:
     is_moderated: false
   :per_request_limits:
 - :id: qwen/qwen-2-vl-72b-instruct
@@ -2064,7 +2462,7 @@
 
     Read the launch post [here](https://docs.cohere.com/changelog/command-gets-refreshed).
 
-    Use of this model is subject to Cohere's [Acceptable Use Policy](https://docs.cohere.com/docs/c4ai-acceptable-use-policy).
+    Use of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).
   :context_length: 128000
   :architecture:
     modality: text->text
@@ -2088,7 +2486,7 @@
 
     Read the launch post [here](https://docs.cohere.com/changelog/command-gets-refreshed).
 
-    Use of this model is subject to Cohere's [Acceptable Use Policy](https://docs.cohere.com/docs/c4ai-acceptable-use-policy).
+    Use of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).
   :context_length: 128000
   :architecture:
     modality: text->text
@@ -2136,32 +2534,6 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-- :id: google/gemini-flash-1.5-exp
-  :name: 'Google: Gemini Flash 1.5 Experimental'
-  :created: 1724803200
-  :description: |-
-    Gemini 1.5 Flash Experimental is an experimental version of the [Gemini 1.5 Flash](/models/google/gemini-flash-1.5) model.
-
-    Usage of Gemini is subject to Google's [Gemini Terms of Use](https://ai.google.dev/terms).
-
-    #multimodal
-
-    Note: This model is experimental and not suited for production use-cases. It may be removed or redirected to another model in the future.
-  :context_length: 1000000
-  :architecture:
-    modality: text+image->text
-    tokenizer: Gemini
-    instruct_type:
-  :pricing:
-    prompt: '0'
-    completion: '0'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 1000000
-    max_completion_tokens: 8192
-    is_moderated: false
-  :per_request_limits:
 - :id: sao10k/l3.1-euryale-70b
   :name: 'Sao10K: Llama 3.1 Euryale 70B v2.2'
   :created: 1724803200
@@ -2179,7 +2551,7 @@
     request: '0'
   :top_provider:
     context_length: 131072
-    max_completion_tokens: 4096
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: google/gemini-flash-1.5-8b-exp
@@ -2317,7 +2689,7 @@
     The Hermes 3 series builds and expands on the Hermes 2 set of capabilities, including more powerful and reliable function calling and structured output capabilities, generalist assistant capabilities, and improved code generation skills.
 
     Hermes 3 is competitive, if not superior, to Llama-3.1 Instruct models at general capabilities, with varying strengths and weaknesses attributable between the two.
-  :context_length: 131000
+  :context_length: 131072
   :architecture:
     modality: text->text
     tokenizer: Llama3
@@ -2328,8 +2700,8 @@
     image: '0'
     request: '0'
   :top_provider:
-    context_length: 131000
-    max_completion_tokens: 131000
+    context_length: 131072
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: perplexity/llama-3.1-sonar-huge-128k-online
@@ -2396,7 +2768,7 @@
     request: '0'
   :top_provider:
     context_length: 8192
-    max_completion_tokens:
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: aetherwiing/mn-starcannon-12b
@@ -2515,30 +2887,6 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-- :id: google/gemini-pro-1.5-exp
-  :name: 'Google: Gemini Pro 1.5 Experimental'
-  :created: 1722470400
-  :description: |-
-    Gemini 1.5 Pro Experimental is a bleeding-edge version of the [Gemini 1.5 Pro](/models/google/gemini-pro-1.5) model. Because it's currently experimental, it will be **heavily rate-limited** by Google.
-
-    Usage of Gemini is subject to Google's [Gemini Terms of Use](https://ai.google.dev/terms).
-
-    #multimodal
-  :context_length: 1000000
-  :architecture:
-    modality: text+image->text
-    tokenizer: Gemini
-    instruct_type:
-  :pricing:
-    prompt: '0'
-    completion: '0'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 1000000
-    max_completion_tokens: 8192
-    is_moderated: false
-  :per_request_limits:
 - :id: perplexity/llama-3.1-sonar-large-128k-chat
   :name: 'Perplexity: Llama 3.1 Sonar 70B'
   :created: 1722470400
@@ -2605,32 +2953,6 @@
     max_completion_tokens:
     is_moderated: false
   :per_request_limits:
-- :id: meta-llama/llama-3.1-405b-instruct:free
-  :name: 'Meta: Llama 3.1 405B Instruct (free)'
-  :created: 1721692800
-  :description: |-
-    The highly anticipated 400B class of Llama3 is here! Clocking in at 128k context with impressive eval scores, the Meta AI team continues to push the frontier of open-source LLMs.
-
-    Meta's latest class of model (Llama 3.1) launched with a variety of sizes & flavors. This 405B instruct-tuned version is optimized for high quality dialogue usecases.
-
-    It has demonstrated strong performance compared to leading closed-source models including GPT-4o and Claude 3.5 Sonnet in evaluations.
-
-    To read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3-1/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).
-  :context_length: 8000
-  :architecture:
-    modality: text->text
-    tokenizer: Llama3
-    instruct_type: llama3
-  :pricing:
-    prompt: '0'
-    completion: '0'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 8000
-    max_completion_tokens: 4000
-    is_moderated: false
-  :per_request_limits:
 - :id: meta-llama/llama-3.1-405b-instruct
   :name: 'Meta: Llama 3.1 405B Instruct'
   :created: 1721692800
@@ -2654,33 +2976,7 @@
     request: '0'
   :top_provider:
     context_length: 32768
-    max_completion_tokens: 4096
-    is_moderated: false
-  :per_request_limits:
-- :id: meta-llama/llama-3.1-405b-instruct:nitro
-  :name: 'Meta: Llama 3.1 405B Instruct (nitro)'
-  :created: 1721692800
-  :description: |-
-    The highly anticipated 400B class of Llama3 is here! Clocking in at 128k context with impressive eval scores, the Meta AI team continues to push the frontier of open-source LLMs.
-
-    Meta's latest class of model (Llama 3.1) launched with a variety of sizes & flavors. This 405B instruct-tuned version is optimized for high quality dialogue usecases.
-
-    It has demonstrated strong performance compared to leading closed-source models including GPT-4o and Claude 3.5 Sonnet in evaluations.
-
-    To read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3-1/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).
-  :context_length: 8000
-  :architecture:
-    modality: text->text
-    tokenizer: Llama3
-    instruct_type: llama3
-  :pricing:
-    prompt: '0.00001462'
-    completion: '0.00001462'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 8000
-    max_completion_tokens:
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: meta-llama/llama-3.1-8b-instruct:free
@@ -2692,7 +2988,7 @@
     It has demonstrated strong performance compared to leading closed-source models in human evaluations.
 
     To read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3-1/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).
-  :context_length: 8192
+  :context_length: 131072
   :architecture:
     modality: text->text
     tokenizer: Llama3
@@ -2703,8 +2999,8 @@
     image: '0'
     request: '0'
   :top_provider:
-    context_length: 8192
-    max_completion_tokens: 4096
+    context_length: 131072
+    max_completion_tokens:
     is_moderated: false
   :per_request_limits:
 - :id: meta-llama/llama-3.1-8b-instruct
@@ -2728,31 +3024,7 @@
     request: '0'
   :top_provider:
     context_length: 131072
-    max_completion_tokens: 4096
-    is_moderated: false
-  :per_request_limits:
-- :id: meta-llama/llama-3.1-70b-instruct:free
-  :name: 'Meta: Llama 3.1 70B Instruct (free)'
-  :created: 1721692800
-  :description: |-
-    Meta's latest class of model (Llama 3.1) launched with a variety of sizes & flavors. This 70B instruct-tuned version is optimized for high quality dialogue usecases.
-
-    It has demonstrated strong performance compared to leading closed-source models in human evaluations.
-
-    To read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3-1/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).
-  :context_length: 8192
-  :architecture:
-    modality: text->text
-    tokenizer: Llama3
-    instruct_type: llama3
-  :pricing:
-    prompt: '0'
-    completion: '0'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 8192
-    max_completion_tokens: 4096
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: meta-llama/llama-3.1-70b-instruct
@@ -2776,31 +3048,31 @@
     request: '0'
   :top_provider:
     context_length: 131072
-    max_completion_tokens: 4096
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
-- :id: meta-llama/llama-3.1-70b-instruct:nitro
-  :name: 'Meta: Llama 3.1 70B Instruct (nitro)'
-  :created: 1721692800
+- :id: mistralai/mistral-nemo:free
+  :name: 'Mistral: Mistral Nemo (free)'
+  :created: 1721347200
   :description: |-
-    Meta's latest class of model (Llama 3.1) launched with a variety of sizes & flavors. This 70B instruct-tuned version is optimized for high quality dialogue usecases.
+    A 12B parameter model with a 128k token context length built by Mistral in collaboration with NVIDIA.
 
-    It has demonstrated strong performance compared to leading closed-source models in human evaluations.
+    The model is multilingual, supporting English, French, German, Spanish, Italian, Portuguese, Chinese, Japanese, Korean, Arabic, and Hindi.
 
-    To read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3-1/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).
-  :context_length: 64000
+    It supports function calling and is released under the Apache 2.0 license.
+  :context_length: 128000
   :architecture:
     modality: text->text
-    tokenizer: Llama3
-    instruct_type: llama3
+    tokenizer: Mistral
+    instruct_type: mistral
   :pricing:
-    prompt: '0.00000325'
-    completion: '0.00000325'
+    prompt: '0'
+    completion: '0'
     image: '0'
     request: '0'
   :top_provider:
-    context_length: 64000
-    max_completion_tokens:
+    context_length: 128000
+    max_completion_tokens: 128000
     is_moderated: false
   :per_request_limits:
 - :id: mistralai/mistral-nemo
@@ -2824,7 +3096,7 @@
     request: '0'
   :top_provider:
     context_length: 131072
-    max_completion_tokens: 4096
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: mistralai/codestral-mamba
@@ -2909,58 +3181,6 @@
     max_completion_tokens: 16384
     is_moderated: true
   :per_request_limits:
-- :id: qwen/qwen-2-7b-instruct:free
-  :name: Qwen 2 7B Instruct (free)
-  :created: 1721088000
-  :description: |-
-    Qwen2 7B is a transformer-based model that excels in language understanding, multilingual capabilities, coding, mathematics, and reasoning.
-
-    It features SwiGLU activation, attention QKV bias, and group query attention. It is pretrained on extensive data with supervised finetuning and direct preference optimization.
-
-    For more details, see this [blog post](https://qwenlm.github.io/blog/qwen2/) and [GitHub repo](https://github.com/QwenLM/Qwen2).
-
-    Usage of this model is subject to [Tongyi Qianwen LICENSE AGREEMENT](https://huggingface.co/Qwen/Qwen1.5-110B-Chat/blob/main/LICENSE).
-  :context_length: 8192
-  :architecture:
-    modality: text->text
-    tokenizer: Qwen
-    instruct_type: chatml
-  :pricing:
-    prompt: '0'
-    completion: '0'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 8192
-    max_completion_tokens: 4096
-    is_moderated: false
-  :per_request_limits:
-- :id: qwen/qwen-2-7b-instruct
-  :name: Qwen 2 7B Instruct
-  :created: 1721088000
-  :description: |-
-    Qwen2 7B is a transformer-based model that excels in language understanding, multilingual capabilities, coding, mathematics, and reasoning.
-
-    It features SwiGLU activation, attention QKV bias, and group query attention. It is pretrained on extensive data with supervised finetuning and direct preference optimization.
-
-    For more details, see this [blog post](https://qwenlm.github.io/blog/qwen2/) and [GitHub repo](https://github.com/QwenLM/Qwen2).
-
-    Usage of this model is subject to [Tongyi Qianwen LICENSE AGREEMENT](https://huggingface.co/Qwen/Qwen1.5-110B-Chat/blob/main/LICENSE).
-  :context_length: 32768
-  :architecture:
-    modality: text->text
-    tokenizer: Qwen
-    instruct_type: chatml
-  :pricing:
-    prompt: '0.000000054'
-    completion: '0.000000054'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 32768
-    max_completion_tokens:
-    is_moderated: false
-  :per_request_limits:
 - :id: google/gemma-2-27b-it
   :name: 'Google: Gemma 2 27B'
   :created: 1720828800
@@ -2982,7 +3202,7 @@
     request: '0'
   :top_provider:
     context_length: 8192
-    max_completion_tokens: 4096
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: alpindale/magnum-72b
@@ -3052,7 +3272,7 @@
     request: '0'
   :top_provider:
     context_length: 8192
-    max_completion_tokens: 4096
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: 01-ai/yi-large
@@ -3187,7 +3407,7 @@
     request: '0'
   :top_provider:
     context_length: 8192
-    max_completion_tokens: 4096
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: cognitivecomputations/dolphin-mixtral-8x22b
@@ -3233,13 +3453,13 @@
     tokenizer: Qwen
     instruct_type: chatml
   :pricing:
-    prompt: '0.00000034'
-    completion: '0.00000039'
+    prompt: '0.0000009'
+    completion: '0.0000009'
     image: '0'
     request: '0'
   :top_provider:
     context_length: 32768
-    max_completion_tokens:
+    max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
 - :id: mistralai/mistral-7b-instruct:free
@@ -3283,29 +3503,7 @@
     request: '0'
   :top_provider:
     context_length: 32768
-    max_completion_tokens: 4096
-    is_moderated: false
-  :per_request_limits:
-- :id: mistralai/mistral-7b-instruct:nitro
-  :name: 'Mistral: Mistral 7B Instruct (nitro)'
-  :created: 1716768000
-  :description: |-
-    A high-performing, industry-standard 7.3B parameter model, with optimizations for speed and context length.
-
-    *Mistral 7B Instruct has multiple version variants, and this is intended to be the latest version.*
-  :context_length: 32768
-  :architecture:
-    modality: text->text
-    tokenizer: Mistral
-    instruct_type: mistral
-  :pricing:
-    prompt: '0.00000007'
-    completion: '0.00000007'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 32768
-    max_completion_tokens:
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: mistralai/mistral-7b-instruct-v0.3
@@ -3333,7 +3531,7 @@
     request: '0'
   :top_provider:
     context_length: 32768
-    max_completion_tokens: 4096
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: nousresearch/hermes-2-pro-llama-3-8b
@@ -3669,6 +3867,28 @@
     max_completion_tokens: 2048
     is_moderated: false
   :per_request_limits:
+- :id: sao10k/fimbulvetr-11b-v2
+  :name: Fimbulvetr 11B v2
+  :created: 1713657600
+  :description: |-
+    Creative writing model, routed with permission. It's fast, it keeps the conversation going, and it stays in character.
+
+    If you submit a raw prompt, you can use Alpaca or Vicuna formats.
+  :context_length: 4096
+  :architecture:
+    modality: text->text
+    tokenizer: Llama2
+    instruct_type: alpaca
+  :pricing:
+    prompt: '0.0000008'
+    completion: '0.0000012'
+    image: '0'
+    request: '0'
+  :top_provider:
+    context_length: 4096
+    max_completion_tokens: 4096
+    is_moderated: false
+  :per_request_limits:
 - :id: meta-llama/llama-3-8b-instruct:free
   :name: 'Meta: Llama 3 8B Instruct (free)'
   :created: 1713398400
@@ -3714,55 +3934,7 @@
     request: '0'
   :top_provider:
     context_length: 8192
-    max_completion_tokens: 4096
-    is_moderated: false
-  :per_request_limits:
-- :id: meta-llama/llama-3-8b-instruct:extended
-  :name: 'Meta: Llama 3 8B Instruct (extended)'
-  :created: 1713398400
-  :description: |-
-    Meta's latest class of model (Llama 3) launched with a variety of sizes & flavors. This 8B instruct-tuned version was optimized for high quality dialogue usecases.
-
-    It has demonstrated strong performance compared to leading closed-source models in human evaluations.
-
-    To read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).
-  :context_length: 16384
-  :architecture:
-    modality: text->text
-    tokenizer: Llama3
-    instruct_type: llama3
-  :pricing:
-    prompt: '0.0000001875'
-    completion: '0.000001125'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 16384
-    max_completion_tokens: 2048
-    is_moderated: false
-  :per_request_limits:
-- :id: meta-llama/llama-3-8b-instruct:nitro
-  :name: 'Meta: Llama 3 8B Instruct (nitro)'
-  :created: 1713398400
-  :description: |-
-    Meta's latest class of model (Llama 3) launched with a variety of sizes & flavors. This 8B instruct-tuned version was optimized for high quality dialogue usecases.
-
-    It has demonstrated strong performance compared to leading closed-source models in human evaluations.
-
-    To read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).
-  :context_length: 8192
-  :architecture:
-    modality: text->text
-    tokenizer: Llama3
-    instruct_type: llama3
-  :pricing:
-    prompt: '0.0000002'
-    completion: '0.0000002'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 8192
-    max_completion_tokens:
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: meta-llama/llama-3-70b-instruct
@@ -3786,31 +3958,7 @@
     request: '0'
   :top_provider:
     context_length: 8192
-    max_completion_tokens: 4096
-    is_moderated: false
-  :per_request_limits:
-- :id: meta-llama/llama-3-70b-instruct:nitro
-  :name: 'Meta: Llama 3 70B Instruct (nitro)'
-  :created: 1713398400
-  :description: |-
-    Meta's latest class of model (Llama 3) launched with a variety of sizes & flavors. This 70B instruct-tuned version was optimized for high quality dialogue usecases.
-
-    It has demonstrated strong performance compared to leading closed-source models in human evaluations.
-
-    To read more about the model release, [click here](https://ai.meta.com/blog/meta-llama-3/). Usage of this model is subject to [Meta's Acceptable Use Policy](https://llama.meta.com/llama3/use-policy/).
-  :context_length: 8192
-  :architecture:
-    modality: text->text
-    tokenizer: Llama3
-    instruct_type: llama3
-  :pricing:
-    prompt: '0.00000088'
-    completion: '0.00000088'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 8192
-    max_completion_tokens:
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: mistralai/mixtral-8x22b-instruct
@@ -3862,7 +4010,7 @@
     request: '0'
   :top_provider:
     context_length: 65536
-    max_completion_tokens: 4096
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: microsoft/wizardlm-2-7b
@@ -3956,7 +4104,7 @@
 
     It offers multilingual support for ten key languages to facilitate global business operations. See benchmarks and the launch post [here](https://txt.cohere.com/command-r-plus-microsoft-azure/).
 
-    Use of this model is subject to Cohere's [Acceptable Use Policy](https://docs.cohere.com/docs/c4ai-acceptable-use-policy).
+    Use of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).
   :context_length: 128000
   :architecture:
     modality: text->text
@@ -3980,7 +4128,7 @@
 
     It offers multilingual support for ten key languages to facilitate global business operations. See benchmarks and the launch post [here](https://txt.cohere.com/command-r-plus-microsoft-azure/).
 
-    Use of this model is subject to Cohere's [Acceptable Use Policy](https://docs.cohere.com/docs/c4ai-acceptable-use-policy).
+    Use of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).
   :context_length: 128000
   :architecture:
     modality: text->text
@@ -4050,7 +4198,7 @@
   :description: |-
     Command is an instruction-following conversational model that performs language tasks with high quality, more reliably and with a longer context than our base generative models.
 
-    Use of this model is subject to Cohere's [Acceptable Use Policy](https://docs.cohere.com/docs/c4ai-acceptable-use-policy).
+    Use of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).
   :context_length: 4096
   :architecture:
     modality: text->text
@@ -4074,7 +4222,7 @@
 
     Read the launch post [here](https://txt.cohere.com/command-r/).
 
-    Use of this model is subject to Cohere's [Acceptable Use Policy](https://docs.cohere.com/docs/c4ai-acceptable-use-policy).
+    Use of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).
   :context_length: 128000
   :architecture:
     modality: text->text
@@ -4244,7 +4392,7 @@
 
     Read the launch post [here](https://txt.cohere.com/command-r/).
 
-    Use of this model is subject to Cohere's [Acceptable Use Policy](https://docs.cohere.com/docs/c4ai-acceptable-use-policy).
+    Use of this model is subject to Cohere's [Usage Policy](https://docs.cohere.com/docs/usage-policy) and [SaaS Agreement](https://cohere.com/saas-agreement).
   :context_length: 128000
   :architecture:
     modality: text->text
@@ -4554,29 +4702,7 @@
     request: '0'
   :top_provider:
     context_length: 32768
-    max_completion_tokens: 4096
-    is_moderated: false
-  :per_request_limits:
-- :id: mistralai/mixtral-8x7b-instruct:nitro
-  :name: 'Mistral: Mixtral 8x7B Instruct (nitro)'
-  :created: 1702166400
-  :description: |-
-    Mixtral 8x7B Instruct is a pretrained generative Sparse Mixture of Experts, by Mistral AI, for chat and instruction use. Incorporates 8 experts (feed-forward networks) for a total of 47 billion parameters.
-
-    Instruct model fine-tuned by Mistral. #moe
-  :context_length: 32768
-  :architecture:
-    modality: text->text
-    tokenizer: Mistral
-    instruct_type: mistral
-  :pricing:
-    prompt: '0.0000005'
-    completion: '0.0000005'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 32768
-    max_completion_tokens:
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: openchat/openchat-7b:free
@@ -4626,7 +4752,7 @@
     request: '0'
   :top_provider:
     context_length: 8192
-    max_completion_tokens: 4096
+    max_completion_tokens: 8192
     is_moderated: false
   :per_request_limits:
 - :id: neversleep/noromaid-20b
@@ -4753,7 +4879,7 @@
     request: '0'
   :top_provider:
     context_length: 4096
-    max_completion_tokens:
+    max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
 - :id: undi95/toppy-m-7b:free
@@ -4782,34 +4908,6 @@
   :top_provider:
     context_length: 4096
     max_completion_tokens: 2048
-    is_moderated: false
-  :per_request_limits:
-- :id: undi95/toppy-m-7b:nitro
-  :name: Toppy M 7B (nitro)
-  :created: 1699574400
-  :description: |-
-    A wild 7B parameter model that merges several models using the new task_arithmetic merge method from mergekit.
-    List of merged models:
-    - NousResearch/Nous-Capybara-7B-V1.9
-    - [HuggingFaceH4/zephyr-7b-beta](/models/huggingfaceh4/zephyr-7b-beta)
-    - lemonilia/AshhLimaRP-Mistral-7B
-    - Vulkane/120-Days-of-Sodom-LoRA-Mistral-7b
-    - Undi95/Mistral-pippa-sharegpt-7b-qlora
-
-    #merge #uncensored
-  :context_length: 4096
-  :architecture:
-    modality: text->text
-    tokenizer: Mistral
-    instruct_type: alpaca
-  :pricing:
-    prompt: '0.00000007'
-    completion: '0.00000007'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 4096
-    max_completion_tokens:
     is_moderated: false
   :per_request_limits:
 - :id: undi95/toppy-m-7b
@@ -4891,6 +4989,7 @@
     - [google/gemini-flash-1.5](/google/gemini-flash-1.5)
     - [mistralai/mistral-large-2407](/mistralai/mistral-large-2407)
     - [mistralai/mistral-nemo](/mistralai/mistral-nemo)
+    - [deepseek/deepseek-r1](/deepseek/deepseek-r1)
     - [meta-llama/llama-3.1-70b-instruct](/meta-llama/llama-3.1-70b-instruct)
     - [meta-llama/llama-3.1-405b-instruct](/meta-llama/llama-3.1-405b-instruct)
     - [mistralai/mixtral-8x22b-instruct](/mistralai/mixtral-8x22b-instruct)
@@ -5175,8 +5274,8 @@
     tokenizer: Llama2
     instruct_type: alpaca
   :pricing:
-    prompt: '0.00000017'
-    completion: '0.00000017'
+    prompt: '0.00000018'
+    completion: '0.00000018'
     image: '0'
     request: '0'
   :top_provider:
@@ -5287,26 +5386,6 @@
     max_completion_tokens: 4096
     is_moderated: false
   :per_request_limits:
-- :id: undi95/remm-slerp-l2-13b:extended
-  :name: ReMM SLERP 13B (extended)
-  :created: 1689984000
-  :description: 'A recreation trial of the original MythoMax-L2-B13 but with updated
-    models. #merge'
-  :context_length: 6144
-  :architecture:
-    modality: text->text
-    tokenizer: Llama2
-    instruct_type: alpaca
-  :pricing:
-    prompt: '0.000001125'
-    completion: '0.000001125'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 6144
-    max_completion_tokens: 512
-    is_moderated: false
-  :per_request_limits:
 - :id: google/palm-2-chat-bison
   :name: 'Google: PaLM 2 Chat'
   :created: 1689811200
@@ -5385,46 +5464,6 @@
   :top_provider:
     context_length: 4096
     max_completion_tokens: 4096
-    is_moderated: false
-  :per_request_limits:
-- :id: gryphe/mythomax-l2-13b:nitro
-  :name: MythoMax 13B (nitro)
-  :created: 1688256000
-  :description: 'One of the highest performing and most popular fine-tunes of Llama
-    2 13B, with rich descriptions and roleplay. #merge'
-  :context_length: 4096
-  :architecture:
-    modality: text->text
-    tokenizer: Llama2
-    instruct_type: alpaca
-  :pricing:
-    prompt: '0.0000002'
-    completion: '0.0000002'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 4096
-    max_completion_tokens:
-    is_moderated: false
-  :per_request_limits:
-- :id: gryphe/mythomax-l2-13b:extended
-  :name: MythoMax 13B (extended)
-  :created: 1688256000
-  :description: 'One of the highest performing and most popular fine-tunes of Llama
-    2 13B, with rich descriptions and roleplay. #merge'
-  :context_length: 8192
-  :architecture:
-    modality: text->text
-    tokenizer: Llama2
-    instruct_type: alpaca
-  :pricing:
-    prompt: '0.000001125'
-    completion: '0.000001125'
-    image: '0'
-    request: '0'
-  :top_provider:
-    context_length: 8192
-    max_completion_tokens: 512
     is_moderated: false
   :per_request_limits:
 - :id: meta-llama/llama-2-13b-chat
