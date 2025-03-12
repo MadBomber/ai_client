@@ -1,6 +1,8 @@
-# frozen_string_literal: true
-
+# ai_client/Gemfile
+#
 source "https://rubygems.org"
+
+gem 'securerandom', '~> 0.4.0'
 
 # Specify your gem's dependencies in ai_client.gemspec
 gemspec

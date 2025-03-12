@@ -1,5 +1,13 @@
 ## [Unreleased]
 
+## Released
+
+### [0.4.5] - 2025-03-02
+- Added ability to obtain a list of available models from an Ollama server.
+- Added `ollama_model_exists?` method to check if a specific model is available on an Ollama server.
+- Added command-line utility `bin/list_ollama_models` to display available Ollama models.
+- Added support for configuring custom Ollama hosts via the providers configuration.
+
 ### [0.4.4] - 2025-03-02
 - Added ability to obtain a list of available models from an Ollama server.
 - Added `ollama_model_exists?` method to check if a specific model is available on an Ollama server.
@@ -15,9 +23,6 @@
 - updzted test cases for new open_router model dump
 - increasing test coverage
 - tweaking stuff
-
-
-## Released
 
 ### [0.4.1] - 2024-10-21
 - fixed the context problem.  the chatbot method works now.
