@@ -1,6 +1,9 @@
 ## [Unreleased]
 
 ## Released
+### [0.4.6] - 2025-04-10
+- Updated Gemfile.lock
+- updated models database
 
 ### [0.4.5] - 2025-03-02
 - Added ability to obtain a list of available models from an Ollama server.

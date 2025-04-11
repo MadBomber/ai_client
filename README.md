@@ -1,6 +1,6 @@
 # AiClient
 
-Have you tried `ruby_llm` yet?  That gem is shaping up to be a truely wonderful addition to the Ruby technology stack.  [https://rubyllm.com/](https://rubyllm.com/)  It scratches all of the itches that I wanted my ai_client to scratch but in a much more elegant and comprehensive low/no dependency way.
+Have you tried `ruby_llm` yet?  That gem is shaping up to be a truly wonderful addition to the Ruby AI technology stack.  [https://rubyllm.com/](https://rubyllm.com/)  It scratches all of the itches that I wanted my ai_client to scratch but in a much more elegant and comprehensive low/no dependency way.
 
 First and foremost a big **THANK YOU** to [Kevin Sylvestre](https://ksylvest.com/) for his gem [OmniAI](https://github.com/ksylvest/omniai) and [Olympia](https://olympia.chat/) for their [open_router gem](https://github.com/OlympiaAI/open_router) upon which this effort depends.
 
